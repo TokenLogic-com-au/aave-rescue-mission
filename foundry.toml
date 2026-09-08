@@ -6,28 +6,58 @@ out = 'out'
 libs = ['lib']
 remappings = [
   'solidity-utils/=lib/solidity-utils/src/',
-  'aave-address-bool/=lib/aave-address-bool/',
+  'aave-address-book/=lib/aave-address-book/src/',
+  'aave-v3-origin/=lib/aave-address-book/lib/aave-v3-origin/src/',
   'rescue-mission-phase-1/=lib/rescue-mission-phase-1/src/'
 ]
-fs_permissions = [{ access = "write", path = "./reports" }, { access = "read", path = "out"}]
+fs_permissions = [{ access = "read", path = "out" }]
 
+# One alias per production chain with an Aave V3 market (aave-address-book v4.66.4).
 [rpc_endpoints]
 mainnet = "${RPC_MAINNET}"
 optimism = "${RPC_OPTIMISM}"
-avalanche = "${RPC_AVALANCHE}"
+bnb = "${RPC_BNB}"
+gnosis = "${RPC_GNOSIS}"
 polygon = "${RPC_POLYGON}"
-arbitrum = "${RPC_ARBITRUM}"
-fantom = "${RPC_FANTOM}"
-harmony = "${RPC_HARMONY}"
+monad = "${RPC_MONAD}"
+sonic = "${RPC_SONIC}"
+xlayer = "${RPC_XLAYER}"
+zksync = "${RPC_ZKSYNC}"
 metis = "${RPC_METIS}"
+soneium = "${RPC_SONEIUM}"
+megaeth = "${RPC_MEGAETH}"
+mantle = "${RPC_MANTLE}"
+base = "${RPC_BASE}"
+plasma = "${RPC_PLASMA}"
+arbitrum = "${RPC_ARBITRUM}"
+celo = "${RPC_CELO}"
+avalanche = "${RPC_AVALANCHE}"
+ink = "${RPC_INK}"
+linea = "${RPC_LINEA}"
+scroll = "${RPC_SCROLL}"
 
+# Etherscan API V2: one key for all supported chains. Chains not covered by Etherscan need a `url` override.
 [etherscan]
-mainnet = { key="${ETHERSCAN_API_KEY_MAINNET}", chainId=1 }
-optimism = { key="${ETHERSCAN_API_KEY_OPTIMISM}", chainId=10 }
-avalanche = { key="${ETHERSCAN_API_KEY_AVALANCHE}", chainId=43114 }
-polygon = { key="${ETHERSCAN_API_KEY_POLYGON}", chainId=137 }
-arbitrum = { key="${ETHERSCAN_API_KEY_ARBITRUM}", chainId=42161 }
-fantom = { key="${ETHERSCAN_API_KEY_FANTOM}", chainId=250 }
-metis = { key="any", chainId=1088, url='https://andromeda-explorer.metis.io/' }
+mainnet = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 1 }
+optimism = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 10 }
+bnb = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 56 }
+gnosis = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 100 }
+polygon = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 137 }
+monad = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 143 }
+sonic = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 146 }
+xlayer = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 196 }
+zksync = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 324 }
+metis = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 1088 }
+soneium = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 1868 }
+megaeth = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 4326 }
+mantle = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 5000 }
+base = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 8453 }
+plasma = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 9745 }
+arbitrum = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 42161 }
+celo = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 42220 }
+avalanche = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 43114 }
+ink = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 57073 }
+linea = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 59144 }
+scroll = { key = "${ETHERSCAN_V2_API_KEY}", chainId = 534352 }
 
-# See more config options https://github.com/gakonst/foundry/tree/master/config
+# See more config options https://github.com/foundry-rs/foundry/tree/master/crates/config

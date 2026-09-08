@@ -7,6 +7,61 @@ on:
       - main
   workflow_dispatch:
 
+# RPC_* variables follow the bgd-labs/action-rpc-env naming so foundry.toml aliases resolve
+# identically locally and in CI. Gas/coverage diffs and PR comments can be added once fork tests exist.
+
 jobs:
-  test:
-    uses: bgd-labs/github-workflows/.github/workflows/foundry-test.yml@main
+  solidity:
+    runs-on: ubuntu-latest
+    env:
+      ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+
+      - name: RPC environment
+        if: env.ALCHEMY_API_KEY != ''
+        run: |
+          set -eu
+          alchemy() { echo "RPC_$1=https://$2.g.alchemy.com/v2/${ALCHEMY_API_KEY}" >> "$GITHUB_ENV"; }
+          alchemy MAINNET eth-mainnet
+          alchemy OPTIMISM opt-mainnet
+          alchemy BNB bnb-mainnet
+          alchemy GNOSIS gnosis-mainnet
+          alchemy POLYGON polygon-mainnet
+          alchemy MONAD monad-mainnet
+          alchemy XLAYER xlayer-mainnet
+          alchemy MEGAETH megaeth-mainnet
+          alchemy MANTLE mantle-mainnet
+          alchemy BASE base-mainnet
+          alchemy PLASMA plasma-mainnet
+          alchemy ARBITRUM arb-mainnet
+          alchemy CELO celo-mainnet
+          alchemy AVALANCHE avax-mainnet
+          alchemy INK ink-mainnet
+          alchemy LINEA linea-mainnet
+          alchemy SONIC sonic-mainnet
+          alchemy SCROLL scroll-mainnet
+          alchemy ZKSYNC zksync-mainnet
+          alchemy METIS metis-mainnet
+          alchemy SONEIUM soneium-mainnet
+
+      - run: forge build --sizes
+      - run: forge test -vv
+
+  scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+      - run: yarn install --frozen-lockfile --ignore-scripts
+      - run: yarn typecheck
+      - run: yarn lint

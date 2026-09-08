@@ -1,7 +1,6 @@
 [submodule "lib/forge-std"]
 	path = lib/forge-std
-	url = https://github.com/brotherlymite/forge-std
-  branch = feat/solc_0.5
+	url = https://github.com/foundry-rs/forge-std
 [submodule "lib/solidity-utils"]
 	path = lib/solidity-utils
 	url = https://github.com/bgd-labs/solidity-utils
@@ -10,4 +9,4 @@
 	url = https://github.com/aave-dao/aave-address-book
 [submodule "lib/rescue-mission-phase-1"]
 	path = lib/rescue-mission-phase-1
-	url = https://github.com/bgd-labs/rescue-mission-phase-1
+	url = https://github.com/TokenLogic-com-au/aave-rescue-mission-phase-1
