@@ -132,7 +132,10 @@ const deploy = async () => {
     AvaRescueMissionPayload.bytecode,
     provider.getSigner(DEPLOYER)
   );
-  const payload_Contract = await payload_Factory.deploy(merkleDistributorContract.address, v2PoolContract.address);
+  const payload_Contract = await payload_Factory.deploy(
+    merkleDistributorContract.address,
+    v2PoolContract.address
+  );
   console.log(`[Payload]: ${payload_Contract.address}`);
 
   //---------------------------------------------------------------------------------------------------------------------------------

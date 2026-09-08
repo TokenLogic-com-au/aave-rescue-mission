@@ -7,7 +7,7 @@
 	url = https://github.com/bgd-labs/solidity-utils
 [submodule "lib/aave-address-book"]
 	path = lib/aave-address-book
-	url = https://github.com/bgd-labs/aave-address-book
+	url = https://github.com/aave-dao/aave-address-book
 [submodule "lib/rescue-mission-phase-1"]
 	path = lib/rescue-mission-phase-1
 	url = https://github.com/bgd-labs/rescue-mission-phase-1

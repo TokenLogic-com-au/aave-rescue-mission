@@ -1,6 +1,6 @@
 import 'dotenv';
 import fs from 'fs';
-import {GovV2Abi} from './abis/govV2.json';
+import {GovV2Abi} from './abis/GovV2.json';
 import {BigNumber, ethers, providers} from 'ethers';
 import AaveMerkleDistributor from '../../out/AaveMerkleDistributor.sol/AaveMerkleDistributor.json';
 import V1LendingPool from '../../out/LendingPool.sol/LendingPool.json';
