@@ -85,6 +85,24 @@ flowchart LR
 
 `balances.json` is the discovery step, read at each chain's pinned `toBlock` for DAO-governed markets only. For every market token (each reserve's underlying and its aToken) held by every aToken and by the Pool, batched through Multicall3, the script records what it finds. An aToken legitimately holds only its own underlying, and only up to `Pool.getVirtualUnderlyingBalance`, so for that pair the surplus over the virtual balance is reported, with a note when the virtual balance is zero or the surplus is negative. Anything else found in an aToken or a Pool is stuck. Amounts are base-unit integers with a formatted copy. Each holding also carries the market oracle's USD price at the same block and the resulting value when the oracle has one. Zero balances are omitted. The manifest records the hashes of the `run.json` and `inventory.json` it was built from.
 
+#### Why the surplus in an aToken can be taken out
+
+Since Aave v3.1 (July 2024; the markets in scope run v3.7 since the rollout completed in May 2026) the Pool keeps a virtual balance per reserve, `getVirtualUnderlyingBalance(asset)`, that moves only with protocol operations: up on supply, repay and flash-loan repayment, down on withdraw and borrow. Every withdrawal or borrow is checked against it. Tokens transferred straight to the aToken never touch it. So the physical balance of the aToken splits into two parts:
+
+```
+IERC20(underlying).balanceOf(aToken) = virtualUnderlyingBalance + surplus
+```
+
+The protocol's obligations to suppliers are `AToken.totalSupply()`, and the liquidity it can hand out is bounded by `virtualUnderlyingBalance`. Neither references the surplus: no supplier can withdraw it, no borrower can draw on it, and no interest accrues to it. Removing exactly `balanceOf - virtualUnderlyingBalance` leaves
+
+```
+IERC20(underlying).balanceOf(aToken) = virtualUnderlyingBalance
+```
+
+which is the state the Pool assumes anyway. When virtual accounting was switched on, each reserve's virtual balance was initialised from its accounting view (supplies minus debt), so tokens stuck before the upgrade also fall on the surplus side. `balances.json` records both numbers per reserve and reports only the surplus as stuck. A reserve whose virtual balance reads zero, or whose surplus is negative, gets a review note instead, since the equation does not hold there.
+
+`AToken.rescueTokens` still rejects the underlying (`UnderlyingCannotBeRescued`, unchanged on `aave-v3-origin` main; v3.7 replaced the Pool and PoolConfigurator implementations, not the aToken), which is why this kind needs the contract change listed in the TODO: allow the underlying up to the surplus, nothing beyond it.
+
 `balances-filtered.json` keeps the holdings worth at least `MIN_GROUP_USD` from `policy.ts`, plus any holding the oracle could not price. A group below the threshold cannot contain an eligible wallet, so later steps read only this file.
 
 `surplus-transfers.json` covers the one kind the RPC cannot scan. Underlying flows into its own aToken on every supply and repay, millions of transfers, so `phase4:surplus` runs `surplus.sql` on Dune as raw SQL: transfers of the underlying into the aToken whose transaction emitted no Pool log, read in one pass per time slice. The SQL is committed here and its hash travels with the results, together with every execution id.
@@ -94,6 +112,25 @@ flowchart LR
 Transfers worth less than `--min-transfer-usd` (default 1) at the holding's oracle price are recorded as `dust`. They stay in the totals but no receipt is read for them and they are not aggregated into wallets, which keeps address-poisoning noise off the RPC. Every other transfer keeps the ERC-20 `from`, which is the beneficiary, and the transaction signer separately. Mints, transfers from the market's own contracts, zero-value transfers and transfers whose sender is not the signer (a router, a Safe, a relayer) go to `manual_review`. Transfers are listed candidates first, then review, then dust, largest first within each. Candidates are summed per wallet with a proportional USD share as an annotation, and outflows from the holder are listed for the RPC kinds. A group is `reconciled` only when no transfer needs review, nothing left the holder in the window, the totals match the balance (for the surplus kind, the surplus over the virtual balance) and discovery raised no note. Otherwise it is `review`, with the likely cause noted.
 
 Both `phase4:surplus` and `phase4:attribution` refuse inputs that do not form one final chain built under the current `policy.ts`: the filtered file must be exactly what `phase4:filter` produces from `balances.json`, `balances.json` must hash to `run.json` and `inventory.json`, `run.json` must be pinned at `PINNED_AT`, and none of them may carry failures. Attribution also ties `surplus-transfers.json` to the filtered file and to the committed `surplus.sql`.
+
+## What is stuck, at the pinned block
+
+Holdings worth at least 1,000 USD at 2026-09-01 00:00 UTC, from `attribution.json`. "Attributed to" is the part traced to wallets that sent the tokens themselves; the rest is dust, transfers that need manual review, or balance not explained by transfers in the window (interest on the self-held aUSDC, surplus that predates the window).
+
+| Network   | Held by | Token | Why it is stuck                   |    Amount |           USD | Attributed to             | Status     |
+| --------- | ------- | ----- | --------------------------------- | --------: | ------------: | ------------------------- | ---------- |
+| mainnet   | aUSDC   | aUSDC | aToken sent to itself             | 49,829.46 |     49,829.45 | 49,792.00 to 1 wallet(s)  | review     |
+| mainnet   | aUSDC   | USDC  | underlying sent to its own aToken | 31,701.68 |     31,701.67 | 31,339.20 to 16 wallet(s) | review     |
+| arbitrum  | aWBTC   | WBTC  | underlying sent to its own aToken |    0.0736 |      5,784.26 | 0.0736 to 2 wallet(s)     | reconciled |
+| bnb       | aUSDT   | USDT  | underlying sent to its own aToken |  1,892.19 |      1,891.61 | 745.76 to 14 wallet(s)    | review     |
+| mainnet   | aUSDT   | USDT  | underlying sent to its own aToken |  1,462.52 |      1,462.34 | 1,322.90 to 18 wallet(s)  | review     |
+| polygon   | aUSDT0  | USDT0 | underlying sent to its own aToken |  1,295.93 |      1,295.62 | 1,260.05 to 17 wallet(s)  | review     |
+| bnb       | aUSDC   | USDC  | underlying sent to its own aToken |  1,273.68 |      1,273.57 | 1,273.09 to 13 wallet(s)  | review     |
+| polygon   | Pool    | USDCn | token sent to the Pool            |  1,070.91 |      1,070.83 | 1,065.84 to 1 wallet(s)   | review     |
+| arbitrum  | Pool    | USDCn | token sent to the Pool            |  1,068.54 |      1,068.53 | 1,067.10 to 4 wallet(s)   | reconciled |
+| **Total** |         |       |                                   |           | **95,377.88** | 93,647.98 attributed      |            |
+
+The two Pool rows and the self-held aUSDC can be rescued with `rescueTokens` as it exists today. The six "underlying sent to its own aToken" rows, about 43,400 USD, wait on the contract change in the TODO below.
 
 ## TODO
 
