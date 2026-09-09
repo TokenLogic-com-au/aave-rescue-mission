@@ -1,0 +1,177 @@
+{
+  "balancesSha256": "15a8875de7344345ed7ff5d949edc92438c60772d0ce1bcf9b734cf06e1196db",
+  "chains": [
+    {
+      "alias": "mainnet",
+      "block": 25878704,
+      "chainId": 1,
+      "holdings": [
+        {
+          "amount": "1462524832",
+          "amountFormatted": "1462.524832",
+          "chainAlias": "mainnet",
+          "chainId": 1,
+          "decimals": 6,
+          "holder": "0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a",
+          "holderSymbol": "aUSDT",
+          "kind": "underlying-in-own-atoken",
+          "market": "AaveV3Ethereum",
+          "priceUsd": "0.99988001",
+          "token": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+          "tokenSymbol": "USDT",
+          "valueUsd": "1462.34",
+          "virtualBalance": "255980872526877"
+        },
+        {
+          "amount": "49829456542",
+          "amountFormatted": "49829.456542",
+          "chainAlias": "mainnet",
+          "chainId": 1,
+          "decimals": 6,
+          "holder": "0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c",
+          "holderSymbol": "aUSDC",
+          "kind": "atoken-in-itself",
+          "market": "AaveV3Ethereum",
+          "priceUsd": "1",
+          "token": "0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c",
+          "tokenSymbol": "aUSDC",
+          "valueUsd": "49829.45"
+        },
+        {
+          "amount": "31701675076",
+          "amountFormatted": "31701.675076",
+          "chainAlias": "mainnet",
+          "chainId": 1,
+          "decimals": 6,
+          "holder": "0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c",
+          "holderSymbol": "aUSDC",
+          "kind": "underlying-in-own-atoken",
+          "market": "AaveV3Ethereum",
+          "priceUsd": "1",
+          "token": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+          "tokenSymbol": "USDC",
+          "valueUsd": "31701.67",
+          "virtualBalance": "24915040885575"
+        }
+      ]
+    },
+    {
+      "alias": "bnb",
+      "block": 119243647,
+      "chainId": 56,
+      "holdings": [
+        {
+          "amount": "1273679166769906265313",
+          "amountFormatted": "1273.679166769906265313",
+          "chainAlias": "bnb",
+          "chainId": 56,
+          "decimals": 18,
+          "holder": "0x00901a076785e0906d1028c7d6372d247bec7d61",
+          "holderSymbol": "aUSDC",
+          "kind": "underlying-in-own-atoken",
+          "market": "AaveV3BNB",
+          "priceUsd": "0.99991694",
+          "token": "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",
+          "tokenSymbol": "USDC",
+          "valueUsd": "1273.57",
+          "virtualBalance": "2541499179303657570872150"
+        },
+        {
+          "amount": "1892187682879200175586",
+          "amountFormatted": "1892.187682879200175586",
+          "chainAlias": "bnb",
+          "chainId": 56,
+          "decimals": 18,
+          "holder": "0xa9251ca9DE909CB71783723713B21E4233fbf1B1",
+          "holderSymbol": "aUSDT",
+          "kind": "underlying-in-own-atoken",
+          "market": "AaveV3BNB",
+          "priceUsd": "0.99969802",
+          "token": "0x55d398326f99059fF775485246999027B3197955",
+          "tokenSymbol": "USDT",
+          "valueUsd": "1891.61",
+          "virtualBalance": "14546142263409883856872271"
+        }
+      ]
+    },
+    {
+      "alias": "polygon",
+      "block": 93010515,
+      "chainId": 137,
+      "holdings": [
+        {
+          "amount": "1295932065",
+          "amountFormatted": "1295.932065",
+          "chainAlias": "polygon",
+          "chainId": 137,
+          "decimals": 6,
+          "holder": "0x6ab707Aca953eDAeFBc4fD23bA73294241490620",
+          "holderSymbol": "aUSDT0",
+          "kind": "underlying-in-own-atoken",
+          "market": "AaveV3Polygon",
+          "priceUsd": "0.99976005",
+          "token": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
+          "tokenSymbol": "USDT0",
+          "valueUsd": "1295.62",
+          "virtualBalance": "10745004343718"
+        },
+        {
+          "amount": "1070908383",
+          "amountFormatted": "1070.908383",
+          "chainAlias": "polygon",
+          "chainId": 137,
+          "decimals": 6,
+          "holder": "0x794a61358D6845594F94dc1DB02A252b5b4814aD",
+          "holderSymbol": "Pool",
+          "kind": "market-token-in-pool",
+          "market": "AaveV3Polygon",
+          "priceUsd": "0.99993454",
+          "token": "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
+          "tokenSymbol": "USDCn",
+          "valueUsd": "1070.83"
+        }
+      ]
+    },
+    {
+      "alias": "arbitrum",
+      "block": 500455228,
+      "chainId": 42161,
+      "holdings": [
+        {
+          "amount": "7363250",
+          "amountFormatted": "0.0736325",
+          "chainAlias": "arbitrum",
+          "chainId": 42161,
+          "decimals": 8,
+          "holder": "0x078f358208685046a11C85e8ad32895DED33A249",
+          "holderSymbol": "aWBTC",
+          "kind": "underlying-in-own-atoken",
+          "market": "AaveV3Arbitrum",
+          "priceUsd": "78555.866",
+          "token": "0x2f2a2543B76A4166549F7aaB2e75Bef0aefC5B0f",
+          "tokenSymbol": "WBTC",
+          "valueUsd": "5784.26",
+          "virtualBalance": "262067770313"
+        },
+        {
+          "amount": "1068536637",
+          "amountFormatted": "1068.536637",
+          "chainAlias": "arbitrum",
+          "chainId": 42161,
+          "decimals": 6,
+          "holder": "0x794a61358D6845594F94dc1DB02A252b5b4814aD",
+          "holderSymbol": "Pool",
+          "kind": "market-token-in-pool",
+          "market": "AaveV3Arbitrum",
+          "priceUsd": "0.99999999",
+          "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
+          "tokenSymbol": "USDCn",
+          "valueUsd": "1068.53"
+        }
+      ]
+    }
+  ],
+  "minUsd": 1000,
+  "totalUsd": "95377.88",
+  "unpriced": []
+}

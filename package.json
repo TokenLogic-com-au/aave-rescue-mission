@@ -2,14 +2,19 @@
   "name": "aave-rescue-mission",
   "version": "1.0.0",
   "scripts": {
-    "generate-json-mainnet": "network=mainnet env-cmd ts-node js-scripts/generate-address-value-maps.ts",
-    "generate-json-l2": "network=l2 env-cmd ts-node js-scripts/generate-address-value-maps.ts",
     "generate-json-formatted": "env-cmd ts-node js-scripts/format.ts",
     "generate-tree": "env-cmd ts-node js-scripts/generate-merkle-root.ts",
     "generate:users-json": "ts-node js-scripts/users-resume.ts",
+    "test": "vitest run",
     "lint": "prettier --check ./",
     "lint:fix": "prettier --write ./",
-    "typecheck": "tsc --noEmit -p tsconfig.json"
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "phase4:inventory": "tsx js-scripts/phase4/inventory.ts",
+    "phase4:ranges": "env-cmd tsx js-scripts/phase4/ranges.ts",
+    "phase4:balances": "env-cmd tsx js-scripts/phase4/balances.ts",
+    "phase4:filter": "tsx js-scripts/phase4/filter.ts",
+    "phase4:surplus": "env-cmd tsx js-scripts/phase4/surplus.ts",
+    "phase4:attribution": "env-cmd tsx js-scripts/phase4/attribution.ts"
   },
   "repository": {
     "type": "git",
@@ -25,21 +30,22 @@
   "devDependencies": {
     "@aave/contract-helpers": "^1.38.0",
     "@aave/math-utils": "^1.38.0",
-    "@cowprotocol/ts-dune-client": "^0.0.2",
     "@openzeppelin/contracts": "^4.6.0",
     "@types/node": "^22.20.1",
     "bignumber.js": "^9.1.1",
-    "cheerio": "^1.0.0-rc.12",
     "dotenv": "^17.4.2",
     "env-cmd": "^11.0.0",
     "ethereumjs-util": "^7.1.4",
     "ethers": "^5.8.0",
-    "isomorphic-unfetch": "^3.1.0",
     "prettier": "^3.9.6",
     "prettier-plugin-solidity": "1.4.3",
     "ts-node": "^10.9.2",
     "tslib": "^2.4.0",
-    "typescript": "^5.9.3"
+    "tsx": "^4.23.13",
+    "typescript": "^5.9.3",
+    "viem": "^2.56.3",
+    "vite": "^8.2.2",
+    "vitest": "^5.0.0"
   },
   "engines": {
     "node": ">=22"

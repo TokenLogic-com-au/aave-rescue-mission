@@ -1,0 +1,384 @@
+{
+  "chains": [
+    {
+      "alias": "mainnet",
+      "chainId": 1,
+      "fromBlock": 18195705,
+      "fromBlockSource": "phase-2-3-execution",
+      "markets": [
+        {
+          "aclManager": "0xc2aaCf6553D20d1e9d78E365AAba8032af9c85b0",
+          "executor": "0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A",
+          "market": "AaveV3Ethereum",
+          "poolAdmin": true
+        },
+        {
+          "aclManager": "0x3cE8E2eb6501d4705477643E96881B1bef6A2DB3",
+          "executor": "0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A",
+          "market": "AaveV3EthereumEtherFi",
+          "poolAdmin": true
+        },
+        {
+          "aclManager": "0xEFD5df7b87d2dCe6DD454b4240b3e0A4db562321",
+          "executor": "0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A",
+          "market": "AaveV3EthereumHorizon",
+          "poolAdmin": true
+        },
+        {
+          "aclManager": "0x013E2C7567b6231e865BB9273F8c7656103611c0",
+          "executor": "0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A",
+          "market": "AaveV3EthereumLido",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 25878704,
+      "toBlockTimestamp": 1788220799
+    },
+    {
+      "alias": "optimism",
+      "chainId": 10,
+      "fromBlock": 110006099,
+      "fromBlockSource": "phase-2-3-execution",
+      "markets": [
+        {
+          "aclManager": "0xa72636CbcAa8F5FF95B2cc47F3CDEe83F3294a0B",
+          "executor": "0x746c675dAB49Bcd5BB9Dc85161f2d7Eb435009bf",
+          "market": "AaveV3Optimism",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 156311011,
+      "toBlockTimestamp": 1788220799
+    },
+    {
+      "alias": "bnb",
+      "chainId": 56,
+      "fromBlock": 33571625,
+      "fromBlockSource": "permissions-book",
+      "markets": [
+        {
+          "aclManager": "0x2D97F8FA96886Fd923c065F5457F9DDd494e3877",
+          "executor": "0x9390B1735def18560c509E2d0bc090E9d6BA257a",
+          "market": "AaveV3BNB",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 119243647,
+      "toBlockTimestamp": 1788220800
+    },
+    {
+      "alias": "gnosis",
+      "chainId": 100,
+      "fromBlock": 30293056,
+      "fromBlockSource": "permissions-book",
+      "markets": [
+        {
+          "aclManager": "0xEc710f59005f48703908bC519D552Df5B8472614",
+          "executor": "0x1dF462e2712496373A347f8ad10802a5E95f053D",
+          "market": "AaveV3Gnosis",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 48016933,
+      "toBlockTimestamp": 1788220800
+    },
+    {
+      "alias": "polygon",
+      "chainId": 137,
+      "fromBlock": 47952151,
+      "fromBlockSource": "phase-2-3-execution",
+      "markets": [
+        {
+          "aclManager": "0xa72636CbcAa8F5FF95B2cc47F3CDEe83F3294a0B",
+          "executor": "0xDf7d0e6454DB638881302729F5ba99936EaAB233",
+          "market": "AaveV3Polygon",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 93010515,
+      "toBlockTimestamp": 1788220800
+    },
+    {
+      "alias": "monad",
+      "chainId": 143,
+      "fromBlock": 81909758,
+      "fromBlockSource": "permissions-book",
+      "markets": [
+        {
+          "aclManager": "0xa9fEe192a76B8f5e5f3d310AB6C526cB11F3d95B",
+          "executor": "0xa9d0EAFF48cE1DF468f9eAeb7e628c413343F6A2",
+          "market": "AaveV3Monad",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 100893403,
+      "toBlockTimestamp": 1788220800
+    },
+    {
+      "alias": "sonic",
+      "chainId": 146,
+      "fromBlock": 7408201,
+      "fromBlockSource": "permissions-book",
+      "markets": [
+        {
+          "aclManager": "0x3a790a47c4d531FD333FAD24f70B0ccb521B3b5A",
+          "executor": "0x7b62461a3570c6AC8a9f8330421576e417B71EE7",
+          "market": "AaveV3Sonic",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 78496669,
+      "toBlockTimestamp": 1788220800
+    },
+    {
+      "alias": "xlayer",
+      "chainId": 196,
+      "fromBlock": 42872540,
+      "fromBlockSource": "permissions-book",
+      "markets": [
+        {
+          "aclManager": "0xc8f2720Fa7D857576d82e6aEca8EdC4869E9190e",
+          "executor": "0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19",
+          "market": "AaveV3XLayer",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 69451764,
+      "toBlockTimestamp": 1788220800
+    },
+    {
+      "alias": "zksync",
+      "chainId": 324,
+      "fromBlock": 43709020,
+      "fromBlockSource": "permissions-book",
+      "markets": [
+        {
+          "aclManager": "0xc6150b63c2F02528d4A969a248710A4658ed7928",
+          "executor": "0x04cE39789e11a49595cD0ECEf6f4Bd54ABF4d020",
+          "market": "AaveV3ZkSync",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 71798708,
+      "toBlockTimestamp": 1788220788
+    },
+    {
+      "alias": "metis",
+      "chainId": 1088,
+      "fromBlock": 5405900,
+      "fromBlockSource": "permissions-book",
+      "markets": [
+        {
+          "aclManager": "0xcDCb65fc657B701a5100a12eFB663978E7e8fFB8",
+          "executor": "0x6fD45D32375d5aDB8D76275A3932c740F03a8718",
+          "market": "AaveV3Metis",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 23092814,
+      "toBlockTimestamp": 1788220796
+    },
+    {
+      "alias": "soneium",
+      "chainId": 1868,
+      "fromBlock": 6402340,
+      "fromBlockSource": "permissions-book",
+      "markets": [
+        {
+          "aclManager": "0x7635bFF69E52023aB76267ab1EFf63434cdCe458",
+          "executor": "0x47aAdaAE1F05C978E6aBb7568d11B7F6e0FC4d6A",
+          "market": "AaveV3Soneium",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 27543024,
+      "toBlockTimestamp": 1788220799
+    },
+    {
+      "alias": "megaeth",
+      "chainId": 4326,
+      "fromBlock": 5516650,
+      "fromBlockSource": "permissions-book",
+      "markets": [
+        {
+          "aclManager": "0x390D369C3878F2C5205CFb6Ec7154FfA65491c3D",
+          "executor": "0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19",
+          "market": "AaveV3MegaEth",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 25423789,
+      "toBlockTimestamp": 1788220800
+    },
+    {
+      "alias": "mantle",
+      "chainId": 5000,
+      "fromBlock": 90172810,
+      "fromBlockSource": "permissions-book",
+      "markets": [
+        {
+          "aclManager": "0x810D46F9a9027E28F9B01F75E2bdde839dA61115",
+          "executor": "0x70884634D0098782592111A2A6B8d223be31CB7b",
+          "market": "AaveV3Mantle",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 100045244,
+      "toBlockTimestamp": 1788220800
+    },
+    {
+      "alias": "base",
+      "chainId": 8453,
+      "fromBlock": 2357130,
+      "fromBlockSource": "permissions-book",
+      "markets": [
+        {
+          "aclManager": "0x43955b0899Ab7232E3a454cf84AedD22Ad46FD33",
+          "executor": "0x9390B1735def18560c509E2d0bc090E9d6BA257a",
+          "market": "AaveV3Base",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 50715726,
+      "toBlockTimestamp": 1788220799
+    },
+    {
+      "alias": "plasma",
+      "chainId": 9745,
+      "fromBlock": 489190,
+      "fromBlockSource": "permissions-book",
+      "markets": [
+        {
+          "aclManager": "0xa860355F0ccFdC823F7332ac108317b2a1509C06",
+          "executor": "0x47aAdaAE1F05C978E6aBb7568d11B7F6e0FC4d6A",
+          "market": "AaveV3Plasma",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 31280238,
+      "toBlockTimestamp": 1788220800
+    },
+    {
+      "alias": "arbitrum",
+      "chainId": 42161,
+      "fromBlock": 7740502,
+      "fromBlockSource": "permissions-book",
+      "markets": [
+        {
+          "aclManager": "0xa72636CbcAa8F5FF95B2cc47F3CDEe83F3294a0B",
+          "executor": "0xFF1137243698CaA18EE364Cc966CF0e02A4e6327",
+          "market": "AaveV3Arbitrum",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 500455228,
+      "toBlockTimestamp": 1788220800
+    },
+    {
+      "alias": "celo",
+      "chainId": 42220,
+      "fromBlock": 30390000,
+      "fromBlockSource": "permissions-book",
+      "markets": [
+        {
+          "aclManager": "0x7a12dCfd73C1B4cddf294da4cFce75FcaBBa314C",
+          "executor": "0x1dF462e2712496373A347f8ad10802a5E95f053D",
+          "market": "AaveV3Celo",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 76320042,
+      "toBlockTimestamp": 1788220800
+    },
+    {
+      "alias": "avalanche",
+      "chainId": 43114,
+      "fromBlock": 37188485,
+      "fromBlockSource": "phase-2-3-execution",
+      "markets": [
+        {
+          "aclManager": "0xa72636CbcAa8F5FF95B2cc47F3CDEe83F3294a0B",
+          "executor": "0x3C06dce358add17aAf230f2234bCCC4afd50d090",
+          "market": "AaveV3Avalanche",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 94159929,
+      "toBlockTimestamp": 1788220800
+    },
+    {
+      "alias": "ink",
+      "chainId": 57073,
+      "fromBlock": 19948732,
+      "fromBlockSource": "permissions-book",
+      "markets": [],
+      "toBlock": 54722389,
+      "toBlockTimestamp": 1788220800
+    },
+    {
+      "alias": "linea",
+      "chainId": 59144,
+      "fromBlock": 12430800,
+      "fromBlockSource": "permissions-book",
+      "markets": [
+        {
+          "aclManager": "0xbf32c7dFC72b730967072B112927ca0de205dbb5",
+          "executor": "0x8c2d95FE7aeB57b86961F3abB296A54f0ADb7F88",
+          "market": "AaveV3Linea",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 31896445,
+      "toBlockTimestamp": 1788220800
+    },
+    {
+      "alias": "scroll",
+      "chainId": 534352,
+      "fromBlock": 2618760,
+      "fromBlockSource": "permissions-book",
+      "markets": [
+        {
+          "aclManager": "0x7633F981D87dC6307227de9383D2ce7243158081",
+          "executor": "0xc1ABF87FfAdf4908f4eC8dc54A25DCFEabAE4A24",
+          "market": "AaveV3Scroll",
+          "poolAdmin": true
+        }
+      ],
+      "toBlock": 34869158,
+      "toBlockTimestamp": 1788220800
+    }
+  ],
+  "exclusions": [
+    {
+      "reason": "deprecated market, no Governance V3 executor",
+      "scope": "Aave V3 Fantom (250)"
+    },
+    {
+      "reason": "deprecated market, no Governance V3 executor",
+      "scope": "Aave V3 Harmony (1666600000)"
+    },
+    {
+      "reason": "wound down; Phase 4 targets V3 only",
+      "scope": "Aave V1 and V2 markets"
+    },
+    {
+      "reason": "not in the address book; separate initiative",
+      "scope": "Aave V4 hubs"
+    },
+    {
+      "reason": "whitelabel market: ACL admin is the permissioned payloads controller executor, not the DAO executor, so a governance payload cannot call rescueTokens",
+      "scope": "AaveV3InkWhitelabel (57073)"
+    },
+    {
+      "reason": "not production",
+      "scope": "testnets"
+    }
+  ],
+  "failures": [],
+  "inventorySha256": "6b9014ae423db82c97362d202ad346e0599b6e8e4d0b4380d4d1f9d195276732",
+  "permissionsBook": {
+    "commit": "a8104bb5dc425256ed8abf36406c4ae54af8483d",
+    "repository": "https://github.com/aave-dao/aave-permissions-book"
+  },
+  "pinnedAt": "2026-09-01T00:00:00.000Z"
+}
