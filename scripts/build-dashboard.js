@@ -466,7 +466,7 @@ const htmlContent = `<!DOCTYPE html>
       <!-- Scrollable Table -->
       <div class="overflow-x-auto">
         <table class="w-full text-left text-xs sm:text-sm border-collapse">
-          <thead class="bg-tl-bg-canvas text-tl-fg-muted uppercase tracking-wider text-[11px] font-semibold select-none border-b border-tl-border-base sticky top-16 z-10 backdrop-blur">
+          <thead class="bg-tl-bg-canvas text-tl-fg-muted uppercase tracking-wider text-[11px] font-semibold select-none border-b border-tl-border-base sticky top-0 z-10">
             <tr>
               <!-- Network & Market -->
               <th scope="col" class="py-3 px-4 cursor-pointer hover:text-tl-fg-base transition" data-sort="network">
