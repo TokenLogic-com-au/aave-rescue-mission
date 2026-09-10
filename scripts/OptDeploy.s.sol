@@ -17,7 +17,9 @@ contract OptDeploy is Test {
     vm.startBroadcast();
 
     aaveMerkleDistributor = new AaveMerkleDistributor();
-    IOwnable(address(aaveMerkleDistributor)).transferOwnership(AaveGovernanceV2.OPTIMISM_BRIDGE_EXECUTOR);
+    IOwnable(address(aaveMerkleDistributor)).transferOwnership(
+      AaveGovernanceV2.OPTIMISM_BRIDGE_EXECUTOR
+    );
 
     payload = new OptRescueMissionPayload(aaveMerkleDistributor);
 

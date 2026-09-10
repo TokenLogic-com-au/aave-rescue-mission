@@ -26,7 +26,7 @@ The following table represents the tokens to rescue from various contracts:
 | [USDC](https://polygonscan.com/address/0x2791bca1f2de4661ed88a30c99a7a9449aa84174)           | [AAVE V2 POOL](https://polygonscan.com/address/0x8dFf5E27EA6b7AC08EbFdf9eB090F32ee9a30fcf)         | 4515.242949             | POLYGON   |
 | [USDT.e](https://snowtrace.io/address/0xc7198437980c041c805a1edcba50c1ce5db95118)            | [AAVE V2 POOL](https://snowtrace.io/address/0x4F01AeD16D97E3aB5ab2B501154DC9bb0F1A5A2C)            | 1772.206585             | AVALANCHE |
 | [USDC.e](https://snowtrace.io/address/0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664)            | [AAVE V2 POOL](https://snowtrace.io/address/0x4F01AeD16D97E3aB5ab2B501154DC9bb0F1A5A2C)            | 2522.408895             | AVALANCHE |
-| [USDC.e](https://snowtrace.io/address/0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664)            | [WETH_GATEWAY](https://snowtrace.io/address/0x8a47F74d1eE0e2edEB4F3A7e64EF3bD8e11D27C8)            | 14100             | AVALANCHE |
+| [USDC.e](https://snowtrace.io/address/0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664)            | [WETH_GATEWAY](https://snowtrace.io/address/0x8a47F74d1eE0e2edEB4F3A7e64EF3bD8e11D27C8)            | 14100                   | AVALANCHE |
 | [USDC](https://optimistic.etherscan.io/address/0x7f5c764cbc14f9669b88837ca1490cca17c31607)   | [AAVE V3 POOL](https://optimistic.etherscan.io/address/0x794a61358D6845594F94dc1DB02A252b5b4814aD) | 44428.421035            | OPTIMISM  |
 
 <br>
@@ -130,18 +130,18 @@ On Ethereum, we will use the same Merkle distributor as in phase one while deplo
 
 Implementation addresses of contracts before and after the rescue mission phase 2, 3:
 
-| Previous Contract Impl | Upgraded Contract Impl |
-| --- | --- |
-| [Aave v1 pool](https://etherscan.io/address/0xC1eC30dfD855c287084Bf6e14ae2FDD0246Baf0d) | [Aave v1 pool](https://etherscan.io/address/0xcb8c3dbf2530d6b07b50d0bce91f7a04fa696486) |
-| [Aave v2 amm pool](https://etherscan.io/address/0xaaca8859efd9643b98c042691da60b217c9cdd64) | [Aave v2 amm pool](https://etherscan.io/address/0xb9184a4480830bf89b55b73631e287df9079f466) |
-| [Aave v2 ethereum pool](https://etherscan.io/address/0xc6845a5c768bf8d7681249f8927877efda425baf) | [Aave v2 ethereum pool](https://etherscan.io/address/0x085e34722e04567df9e6d2c32e82fd74f3342e79) |
-| [Aave v2 aRai ethereum](https://etherscan.io/address/0xb97fa7a950b19c8fe7d9bcd06909d3e67f20f16a) | [Aave v2 aRai ethereum](https://etherscan.io/address/0x2cde0f77cf5d54e9417480a8611aa2fecd56bbd9) |
-| [Aave v2 aUsdt ethereum](https://etherscan.io/address/0x3f06560cfb7af6e6b5102c358f679de5150b3b4c) | [Aave v2 aUsdt ethereum](https://etherscan.io/address/0x9651f64bd77550691eb2aeeb58188cb67f005902) |
-| [Aave v2 polygon pool](https://polygonscan.com/address/0x8dFf5E27EA6b7AC08EbFdf9eB090F32ee9a30fcf) | [Aave v2 polygon pool](https://polygonscan.com/address/0x1685D81212580DD4cDA287616C2f6F4794927e18) |
-| [Aave v2 aDai polygon](https://polygonscan.com/address/0x80f2c02224a2e548fc67c0bf705ebfa825dd5439) | [Aave v2 aDai polygon](https://polygonscan.com/address/0x6264E51782D739caf515a1Bd4F9ae6881B58621b) |
-| [Aave v2 aUsdc polygon](https://polygonscan.com/address/0x80f2c02224a2e548fc67c0bf705ebfa825dd5439) | [Aave v2 aUsdc polygon](https://polygonscan.com/address/0x6264E51782D739caf515a1Bd4F9ae6881B58621b) |
-| [Aave v2 avalanche pool](https://snowtrace.io/address/0x01ae7dda024ea9712344d9332c94d3168a91f342) | [Aave v2 avalanche pool](https://snowtrace.io/address/0x102Bf2C03c1901AdBA191457A8c4A4eF18b40029) |
-| [Aave v3 Pool optimism](https://optimistic.etherscan.io/address/0x764594f8e9757ede877b75716f8077162b251460) | - |
+| Previous Contract Impl                                                                                      | Upgraded Contract Impl                                                                              |
+| ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| [Aave v1 pool](https://etherscan.io/address/0xC1eC30dfD855c287084Bf6e14ae2FDD0246Baf0d)                     | [Aave v1 pool](https://etherscan.io/address/0xcb8c3dbf2530d6b07b50d0bce91f7a04fa696486)             |
+| [Aave v2 amm pool](https://etherscan.io/address/0xaaca8859efd9643b98c042691da60b217c9cdd64)                 | [Aave v2 amm pool](https://etherscan.io/address/0xb9184a4480830bf89b55b73631e287df9079f466)         |
+| [Aave v2 ethereum pool](https://etherscan.io/address/0xc6845a5c768bf8d7681249f8927877efda425baf)            | [Aave v2 ethereum pool](https://etherscan.io/address/0x085e34722e04567df9e6d2c32e82fd74f3342e79)    |
+| [Aave v2 aRai ethereum](https://etherscan.io/address/0xb97fa7a950b19c8fe7d9bcd06909d3e67f20f16a)            | [Aave v2 aRai ethereum](https://etherscan.io/address/0x2cde0f77cf5d54e9417480a8611aa2fecd56bbd9)    |
+| [Aave v2 aUsdt ethereum](https://etherscan.io/address/0x3f06560cfb7af6e6b5102c358f679de5150b3b4c)           | [Aave v2 aUsdt ethereum](https://etherscan.io/address/0x9651f64bd77550691eb2aeeb58188cb67f005902)   |
+| [Aave v2 polygon pool](https://polygonscan.com/address/0x8dFf5E27EA6b7AC08EbFdf9eB090F32ee9a30fcf)          | [Aave v2 polygon pool](https://polygonscan.com/address/0x1685D81212580DD4cDA287616C2f6F4794927e18)  |
+| [Aave v2 aDai polygon](https://polygonscan.com/address/0x80f2c02224a2e548fc67c0bf705ebfa825dd5439)          | [Aave v2 aDai polygon](https://polygonscan.com/address/0x6264E51782D739caf515a1Bd4F9ae6881B58621b)  |
+| [Aave v2 aUsdc polygon](https://polygonscan.com/address/0x80f2c02224a2e548fc67c0bf705ebfa825dd5439)         | [Aave v2 aUsdc polygon](https://polygonscan.com/address/0x6264E51782D739caf515a1Bd4F9ae6881B58621b) |
+| [Aave v2 avalanche pool](https://snowtrace.io/address/0x01ae7dda024ea9712344d9332c94d3168a91f342)           | [Aave v2 avalanche pool](https://snowtrace.io/address/0x102Bf2C03c1901AdBA191457A8c4A4eF18b40029)   |
+| [Aave v3 Pool optimism](https://optimistic.etherscan.io/address/0x764594f8e9757ede877b75716f8077162b251460) | -                                                                                                   |
 
 <br>
 

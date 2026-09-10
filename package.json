@@ -1,5 +1,5 @@
 {
-  "name": "bgd-forge-template",
+  "name": "aave-rescue-mission",
   "version": "1.0.0",
   "scripts": {
     "generate-json-mainnet": "network=mainnet env-cmd ts-node js-scripts/generate-address-value-maps.ts",
@@ -12,41 +12,41 @@
     "test-ava-claims": "env-cmd ts-node js-scripts/test-claims/testAvalancheClaims.ts",
     "test-opt-claims": "env-cmd ts-node js-scripts/test-claims/testOptimismClaims.ts",
     "clean-storage-report": "ts-node ./js-scripts/preprocess-storage-report.ts",
-    "lint": "prettier ./",
-    "lint:fix": "npm run lint -- --write",
+    "lint": "prettier --check ./",
+    "lint:fix": "prettier --write ./",
     "build:dashboard": "node scripts/build-dashboard.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bgd-labs/bgd-forge-template.git"
+    "url": "git+https://github.com/TokenLogic-com-au/aave-rescue-mission.git"
   },
   "keywords": [],
-  "author": "BGD labs",
+  "author": "BGD Labs, TokenLogic",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bgd-labs/bgd-forge-template/issues"
+    "url": "https://github.com/TokenLogic-com-au/aave-rescue-mission/issues"
   },
-  "homepage": "https://github.com/bgd-labs/bgd-forge-template#readme",
+  "homepage": "https://github.com/TokenLogic-com-au/aave-rescue-mission#readme",
   "devDependencies": {
-    "@aave/contract-helpers": "^1.3.2",
-    "@aave/math-utils": "^1.3.2",
+    "@aave/contract-helpers": "^1.38.0",
+    "@aave/math-utils": "^1.38.0",
     "@cowprotocol/ts-dune-client": "^0.0.2",
     "@openzeppelin/contracts": "^4.6.0",
-    "@types/node": "^17.0.34",
+    "@types/node": "^22.20.1",
     "bignumber.js": "^9.1.1",
     "cheerio": "^1.0.0-rc.12",
-    "dotenv": "^16.0.3",
-    "env-cmd": "^10.1.0",
+    "dotenv": "^17.4.2",
+    "env-cmd": "^11.0.0",
     "ethereumjs-util": "^7.1.4",
-    "ethers": "^5.6.6",
+    "ethers": "^5.8.0",
     "isomorphic-unfetch": "^3.1.0",
-    "npm": "^8.10.0",
-    "prettier": "^2.6.2",
-    "prettier-plugin-solidity": "^1.0.0-beta.19",
-    "ts-node": "^10.7.0",
+    "prettier": "^3.9.6",
+    "prettier-plugin-solidity": "1.4.3",
+    "ts-node": "^10.9.2",
     "tslib": "^2.4.0",
     "tsx": "^4.23.13",
-    "typescript": "^4.6.4",
+    "typescript": "^5.9.3",
     "viem": "^2.56.3"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
