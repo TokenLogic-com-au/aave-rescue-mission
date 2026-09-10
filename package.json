@@ -13,7 +13,8 @@
     "test-opt-claims": "env-cmd ts-node js-scripts/test-claims/testOptimismClaims.ts",
     "clean-storage-report": "ts-node ./js-scripts/preprocess-storage-report.ts",
     "lint": "prettier --check ./",
-    "lint:fix": "prettier --write ./"
+    "lint:fix": "prettier --write ./",
+    "build:dashboard": "node scripts/build-dashboard.js"
   },
   "repository": {
     "type": "git",
@@ -43,10 +44,9 @@
     "prettier-plugin-solidity": "1.4.3",
     "ts-node": "^10.9.2",
     "tslib": "^2.4.0",
-    "typescript": "^5.9.3"
-  },
-  "engines": {
-    "node": ">=22"
+    "tsx": "^4.23.13",
+    "typescript": "^5.9.3",
+    "viem": "^2.56.3"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
