@@ -1,3 +1,13 @@
+# Aave Rescue Mission
+
+Maintained by TokenLogic since September 2026. Phases 1 to 3 were delivered by BGD Labs (MIT, attribution retained in `LICENSE`).
+
+**Phase 4** recovers tokens sent by mistake to Aave V3 Pools and aTokens on all production chains since the last rescue. Phase 4 needs no contract upgrades, since V3 exposes `rescueTokens` natively, so the V1/V2 implementation upgrades, their tests and the Governance V2 tooling were removed from `main`. The Phase 2 & 3 implementation as executed in 2023 is preserved at the tag `phase-2-3-final`. The Merkle tooling, the claim data under `js-scripts/maps/` and the `AaveMerkleDistributor` contract (`rescue-mission-phase-1` submodule) are reused.
+
+The Phase 2 & 3 documentation follows.
+
+---
+
 # Aave Rescue Mission Phase 2 & 3 🚑 👻
 
 ![rescue](https://github.com/bgd-labs/rescue-mission-phase-1/blob/master/ghost_rescue.jpg)
