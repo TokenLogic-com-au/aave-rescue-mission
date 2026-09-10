@@ -7,13 +7,9 @@
     "generate-json-formatted": "env-cmd ts-node js-scripts/format.ts",
     "generate-tree": "env-cmd ts-node js-scripts/generate-merkle-root.ts",
     "generate:users-json": "ts-node js-scripts/users-resume.ts",
-    "test-eth-claims": "env-cmd ts-node js-scripts/test-claims/testEthereumClaims.ts",
-    "test-pol-claims": "env-cmd ts-node js-scripts/test-claims/testPolygonClaims.ts",
-    "test-ava-claims": "env-cmd ts-node js-scripts/test-claims/testAvalancheClaims.ts",
-    "test-opt-claims": "env-cmd ts-node js-scripts/test-claims/testOptimismClaims.ts",
-    "clean-storage-report": "ts-node ./js-scripts/preprocess-storage-report.ts",
     "lint": "prettier --check ./",
     "lint:fix": "prettier --write ./",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
     "build:dashboard": "node scripts/build-dashboard.js"
   },
   "repository": {

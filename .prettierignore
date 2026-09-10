@@ -2,15 +2,4 @@ out
 lib
 cache
 node_modules
-etherscan
-src/contracts/v1Pool
-src/contracts/v2AmmPool
-src/contracts/v2AvaPool
-src/contracts/v2EthAToken
-src/contracts/v2EthPool
-src/contracts/v2PolAToken
-src/contracts/v2PolPool
-diffs
-js-scripts/test-claims/abis
-reports/
 js-scripts/typechain

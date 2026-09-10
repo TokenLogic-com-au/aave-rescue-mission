@@ -43,10 +43,10 @@ dotenv.config();
 // ============================================================================
 
 export type FindingKind =
-  | 'underlying-surplus'      // (a) aToken holding own underlying above virtual balance
-  | 'token-in-pool'           // (b) Pool contract holding underlying or aToken
+  | 'underlying-surplus' // (a) aToken holding own underlying above virtual balance
+  | 'token-in-pool' // (b) Pool contract holding underlying or aToken
   | 'foreign-token-in-atoken' // (b) aToken holding a foreign underlying or another aToken
-  | 'atoken-in-itself';       // (b) aToken holding its own token address
+  | 'atoken-in-itself'; // (b) aToken holding its own token address
 
 export type Finding = {
   chainId: number;
@@ -58,11 +58,11 @@ export type Finding = {
   token: Address;
   tokenSymbol: string;
   decimals: number;
-  amount: string;             // Raw base units
-  amountFormatted: string;   // Decimal-adjusted string
-  virtualBalance?: string;   // For underlying-surplus
-  priceUsd?: string;         // Aave Oracle unit-formatted price
-  valueUsd?: string;         // Calculated USD value (floored to cents)
+  amount: string; // Raw base units
+  amountFormatted: string; // Decimal-adjusted string
+  virtualBalance?: string; // For underlying-surplus
+  priceUsd?: string; // Aave Oracle unit-formatted price
+  valueUsd?: string; // Calculated USD value (floored to cents)
   note?: string;
 };
 
@@ -74,10 +74,10 @@ export type CachedOraclePrice = {
 
 export type MarketSummary = {
   findingsCount: number;
-  surplusValueUsd: string;   // Positive / rescueable value
-  deficitValueUsd: string;   // Negative balance below virtual balance
-  netValueUsd: string;       // surplus - deficit
-  byKind: Record<string, { count: number; totalValueUsd: string }>;
+  surplusValueUsd: string; // Positive / rescueable value
+  deficitValueUsd: string; // Negative balance below virtual balance
+  netValueUsd: string; // surplus - deficit
+  byKind: Record<string, {count: number; totalValueUsd: string}>;
 };
 
 export type ChainScanResult = {
@@ -116,27 +116,27 @@ export type ChainConfig = {
 };
 
 export const CHAINS: readonly ChainConfig[] = [
-  { chainId: 1, alias: 'mainnet', alchemy: 'eth-mainnet' },
-  { chainId: 10, alias: 'optimism', alchemy: 'opt-mainnet' },
-  { chainId: 56, alias: 'bnb', alchemy: 'bnb-mainnet' },
-  { chainId: 100, alias: 'gnosis', alchemy: 'gnosis-mainnet' },
-  { chainId: 137, alias: 'polygon', alchemy: 'polygon-mainnet' },
-  { chainId: 143, alias: 'monad', alchemy: 'monad-mainnet' },
-  { chainId: 146, alias: 'sonic', alchemy: 'sonic-mainnet' },
-  { chainId: 196, alias: 'xlayer', alchemy: 'xlayer-mainnet' },
-  { chainId: 324, alias: 'zksync', alchemy: 'zksync-mainnet' },
-  { chainId: 1088, alias: 'metis', alchemy: 'metis-mainnet' },
-  { chainId: 1868, alias: 'soneium', alchemy: 'soneium-mainnet' },
-  { chainId: 4326, alias: 'megaeth', alchemy: 'megaeth-mainnet' },
-  { chainId: 5000, alias: 'mantle', alchemy: 'mantle-mainnet' },
-  { chainId: 8453, alias: 'base', alchemy: 'base-mainnet' },
-  { chainId: 9745, alias: 'plasma', alchemy: 'plasma-mainnet' },
-  { chainId: 42161, alias: 'arbitrum', alchemy: 'arb-mainnet' },
-  { chainId: 42220, alias: 'celo', alchemy: 'celo-mainnet' },
-  { chainId: 43114, alias: 'avalanche', alchemy: 'avax-mainnet' },
-  { chainId: 57073, alias: 'ink', alchemy: 'ink-mainnet' },
-  { chainId: 59144, alias: 'linea', alchemy: 'linea-mainnet' },
-  { chainId: 534352, alias: 'scroll', alchemy: 'scroll-mainnet' },
+  {chainId: 1, alias: 'mainnet', alchemy: 'eth-mainnet'},
+  {chainId: 10, alias: 'optimism', alchemy: 'opt-mainnet'},
+  {chainId: 56, alias: 'bnb', alchemy: 'bnb-mainnet'},
+  {chainId: 100, alias: 'gnosis', alchemy: 'gnosis-mainnet'},
+  {chainId: 137, alias: 'polygon', alchemy: 'polygon-mainnet'},
+  {chainId: 143, alias: 'monad', alchemy: 'monad-mainnet'},
+  {chainId: 146, alias: 'sonic', alchemy: 'sonic-mainnet'},
+  {chainId: 196, alias: 'xlayer', alchemy: 'xlayer-mainnet'},
+  {chainId: 324, alias: 'zksync', alchemy: 'zksync-mainnet'},
+  {chainId: 1088, alias: 'metis', alchemy: 'metis-mainnet'},
+  {chainId: 1868, alias: 'soneium', alchemy: 'soneium-mainnet'},
+  {chainId: 4326, alias: 'megaeth', alchemy: 'megaeth-mainnet'},
+  {chainId: 5000, alias: 'mantle', alchemy: 'mantle-mainnet'},
+  {chainId: 8453, alias: 'base', alchemy: 'base-mainnet'},
+  {chainId: 9745, alias: 'plasma', alchemy: 'plasma-mainnet'},
+  {chainId: 42161, alias: 'arbitrum', alchemy: 'arb-mainnet'},
+  {chainId: 42220, alias: 'celo', alchemy: 'celo-mainnet'},
+  {chainId: 43114, alias: 'avalanche', alchemy: 'avax-mainnet'},
+  {chainId: 57073, alias: 'ink', alchemy: 'ink-mainnet'},
+  {chainId: 59144, alias: 'linea', alchemy: 'linea-mainnet'},
+  {chainId: 534352, alias: 'scroll', alchemy: 'scroll-mainnet'},
 ];
 
 /** Standard Multicall3 contract address across EVM networks */
@@ -191,18 +191,17 @@ function formatCents(cents: bigint): string {
   return `${sign}${abs / 100n}.${(abs % 100n).toString().padStart(2, '0')}`;
 }
 
-function calculateUsdValue(
-  amount: bigint,
-  decimals: number,
-  price: bigint,
-  unit: bigint
-): string {
+function calculateUsdValue(amount: bigint, decimals: number, price: bigint, unit: bigint): string {
   if (unit === 0n) return '0.00';
   const cents = (amount * price * 100n) / (10n ** BigInt(decimals) * unit);
   return formatCents(cents);
 }
 
-function sumCents(values: (string | undefined)[]): { posCents: bigint; negCents: bigint; netCents: bigint } {
+function sumCents(values: (string | undefined)[]): {
+  posCents: bigint;
+  negCents: bigint;
+  netCents: bigint;
+} {
   let posCents = 0n;
   let negCents = 0n;
   for (const v of values) {
@@ -210,7 +209,7 @@ function sumCents(values: (string | undefined)[]): { posCents: bigint; negCents:
     if (c > 0n) posCents += c;
     else if (c < 0n) negCents += -c;
   }
-  return { posCents, negCents, netCents: posCents - negCents };
+  return {posCents, negCents, netCents: posCents - negCents};
 }
 
 // ============================================================================
@@ -256,19 +255,19 @@ function loadCache(cacheFile: string): ScanCache {
       console.warn(`Warning: Could not parse ${cacheFile}, creating new cache.`);
     }
   }
-  return { version: '1.0.0', chains: {} };
+  return {version: '1.0.0', chains: {}};
 }
 
 function saveCache(cacheFile: string, cache: ScanCache): void {
   const dir = path.dirname(cacheFile);
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, {recursive: true});
   fs.writeFileSync(cacheFile, JSON.stringify(cache, null, 2) + '\n');
 
   // Also sync to docs/data/balances-cache.json for GitHub Pages
   const docsData = path.resolve(__dirname, 'docs/data/balances-cache.json');
   const docsDir = path.dirname(docsData);
   if (fs.existsSync(path.resolve(__dirname, 'docs'))) {
-    if (!fs.existsSync(docsDir)) fs.mkdirSync(docsDir, { recursive: true });
+    if (!fs.existsSync(docsDir)) fs.mkdirSync(docsDir, {recursive: true});
     fs.writeFileSync(docsData, JSON.stringify(cache, null, 2) + '\n');
   }
 }
@@ -304,7 +303,9 @@ async function executeMulticall(
       allowFailure: true,
     });
     for (const r of res) {
-      results.push(r.status === 'success' && r.result !== undefined ? BigInt(r.result as bigint) : undefined);
+      results.push(
+        r.status === 'success' && r.result !== undefined ? BigInt(r.result as bigint) : undefined
+      );
     }
   }
   return results;
@@ -330,9 +331,11 @@ export async function scanChain(
   chain: ChainConfig,
   targets: TargetRow[],
   cache: ScanCache,
-  options: { repin?: boolean } = {}
+  options: {repin?: boolean} = {}
 ): Promise<ChainScanResult> {
-  const chainTargets = targets.filter((t) => t.chainId === chain.chainId && t.governedByDao !== false);
+  const chainTargets = targets.filter(
+    (t) => t.chainId === chain.chainId && t.governedByDao !== false
+  );
   if (chainTargets.length === 0) {
     throw new Error(`No targets found in inventory for ${chain.alias} (${chain.chainId})`);
   }
@@ -344,7 +347,9 @@ export async function scanChain(
   for (const name of marketNames) {
     const poolTarget = chainTargets.find((t) => t.market === name && t.targetType === 'pool');
     if (!poolTarget) continue;
-    const aTokenTargets = chainTargets.filter((t) => t.market === name && t.targetType === 'aToken');
+    const aTokenTargets = chainTargets.filter(
+      (t) => t.market === name && t.targetType === 'aToken'
+    );
 
     marketsMap.set(name, {
       market: name,
@@ -365,8 +370,8 @@ export async function scanChain(
   const chainDef = {
     id: chain.chainId,
     name: chain.alias,
-    nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
-    rpcUrls: { default: { http: [rpcUrl] } },
+    nativeCurrency: {name: 'Ether', symbol: 'ETH', decimals: 18},
+    rpcUrls: {default: {http: [rpcUrl]}},
     contracts: {
       multicall3: {
         address: multicallAddress,
@@ -414,7 +419,7 @@ export async function scanChain(
 
     // 1. Fetch Oracle base unit and asset prices for all underlying assets
     const oracleCalls: MulticallItem[] = [
-      { address: def.oracle, abi: ORACLE_ABI, functionName: 'BASE_CURRENCY_UNIT', args: [] },
+      {address: def.oracle, abi: ORACLE_ABI, functionName: 'BASE_CURRENCY_UNIT', args: []},
       ...def.reserves.map((r) => ({
         address: def.oracle,
         abi: ORACLE_ABI,
@@ -458,8 +463,20 @@ export async function scanChain(
 
     // 3. Supported market tokens: all underlyings and all aTokens
     const marketTokens = def.reserves.flatMap((r) => [
-      { address: r.underlying, symbol: r.symbol, decimals: r.decimals, underlying: r.underlying, isAToken: false },
-      { address: r.aToken, symbol: `a${r.symbol}`, decimals: r.decimals, underlying: r.underlying, isAToken: true },
+      {
+        address: r.underlying,
+        symbol: r.symbol,
+        decimals: r.decimals,
+        underlying: r.underlying,
+        isAToken: false,
+      },
+      {
+        address: r.aToken,
+        symbol: `a${r.symbol}`,
+        decimals: r.decimals,
+        underlying: r.underlying,
+        isAToken: true,
+      },
     ]);
 
     // Holders: all aTokens + the Pool
@@ -470,7 +487,7 @@ export async function scanChain(
         ownUnderlying: r.underlying,
         isPool: false,
       })),
-      { address: def.pool, symbol: 'Pool', ownUnderlying: undefined, isPool: true },
+      {address: def.pool, symbol: 'Pool', ownUnderlying: undefined, isPool: true},
     ];
 
     // Build Cartesian pairs (holder x token)
@@ -482,7 +499,7 @@ export async function scanChain(
     const pairs: CheckPair[] = [];
     for (const h of holders) {
       for (const t of marketTokens) {
-        pairs.push({ holder: h, token: t });
+        pairs.push({holder: h, token: t});
       }
     }
     totalChecks += pairs.length;
@@ -537,7 +554,10 @@ export async function scanChain(
       if (effectiveAmount !== 0n) {
         const price = priceMap.get(p.token.underlying.toLowerCase());
         const priceUsd = price !== undefined ? formatUnits(price, unitDecimals) : undefined;
-        const valueUsd = price !== undefined ? calculateUsdValue(effectiveAmount, p.token.decimals, price, rawUnit) : undefined;
+        const valueUsd =
+          price !== undefined
+            ? calculateUsdValue(effectiveAmount, p.token.decimals, price, rawUnit)
+            : undefined;
 
         findings.push({
           chainId: chain.chainId,
@@ -551,25 +571,35 @@ export async function scanChain(
           decimals: p.token.decimals,
           amount: effectiveAmount.toString(),
           amountFormatted: formatUnits(effectiveAmount, p.token.decimals),
-          ...(virtualBalanceStr !== undefined ? { virtualBalance: virtualBalanceStr } : {}),
-          ...(priceUsd !== undefined ? { priceUsd } : {}),
-          ...(valueUsd !== undefined ? { valueUsd } : {}),
-          ...(note ? { note } : {}),
+          ...(virtualBalanceStr !== undefined ? {virtualBalance: virtualBalanceStr} : {}),
+          ...(priceUsd !== undefined ? {priceUsd} : {}),
+          ...(valueUsd !== undefined ? {valueUsd} : {}),
+          ...(note ? {note} : {}),
         });
       }
     });
   }
 
   // Sort findings for determinism: by market, then kind, then token symbol
-  findings.sort((a, b) => a.market.localeCompare(b.market) || a.kind.localeCompare(b.kind) || a.tokenSymbol.localeCompare(b.tokenSymbol));
+  findings.sort(
+    (a, b) =>
+      a.market.localeCompare(b.market) ||
+      a.kind.localeCompare(b.kind) ||
+      a.tokenSymbol.localeCompare(b.tokenSymbol)
+  );
 
   // Compute breakdown by market
   const byMarket: Record<string, MarketSummary> = {};
   for (const market of marketNames) {
     const marketFindings = findings.filter((f) => f.market === market);
-    const byKind: Record<string, { count: number; totalValueUsd: string }> = {};
+    const byKind: Record<string, {count: number; totalValueUsd: string}> = {};
 
-    for (const kind of ['underlying-surplus', 'token-in-pool', 'foreign-token-in-atoken', 'atoken-in-itself'] as FindingKind[]) {
+    for (const kind of [
+      'underlying-surplus',
+      'token-in-pool',
+      'foreign-token-in-atoken',
+      'atoken-in-itself',
+    ] as FindingKind[]) {
       const kf = marketFindings.filter((f) => f.kind === kind);
       const kSums = sumCents(kf.map((f) => f.valueUsd));
       byKind[kind] = {
@@ -616,13 +646,17 @@ export async function scanChain(
 // ============================================================================
 
 const pad = (str: string, len: number, right = false) =>
-  right ? str.padStart(len) : (str.length > len ? str.slice(0, len - 3) + '...' : str.padEnd(len));
+  right ? str.padStart(len) : str.length > len ? str.slice(0, len - 3) + '...' : str.padEnd(len);
 
 function printFindingsTable(result: ChainScanResult): void {
   console.log(`\n=== Results for ${result.alias} (Chain ${result.chainId}) ===`);
   console.log(`Block: ${result.pinnedBlock} (Pinned at: ${result.pinnedAt})`);
-  console.log(`Checks: ${result.stats.checksPerformed} across ${result.stats.marketsScanned} market(s)`);
-  console.log(`Findings: ${result.stats.findingsCount} items | Rescueable: $${result.stats.surplusValueUsd} | Net Total: $${result.stats.netValueUsd}\n`);
+  console.log(
+    `Checks: ${result.stats.checksPerformed} across ${result.stats.marketsScanned} market(s)`
+  );
+  console.log(
+    `Findings: ${result.stats.findingsCount} items | Rescueable: $${result.stats.surplusValueUsd} | Net Total: $${result.stats.netValueUsd}\n`
+  );
 
   if (result.findings.length === 0) {
     console.log('  No stuck tokens or underlying surplus found.');
@@ -677,7 +711,11 @@ function printFindingsTable(result: ChainScanResult): void {
     pad(`Total (${result.alias})`, 28) +
       pad(String(result.stats.findingsCount), 10, true) +
       pad(`$${result.stats.surplusValueUsd}`, 18, true) +
-      pad(result.stats.deficitValueUsd !== '0.00' ? `-$${result.stats.deficitValueUsd}` : '$0.00', 16, true) +
+      pad(
+        result.stats.deficitValueUsd !== '0.00' ? `-$${result.stats.deficitValueUsd}` : '$0.00',
+        16,
+        true
+      ) +
       pad(`$${result.stats.netValueUsd}`, 18, true)
   );
 }
@@ -709,9 +747,10 @@ export function printAggregatedTotals(cache: ScanCache): void {
   for (const alias of chainAliases) {
     const chainData = cache.chains[alias];
     const marketsInFindings = [...new Set(chainData.findings.map((f) => f.market))];
-    const marketEntries = marketsInFindings.length > 0
-      ? marketsInFindings
-      : Object.keys(chainData.stats.byMarket || {});
+    const marketEntries =
+      marketsInFindings.length > 0
+        ? marketsInFindings
+        : Object.keys(chainData.stats.byMarket || {});
 
     const chainSums = sumCents(chainData.findings.map((f) => f.valueUsd));
 
@@ -745,7 +784,11 @@ export function printAggregatedTotals(cache: ScanCache): void {
           pad(`>> Subtotal (${alias})`, 28) +
           pad(String(chainData.findings.length), 10, true) +
           pad(`$${formatCents(chainSums.posCents)}`, 18, true) +
-          pad(chainSums.negCents > 0n ? `-$${formatCents(chainSums.negCents)}` : '$0.00', 15, true) +
+          pad(
+            chainSums.negCents > 0n ? `-$${formatCents(chainSums.negCents)}` : '$0.00',
+            15,
+            true
+          ) +
           pad(`$${formatCents(chainSums.netCents)}`, 17, true)
       );
       console.log('-'.repeat(102));
@@ -769,13 +812,16 @@ export function printAggregatedTotals(cache: ScanCache): void {
 
 async function main() {
   const args = process.argv.slice(2);
-  const chainArg = args.find((a, i) => args[i - 1] === '--chain' || a.startsWith('--chain='))?.replace('--chain=', '');
+  const chainArg = args
+    .find((a, i) => args[i - 1] === '--chain' || a.startsWith('--chain='))
+    ?.replace('--chain=', '');
   const isAll = args.includes('--all');
   const isSummaryOnly = args.includes('--summary');
   const isRepin = args.includes('--repin') || args.includes('--latest');
   const cacheFile =
-    args.find((a, i) => args[i - 1] === '--cache' || a.startsWith('--cache='))?.replace('--cache=', '') ||
-    path.resolve(process.cwd(), 'balances-cache.json');
+    args
+      .find((a, i) => args[i - 1] === '--cache' || a.startsWith('--cache='))
+      ?.replace('--cache=', '') || path.resolve(process.cwd(), 'balances-cache.json');
 
   const cache = loadCache(cacheFile);
 
@@ -791,23 +837,29 @@ async function main() {
 
   let targetChains: ChainConfig[];
   if (chainArg) {
-    const c = CHAINS.find((ch) => ch.alias.toLowerCase() === chainArg.toLowerCase() || String(ch.chainId) === chainArg);
+    const c = CHAINS.find(
+      (ch) => ch.alias.toLowerCase() === chainArg.toLowerCase() || String(ch.chainId) === chainArg
+    );
     if (!c) {
-      console.error(`Unknown chain: "${chainArg}". Available: ${CHAINS.map((c) => c.alias).join(', ')}`);
+      console.error(
+        `Unknown chain: "${chainArg}". Available: ${CHAINS.map((c) => c.alias).join(', ')}`
+      );
       process.exit(1);
     }
     targetChains = [c];
   } else if (isAll) {
     targetChains = [...CHAINS];
   } else {
-    console.log('Note: No --chain or --all specified, defaulting to mainnet. (Use --chain <alias>, --all, or --summary)\n');
+    console.log(
+      'Note: No --chain or --all specified, defaulting to mainnet. (Use --chain <alias>, --all, or --summary)\n'
+    );
     targetChains = [CHAINS.find((c) => c.alias === 'mainnet')!];
   }
 
   for (const chain of targetChains) {
     console.log(`\n>>> Scanning ${chain.alias} (ID: ${chain.chainId})...`);
     try {
-      const result = await scanChain(chain, inventory, cache, { repin: isRepin });
+      const result = await scanChain(chain, inventory, cache, {repin: isRepin});
       cache.chains[chain.alias] = result;
       saveCache(cacheFile, cache);
       printFindingsTable(result);

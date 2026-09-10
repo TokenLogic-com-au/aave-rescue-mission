@@ -1,9 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const rootCachePath = path.resolve(__dirname, '../balances-cache.json');
-const docsDataDir = path.resolve(__dirname, '../docs/data');
-const balancesCachePath = path.resolve(docsDataDir, 'balances-cache.json');
+const rootCachePath = path.resolve(__dirname, "../balances-cache.json");
+const docsDataDir = path.resolve(__dirname, "../docs/data");
+const balancesCachePath = path.resolve(docsDataDir, "balances-cache.json");
 
 if (fs.existsSync(rootCachePath)) {
   if (!fs.existsSync(docsDataDir)) {
@@ -13,11 +13,13 @@ if (fs.existsSync(rootCachePath)) {
 }
 
 if (!fs.existsSync(balancesCachePath)) {
-  console.error(`balances-cache.json not found at ${balancesCachePath} or ${rootCachePath}`);
+  console.error(
+    `balances-cache.json not found at ${balancesCachePath} or ${rootCachePath}`
+  );
   process.exit(1);
 }
 
-const balancesCacheRaw = fs.readFileSync(balancesCachePath, 'utf8');
+const balancesCacheRaw = fs.readFileSync(balancesCachePath, "utf8");
 const balancesCacheMin = JSON.stringify(JSON.parse(balancesCacheRaw));
 
 const htmlContent = `<!DOCTYPE html>
@@ -1922,6 +1924,8 @@ ${balancesCacheMin}
 </html>
 `;
 
-const outputPath = path.resolve(__dirname, '../docs/index.html');
-fs.writeFileSync(outputPath, htmlContent, 'utf8');
-console.log(`Successfully generated docs/index.html (${htmlContent.length} bytes)`);
+const outputPath = path.resolve(__dirname, "../docs/index.html");
+fs.writeFileSync(outputPath, htmlContent, "utf8");
+console.log(
+  `Successfully generated docs/index.html (${htmlContent.length} bytes)`
+);
