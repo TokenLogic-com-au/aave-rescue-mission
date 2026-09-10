@@ -1,0 +1,102 @@
+name: Update Balances Dashboard
+
+on:
+  workflow_dispatch:
+    inputs:
+      chain:
+        description: 'Chain to scan (or all)'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - mainnet
+          - polygon
+          - arbitrum
+          - optimism
+          - base
+          - avalanche
+          - bnb
+          - gnosis
+          - scroll
+          - mantle
+          - celo
+          - metis
+          - xlayer
+          - sonic
+          - plasma
+          - zksync
+      repin:
+        description: 'Force re-pin to current head block'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+jobs:
+  scan-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run Aave Balances Scanner
+        env:
+          ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
+        run: |
+          ARGS=""
+          if [ "${{ inputs.chain }}" != "all" ]; then
+            ARGS="--chain ${{ inputs.chain }}"
+          else
+            ARGS="--all"
+          fi
+          if [ "${{ inputs.repin }}" = "true" ]; then
+            ARGS="$ARGS --repin"
+          fi
+          npx tsx scan-aave-balances.ts $ARGS
+
+      - name: Rebuild Dashboard with Fresh Cache
+        run: yarn build:dashboard
+
+      - name: Commit Updated Data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add balances-cache.json docs/data/balances-cache.json docs/index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(data): update aave balances cache [skip ci]"
+            git push
+          fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

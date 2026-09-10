@@ -14,7 +14,8 @@
     "phase4:balances": "env-cmd tsx js-scripts/phase4/balances.ts",
     "phase4:filter": "tsx js-scripts/phase4/filter.ts",
     "phase4:surplus": "env-cmd tsx js-scripts/phase4/surplus.ts",
-    "phase4:attribution": "env-cmd tsx js-scripts/phase4/attribution.ts"
+    "phase4:attribution": "env-cmd tsx js-scripts/phase4/attribution.ts",
+    "build:dashboard": "node scripts/build-dashboard.js"
   },
   "repository": {
     "type": "git",
