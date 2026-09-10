@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       chain:
-        description: 'Chain to scan (or all)'
+        description: "Chain to scan (or all)"
         required: false
-        default: 'all'
+        default: "all"
         type: choice
         options:
           - all
@@ -27,7 +27,7 @@ on:
           - plasma
           - zksync
       repin:
-        description: 'Force re-pin to current head block'
+        description: "Force re-pin to current head block"
         required: false
         default: false
         type: boolean
@@ -39,7 +39,7 @@ permissions:
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 concurrency:
-  group: 'pages'
+  group: "pages"
   cancel-in-progress: false
 
 jobs:
@@ -56,7 +56,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'yarn'
+          cache: "yarn"
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
