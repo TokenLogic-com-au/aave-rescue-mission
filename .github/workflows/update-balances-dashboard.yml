@@ -83,13 +83,15 @@ jobs:
         run: yarn build:dashboard
 
       - name: Fix formatting of generated HTML
-        run: yarn lint:fix  
+        run: npx prettier --write docs/index.html docs/data/balances-cache.json balances-cache.json
 
       - name: Commit Updated Data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add balances-cache.json docs/data/balances-cache.json docs/index.html
+          # Discard any unstaged changes to other files so git rebase is guaranteed a clean working tree
+          git checkout -- .
           if ! git diff --cached --quiet; then
             git commit -m "chore(data): update aave balances cache [skip ci]"
             pushed=false
