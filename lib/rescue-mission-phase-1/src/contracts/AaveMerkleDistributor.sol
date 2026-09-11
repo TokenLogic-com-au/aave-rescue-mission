@@ -7,7 +7,9 @@ import {Ownable} from "solidity-utils/contracts/oz-common/Ownable.sol";
 import {MerkleProof} from "./dependencies/openZeppelin/MerkleProof.sol";
 import {IAaveMerkleDistributor} from "./interfaces/IAaveMerkleDistributor.sol";
 
-
+/// @title AaveMerkleDistributor
+/// @notice Distributes ERC20 tokens to a set of addresses defined in a merkle root
+/// @dev source https://github.com/TokenLogic-com-au/aave-rescue-mission-phase-1 @ 2c15e1b1fbcf72aa3834e63f2efcd71f4f91a28f
 contract AaveMerkleDistributor is Ownable, IAaveMerkleDistributor {
     using SafeERC20 for IERC20;
 
