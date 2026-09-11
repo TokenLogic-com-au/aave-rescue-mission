@@ -1005,6 +1005,33 @@
       return 'v3';
     }
 
+    function isDust(f) {
+      const val = Math.abs(parseFloat(f.valueUsd || '0'));
+      return val < 0.01;
+    }
+
+    function getSupportedNetworks(protocol) {
+      if (protocol === 'all') return null;
+      const supported = new Set();
+      if (rawCacheData && rawCacheData.chains) {
+        for (const [alias, chain] of Object.entries(rawCacheData.chains)) {
+          const isV4 = alias.endsWith('-v4') || (chain.market && chain.market.includes('V4'));
+          const netAlias = alias.replace('-v4', '');
+          if (protocol === 'v4' && isV4) {
+            supported.add(netAlias);
+          } else if (protocol === 'v3' && !isV4) {
+            supported.add(netAlias);
+          }
+        }
+      }
+      for (const f of allFindings) {
+        if (getProtocolVersion(f) === protocol) {
+          supported.add(f.chainAlias);
+        }
+      }
+      return supported;
+    }
+
     let sortState = {
       column: 'value',
       order: 'desc', // 'asc' or 'desc'
@@ -1128,18 +1155,49 @@
       const container = document.getElementById('network-pills-container');
       container.innerHTML = '';
 
-      // Count findings per network
+      const supportedNetworks = getSupportedNetworks(filters.protocol);
+
+      // Count findings per network matching protocol & dust filters
       const networkCounts = {};
+      let totalMatchingFindings = 0;
+
       for (const f of allFindings) {
+        // Protocol filter
+        if (filters.protocol !== 'all' && getProtocolVersion(f) !== filters.protocol) {
+          continue;
+        }
+        // Dust filter
+        if (filters.hideDust && isDust(f)) {
+          continue;
+        }
+
         networkCounts[f.chainAlias] = (networkCounts[f.chainAlias] || 0) + 1;
+        totalMatchingFindings++;
       }
 
-      // Determine chains to show
-      const sortedChains = Object.entries(rawCacheData.chains).map(([alias, chain]) => ({
-        alias,
-        chainId: chain.chainId,
-        count: networkCounts[alias] || 0,
-        name: getChainMeta(chain.chainId).name
+      // Collect unique network definitions from rawCacheData.chains
+      const networkMap = new Map();
+      for (const [alias, chain] of Object.entries(rawCacheData.chains)) {
+        const netAlias = alias.replace('-v4', '');
+        if (!networkMap.has(netAlias)) {
+          networkMap.set(netAlias, {
+            alias: netAlias,
+            chainId: chain.chainId,
+            name: getChainMeta(chain.chainId).name
+          });
+        }
+      }
+
+      // Filter networks by protocol support
+      let networkList = Array.from(networkMap.values());
+      if (supportedNetworks !== null) {
+        networkList = networkList.filter(n => supportedNetworks.has(n.alias));
+      }
+
+      // Attach counts and sort
+      const sortedChains = networkList.map(n => ({
+        ...n,
+        count: networkCounts[n.alias] || 0
       })).sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
 
       // "All Networks" Pill
@@ -1150,18 +1208,23 @@
           ? 'bg-neutral-900 text-white border-neutral-900 shadow-sm' 
           : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700 border-neutral-200/80'
       }`;
-      allPill.innerHTML = `<span>All Networks</span> <span class="px-1.5 py-0.2 rounded-full text-[10px] font-bold ${isAllActive ? 'bg-neutral-700 text-neutral-100' : 'bg-neutral-200 text-neutral-700'}">${allFindings.length}</span>`;
+      allPill.innerHTML = `<span>All Networks</span> <span class="px-1.5 py-0.2 rounded-full text-[10px] font-bold ${isAllActive ? 'bg-neutral-700 text-neutral-100' : 'bg-neutral-200 text-neutral-700'}">${totalMatchingFindings}</span>`;
       allPill.onclick = () => {
         filters.network = 'all';
         renderNetworkPills();
+        renderProtocolPills();
         applyFilters();
       };
       container.appendChild(allPill);
 
       // Per-network pills
       for (const c of sortedChains) {
-        if (!showZeroChains && c.count === 0) continue;
-        
+        // If protocol is 'all' or 'v3', hide zero-count chains unless showZeroChains is true or it's currently selected.
+        // For 'v4', always show supported networks so user can see which networks exist for this protocol.
+        if (filters.protocol !== 'v4' && !showZeroChains && c.count === 0 && filters.network !== c.alias) {
+          continue;
+        }
+
         const pill = document.createElement('button');
         const isActive = filters.network === c.alias;
         pill.className = `px-3 py-1.5 rounded-full text-xs font-medium transition shrink-0 flex items-center gap-1.5 border ${
@@ -1180,13 +1243,14 @@
         pill.onclick = () => {
           filters.network = c.alias;
           renderNetworkPills();
+          renderProtocolPills();
           applyFilters();
         };
 
         container.appendChild(pill);
       }
 
-      const activeLabel = filters.network === 'all' ? 'All Networks' : getChainMeta(filters.network).name;
+      const activeLabel = filters.network === 'all' ? 'All Networks' : (getChainMeta(filters.network).name || filters.network);
       document.getElementById('active-network-indicator').textContent = activeLabel;
     }
 
@@ -1200,7 +1264,19 @@
 
       let v3Count = 0;
       let v4Count = 0;
+      let totalCount = 0;
+
       for (const f of allFindings) {
+        // Network filter
+        if (filters.network !== 'all' && f.chainAlias !== filters.network) {
+          continue;
+        }
+        // Dust filter
+        if (filters.hideDust && isDust(f)) {
+          continue;
+        }
+
+        totalCount++;
         if (getProtocolVersion(f) === 'v4') {
           v4Count++;
         } else {
@@ -1209,7 +1285,7 @@
       }
 
       const protocols = [
-        { id: 'all', name: 'All Protocols', count: allFindings.length },
+        { id: 'all', name: 'All Protocols', count: totalCount },
         { id: 'v3', name: 'Aave V3', count: v3Count },
         { id: 'v4', name: 'Aave V4', count: v4Count },
       ];
@@ -1232,6 +1308,11 @@
 
         pill.onclick = () => {
           filters.protocol = p.id;
+          const supported = getSupportedNetworks(p.id);
+          if (supported && filters.network !== 'all' && !supported.has(filters.network)) {
+            filters.network = 'all';
+          }
+          renderNetworkPills();
           renderProtocolPills();
           applyFilters();
         };
@@ -1246,7 +1327,9 @@
     function updateDustBadge() {
       let dustCount = 0;
       for (const f of allFindings) {
-        if (Math.abs(parseFloat(f.valueUsd || '0')) < 0.01) dustCount++;
+        if (filters.network !== 'all' && f.chainAlias !== filters.network) continue;
+        if (filters.protocol !== 'all' && getProtocolVersion(f) !== filters.protocol) continue;
+        if (isDust(f)) dustCount++;
       }
       document.getElementById('dust-count-badge').textContent = dustCount;
     }
@@ -1274,9 +1357,8 @@
         }
 
         // Dust filter
-        if (filters.hideDust) {
-          const val = Math.abs(parseFloat(f.valueUsd || '0'));
-          if (val < 0.01) return false;
+        if (filters.hideDust && isDust(f)) {
+          return false;
         }
 
         // Search query filter
@@ -1301,6 +1383,7 @@
       document.getElementById('btn-reset-filters').classList.toggle('hidden', !hasActiveFilters);
 
       applySorting();
+      updateDustBadge();
       updateMetricCards();
       paginationState.currentPage = 1;
       renderTable();
@@ -1917,6 +2000,8 @@
       // Dust filter checkbox
       document.getElementById('dust-filter').addEventListener('change', (e) => {
         filters.hideDust = e.target.checked;
+        renderNetworkPills();
+        renderProtocolPills();
         applyFilters();
       });
 
