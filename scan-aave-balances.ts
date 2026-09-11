@@ -56,7 +56,9 @@ export type FindingKind =
   | 'v4-hub-deficit' // V4: Hub ERC-20 balance below accounting
   | 'v4-token-in-spoke' // V4: Token stuck in a Spoke (should be 0)
   | 'v4-token-in-tokenization-spoke' // V4: Token stuck in a TokenizationSpoke
-  | 'v4-token-in-position-manager'; // V4: Token stuck in a PositionManager
+  | 'v4-token-in-position-manager' // V4: Token stuck in a PositionManager
+  | 'v4-hub-clean' // V4: Hub ERC-20 balance matches accounting (0 diff)
+  | 'v4-spoke-clean'; // V4: Spoke / PM verified clean (0 stuck tokens)
 
 export type Finding = {
   chainId: number;
@@ -1006,6 +1008,26 @@ export async function scanV4Chain(
         ...(valueUsd !== undefined ? {valueUsd} : {}),
         note: `Hub ERC20=${formatUnits(erc20Balance, asset.decimals)}, liquidity=${formatUnits(liquidity, asset.decimals)}, fees=${formatUnits(accruedFees, asset.decimals)}`,
       });
+    } else {
+      const price = priceMap.get(asset.underlying.toLowerCase());
+      const priceUsd = price !== undefined ? formatUnits(price, oracleDecimals) : undefined;
+      findings.push({
+        chainId: chain.chainId,
+        chainAlias: chain.alias,
+        market: v4inv.market,
+        kind: 'v4-hub-clean',
+        holder: asset.hubAddress,
+        holderSymbol: asset.hubName,
+        token: asset.underlying,
+        tokenSymbol: asset.symbol,
+        decimals: asset.decimals,
+        amount: '0',
+        amountFormatted: '0',
+        virtualBalance: expectedBalance.toString(),
+        ...(priceUsd !== undefined ? {priceUsd} : {}),
+        valueUsd: '0.00',
+        note: `Hub ERC20=${formatUnits(erc20Balance, asset.decimals)}, liquidity=${formatUnits(liquidity, asset.decimals)}, fees=${formatUnits(accruedFees, asset.decimals)} (Verified Clean)`,
+      });
     }
   }
 
@@ -1046,9 +1068,11 @@ export async function scanV4Chain(
   totalChecks += stuckChecks.length;
   const stuckResults = await executeMulticall(client, chain.chainId, stuckCalls, block);
 
+  const holderStuckCount = new Map<string, number>();
   stuckChecks.forEach((check, idx) => {
     const balance = stuckResults[idx] ?? 0n;
     if (balance > 0n) {
+      holderStuckCount.set(check.holder.address.toLowerCase(), (holderStuckCount.get(check.holder.address.toLowerCase()) ?? 0) + 1);
       const price = priceMap.get(check.underlying.address.toLowerCase());
       const priceUsd = price !== undefined ? formatUnits(price, oracleDecimals) : undefined;
       const valueUsd = price !== undefined
@@ -1073,6 +1097,27 @@ export async function scanV4Chain(
     }
   });
 
+  // For holders with 0 stuck tokens across all scanned assets, record verified clean entry
+  for (const holder of holdersToCheck) {
+    if ((holderStuckCount.get(holder.address.toLowerCase()) ?? 0) === 0) {
+      findings.push({
+        chainId: chain.chainId,
+        chainAlias: chain.alias,
+        market: v4inv.market,
+        kind: 'v4-spoke-clean',
+        holder: holder.address,
+        holderSymbol: holder.symbol,
+        token: '0x0000000000000000000000000000000000000000',
+        tokenSymbol: `All Assets (${uniqueUnderlyings.size})`,
+        decimals: 18,
+        amount: '0',
+        amountFormatted: '0',
+        valueUsd: '0.00',
+        note: `Verified clean: 0 stuck tokens across all ${uniqueUnderlyings.size} scanned assets`,
+      });
+    }
+  }
+
   // Sort findings
   findings.sort((a, b) => a.kind.localeCompare(b.kind) || a.tokenSymbol.localeCompare(b.tokenSymbol));
 
@@ -1080,6 +1125,7 @@ export async function scanV4Chain(
   const allKinds: FindingKind[] = [
     'v4-hub-surplus', 'v4-hub-deficit', 'v4-token-in-spoke',
     'v4-token-in-tokenization-spoke', 'v4-token-in-position-manager',
+    'v4-hub-clean', 'v4-spoke-clean',
   ];
 
   const byKind: Record<string, {count: number; totalValueUsd: string}> = {};

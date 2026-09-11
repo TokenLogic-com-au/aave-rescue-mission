@@ -422,6 +422,8 @@ const htmlContent = `<!DOCTYPE html>
             <option value="v4-token-in-spoke">V4: Token in Spoke (Stuck)</option>
             <option value="v4-token-in-tokenization-spoke">V4: Token in TokenizationSpoke</option>
             <option value="v4-token-in-position-manager">V4: Token in PositionManager</option>
+            <option value="v4-hub-clean">V4: Hub Verified Clean</option>
+            <option value="v4-spoke-clean">V4: Spoke / PM Verified Clean</option>
           </select>
           <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-tl-fg-muted">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -435,6 +437,7 @@ const htmlContent = `<!DOCTYPE html>
           <input 
             type="checkbox" 
             id="dust-filter" 
+            checked
             class="w-4 h-4 rounded bg-tl-bg-subtle border-tl-border-base text-blue-600 focus:ring-tl-accent focus:ring-offset-tl-bg-canvas" 
           />
           <span>Hide Dust (&lt; $0.01)</span>
@@ -1019,7 +1022,7 @@ ${balancesCacheMin}
       protocol: 'all', // 'all', 'v3', 'v4'
       category: 'all',
       search: '',
-      hideDust: false,
+      hideDust: true,
     };
 
     function getProtocolVersion(f) {
@@ -1030,6 +1033,9 @@ ${balancesCacheMin}
     }
 
     function isDust(f) {
+      if (f.amount === '0' || (f.kind && f.kind.endsWith('-clean'))) {
+        return false;
+      }
       const val = Math.abs(parseFloat(f.valueUsd || '0'));
       return val < 0.01;
     }
@@ -1403,7 +1409,7 @@ ${balancesCacheMin}
       });
 
       // Show/hide reset button
-      const hasActiveFilters = filters.network !== 'all' || filters.protocol !== 'all' || filters.category !== 'all' || filters.search !== '' || filters.hideDust;
+      const hasActiveFilters = filters.network !== 'all' || filters.protocol !== 'all' || filters.category !== 'all' || filters.search !== '' || !filters.hideDust;
       document.getElementById('btn-reset-filters').classList.toggle('hidden', !hasActiveFilters);
 
       applySorting();
@@ -1543,6 +1549,10 @@ ${balancesCacheMin}
           kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-800 border border-amber-200">V4 Stuck in TSpoke</span>';
         } else if (f.kind === 'v4-token-in-position-manager') {
           kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-800 border border-amber-200">V4 Stuck in PM</span>';
+        } else if (f.kind === 'v4-hub-clean') {
+          kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">✓ V4 Hub Clean</span>';
+        } else if (f.kind === 'v4-spoke-clean') {
+          kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-blue-50 text-blue-700 border border-blue-200">✓ V4 Spoke Clean</span>';
         }
 
         // Virtual balance display
@@ -1818,6 +1828,12 @@ ${balancesCacheMin}
       } else if (finding.kind === 'v4-token-in-position-manager') {
         kindBadgeEl.textContent = 'V4 Stuck in Position Manager';
         kindBadgeEl.className = 'px-2.5 py-0.5 rounded-full text-xs font-medium bg-tl-warning-muted text-tl-warning border border-tl-warning-border';
+      } else if (finding.kind === 'v4-hub-clean') {
+        kindBadgeEl.textContent = 'V4 Hub Verified Clean';
+        kindBadgeEl.className = 'px-2.5 py-0.5 rounded-full text-xs font-medium bg-tl-success-muted text-tl-success border border-tl-success-border';
+      } else if (finding.kind === 'v4-spoke-clean') {
+        kindBadgeEl.textContent = 'V4 Spoke / PM Verified Clean';
+        kindBadgeEl.className = 'px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200';
       }
 
       // Financial breakdown
@@ -1870,6 +1886,10 @@ ${balancesCacheMin}
         expEl.textContent = 'V4 Stuck Token in Tokenization Spoke: Tokenization Spokes act as ERC-4626 pass-through vaults and should not hold persistent token balances. Any positive balance is rescueable.';
       } else if (finding.kind === 'v4-token-in-position-manager') {
         expEl.textContent = 'V4 Stuck Token in Position Manager: Position Managers and Gateways are transient execution routers. Any persistent token balance indicates stuck funds that can be rescued by the rescue guardian.';
+      } else if (finding.kind === 'v4-hub-clean') {
+        expEl.textContent = 'V4 Hub Verified Clean: The ERC-20 balance held by this V4 Hub exactly matches its internal accounting (liquidity balance). No excess balance or deficit detected.';
+      } else if (finding.kind === 'v4-spoke-clean') {
+        expEl.textContent = 'V4 Spoke / PM Verified Clean: This contract (Spoke, Position Manager, or Gateway) holds 0 token balance across all scanned assets. No stuck funds detected.';
       }
 
       // Note
@@ -2035,11 +2055,11 @@ ${balancesCacheMin}
         filters.protocol = 'all';
         filters.category = 'all';
         filters.search = '';
-        filters.hideDust = false;
+        filters.hideDust = true;
         searchInput.value = '';
         clearSearchBtn.classList.add('hidden');
         document.getElementById('category-filter').value = 'all';
-        document.getElementById('dust-filter').checked = false;
+        document.getElementById('dust-filter').checked = true;
         renderNetworkPills();
         renderProtocolPills();
         applyFilters();
