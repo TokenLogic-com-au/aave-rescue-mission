@@ -365,6 +365,20 @@ const htmlContent = `<!DOCTYPE html>
         </div>
       </div>
 
+      <!-- Protocol Version Filter -->
+      <div class="pt-3 border-t border-tl-border-base">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-tl-fg-muted">Protocol Version</span>
+            <span id="active-protocol-indicator" class="text-[11px] text-tl-accent font-mono">All Versions</span>
+          </div>
+        </div>
+
+        <div id="protocol-pills-container" class="flex items-center gap-2">
+          <!-- Protocol Pills Rendered Dynamically -->
+        </div>
+      </div>
+
       <!-- Secondary Filters Toolbar -->
       <div class="pt-3 border-t border-tl-border-base flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 sm:gap-4">
         
@@ -1002,10 +1016,18 @@ ${balancesCacheMin}
 
     let filters = {
       network: 'all',
+      protocol: 'all', // 'all', 'v3', 'v4'
       category: 'all',
       search: '',
       hideDust: false,
     };
+
+    function getProtocolVersion(f) {
+      if ((f.market && f.market.includes('V4')) || (f.chainAlias && f.chainAlias.endsWith('-v4')) || (f.kind && f.kind.startsWith('v4-'))) {
+        return 'v4';
+      }
+      return 'v3';
+    }
 
     let sortState = {
       column: 'value',
@@ -1118,6 +1140,7 @@ ${balancesCacheMin}
         \`Multi-chain deterministic audit of rescueable underlying surplus, stuck tokens in pool contracts, foreign aToken holdings, and self-held aTokens. Verified across \${chainAliases.length} networks with \${totalPinnedBlocks} pinned block heights.\`;
 
       renderNetworkPills();
+      renderProtocolPills();
       updateDustBadge();
       applyFilters();
     }
@@ -1191,6 +1214,59 @@ ${balancesCacheMin}
       document.getElementById('active-network-indicator').textContent = activeLabel;
     }
 
+    // ========================================================================
+    // Protocol Pills Rendering (V3 vs V4)
+    // ========================================================================
+    function renderProtocolPills() {
+      const container = document.getElementById('protocol-pills-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      let v3Count = 0;
+      let v4Count = 0;
+      for (const f of allFindings) {
+        if (getProtocolVersion(f) === 'v4') {
+          v4Count++;
+        } else {
+          v3Count++;
+        }
+      }
+
+      const protocols = [
+        { id: 'all', name: 'All Protocols', count: allFindings.length },
+        { id: 'v3', name: 'Aave V3', count: v3Count },
+        { id: 'v4', name: 'Aave V4', count: v4Count },
+      ];
+
+      for (const p of protocols) {
+        const pill = document.createElement('button');
+        const isActive = filters.protocol === p.id;
+        pill.className = \`px-3 py-1.5 rounded-full text-xs font-medium transition shrink-0 flex items-center gap-1.5 border \${
+          isActive 
+            ? 'bg-neutral-900 text-white border-neutral-900 shadow-sm' 
+            : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700 border-neutral-200/80'
+        }\`;
+        
+        pill.innerHTML = \`
+          <span>\${p.name}</span>
+          <span class="px-1.5 py-0.2 rounded-full text-[10px] font-bold \${isActive ? 'bg-neutral-700 text-neutral-100' : (p.count > 0 ? 'bg-blue-100 text-blue-700' : 'bg-neutral-200 text-neutral-500')}">
+            \${p.count}
+          </span>
+        \`;
+
+        pill.onclick = () => {
+          filters.protocol = p.id;
+          renderProtocolPills();
+          applyFilters();
+        };
+
+        container.appendChild(pill);
+      }
+
+      const activeLabel = filters.protocol === 'all' ? 'All Versions' : (filters.protocol === 'v4' ? 'Aave V4' : 'Aave V3');
+      document.getElementById('active-protocol-indicator').textContent = activeLabel;
+    }
+
     function updateDustBadge() {
       let dustCount = 0;
       for (const f of allFindings) {
@@ -1208,6 +1284,11 @@ ${balancesCacheMin}
       filteredFindings = allFindings.filter(f => {
         // Network filter
         if (filters.network !== 'all' && f.chainAlias !== filters.network) {
+          return false;
+        }
+
+        // Protocol version filter (v3 vs v4)
+        if (filters.protocol !== 'all' && getProtocolVersion(f) !== filters.protocol) {
           return false;
         }
 
@@ -1240,7 +1321,7 @@ ${balancesCacheMin}
       });
 
       // Show/hide reset button
-      const hasActiveFilters = filters.network !== 'all' || filters.category !== 'all' || filters.search !== '' || filters.hideDust;
+      const hasActiveFilters = filters.network !== 'all' || filters.protocol !== 'all' || filters.category !== 'all' || filters.search !== '' || filters.hideDust;
       document.getElementById('btn-reset-filters').classList.toggle('hidden', !hasActiveFilters);
 
       applySorting();
@@ -1866,6 +1947,7 @@ ${balancesCacheMin}
       // Reset filters button
       const resetAction = () => {
         filters.network = 'all';
+        filters.protocol = 'all';
         filters.category = 'all';
         filters.search = '';
         filters.hideDust = false;
@@ -1874,6 +1956,7 @@ ${balancesCacheMin}
         document.getElementById('category-filter').value = 'all';
         document.getElementById('dust-filter').checked = false;
         renderNetworkPills();
+        renderProtocolPills();
         applyFilters();
         showToast('Filters reset to default');
       };
