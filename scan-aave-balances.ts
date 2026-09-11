@@ -751,9 +751,7 @@ const V4_INVENTORY: V4ChainInventory[] = [
     chainId: 43114,
     chainAlias: 'avalanche',
     market: 'AaveV4Avalanche',
-    hubs: [
-      {name: 'CORE_HUB', address: '0xd07369fAE4A5BB13c9Ce446B052c7867B1AbDf6e'},
-    ],
+    hubs: [{name: 'CORE_HUB', address: '0xd07369fAE4A5BB13c9Ce446B052c7867B1AbDf6e'}],
     spokes: [
       {name: 'MAIN_SPOKE', address: '0x435272CefF93a1E657E8ABfdf0A13e95900A3a56'},
       {name: 'FOREX_SPOKE', address: '0x6a37776B5E026dBdF043b4F933c323C84DD1B514'},
@@ -965,9 +963,24 @@ export async function scanV4Chain(
 
   for (const asset of allHubAssets) {
     const balanceCalls: MulticallItem[] = [
-      {address: asset.underlying, abi: erc20Abi, functionName: 'balanceOf', args: [asset.hubAddress]},
-      {address: asset.hubAddress, abi: HUB_ABI, functionName: 'getAssetLiquidity', args: [BigInt(asset.assetId)]},
-      {address: asset.hubAddress, abi: HUB_ABI, functionName: 'getAssetAccruedFees', args: [BigInt(asset.assetId)]},
+      {
+        address: asset.underlying,
+        abi: erc20Abi,
+        functionName: 'balanceOf',
+        args: [asset.hubAddress],
+      },
+      {
+        address: asset.hubAddress,
+        abi: HUB_ABI,
+        functionName: 'getAssetLiquidity',
+        args: [BigInt(asset.assetId)],
+      },
+      {
+        address: asset.hubAddress,
+        abi: HUB_ABI,
+        functionName: 'getAssetAccruedFees',
+        args: [BigInt(asset.assetId)],
+      },
     ];
 
     const results = await executeMulticall(client, chain.chainId, balanceCalls, block);
@@ -987,9 +1000,10 @@ export async function scanV4Chain(
       const kind: FindingKind = diff > 0n ? 'v4-hub-surplus' : 'v4-hub-deficit';
       const price = priceMap.get(asset.underlying.toLowerCase());
       const priceUsd = price !== undefined ? formatUnits(price, oracleDecimals) : undefined;
-      const valueUsd = price !== undefined
-        ? calculateUsdValue(diff, asset.decimals, price, oracleUnitBn)
-        : undefined;
+      const valueUsd =
+        price !== undefined
+          ? calculateUsdValue(diff, asset.decimals, price, oracleUnitBn)
+          : undefined;
 
       findings.push({
         chainId: chain.chainId,
@@ -1037,20 +1051,41 @@ export async function scanV4Chain(
   type HolderDef = {address: Address; symbol: string; kind: FindingKind};
 
   const holdersToCheck: HolderDef[] = [
-    ...v4inv.spokes.map((s) => ({address: s.address, symbol: s.name, kind: 'v4-token-in-spoke' as FindingKind})),
-    ...v4inv.tokenizationSpokes.map((s) => ({address: s.address, symbol: s.name, kind: 'v4-token-in-tokenization-spoke' as FindingKind})),
-    ...v4inv.positionManagers.map((s) => ({address: s.address, symbol: s.name, kind: 'v4-token-in-position-manager' as FindingKind})),
+    ...v4inv.spokes.map((s) => ({
+      address: s.address,
+      symbol: s.name,
+      kind: 'v4-token-in-spoke' as FindingKind,
+    })),
+    ...v4inv.tokenizationSpokes.map((s) => ({
+      address: s.address,
+      symbol: s.name,
+      kind: 'v4-token-in-tokenization-spoke' as FindingKind,
+    })),
+    ...v4inv.positionManagers.map((s) => ({
+      address: s.address,
+      symbol: s.name,
+      kind: 'v4-token-in-position-manager' as FindingKind,
+    })),
   ];
 
   if (v4inv.treasurySpoke) {
-    holdersToCheck.push({address: v4inv.treasurySpoke, symbol: 'TREASURY_SPOKE', kind: 'v4-token-in-spoke'});
+    holdersToCheck.push({
+      address: v4inv.treasurySpoke,
+      symbol: 'TREASURY_SPOKE',
+      kind: 'v4-token-in-spoke',
+    });
   }
 
-  console.log(`  [V4] Checking ${holdersToCheck.length} contracts for stuck tokens across ${uniqueUnderlyings.size} assets...`);
+  console.log(
+    `  [V4] Checking ${holdersToCheck.length} contracts for stuck tokens across ${uniqueUnderlyings.size} assets...`
+  );
 
   // Build cartesian: holder x underlying
   const stuckCalls: MulticallItem[] = [];
-  type StuckCheckInfo = {holder: HolderDef; underlying: {address: Address; symbol: string; decimals: number}};
+  type StuckCheckInfo = {
+    holder: HolderDef;
+    underlying: {address: Address; symbol: string; decimals: number};
+  };
   const stuckChecks: StuckCheckInfo[] = [];
 
   for (const holder of holdersToCheck) {
@@ -1072,12 +1107,16 @@ export async function scanV4Chain(
   stuckChecks.forEach((check, idx) => {
     const balance = stuckResults[idx] ?? 0n;
     if (balance > 0n) {
-      holderStuckCount.set(check.holder.address.toLowerCase(), (holderStuckCount.get(check.holder.address.toLowerCase()) ?? 0) + 1);
+      holderStuckCount.set(
+        check.holder.address.toLowerCase(),
+        (holderStuckCount.get(check.holder.address.toLowerCase()) ?? 0) + 1
+      );
       const price = priceMap.get(check.underlying.address.toLowerCase());
       const priceUsd = price !== undefined ? formatUnits(price, oracleDecimals) : undefined;
-      const valueUsd = price !== undefined
-        ? calculateUsdValue(balance, check.underlying.decimals, price, oracleUnitBn)
-        : undefined;
+      const valueUsd =
+        price !== undefined
+          ? calculateUsdValue(balance, check.underlying.decimals, price, oracleUnitBn)
+          : undefined;
 
       findings.push({
         chainId: chain.chainId,
@@ -1119,13 +1158,19 @@ export async function scanV4Chain(
   }
 
   // Sort findings
-  findings.sort((a, b) => a.kind.localeCompare(b.kind) || a.tokenSymbol.localeCompare(b.tokenSymbol));
+  findings.sort(
+    (a, b) => a.kind.localeCompare(b.kind) || a.tokenSymbol.localeCompare(b.tokenSymbol)
+  );
 
   // Compute stats
   const allKinds: FindingKind[] = [
-    'v4-hub-surplus', 'v4-hub-deficit', 'v4-token-in-spoke',
-    'v4-token-in-tokenization-spoke', 'v4-token-in-position-manager',
-    'v4-hub-clean', 'v4-spoke-clean',
+    'v4-hub-surplus',
+    'v4-hub-deficit',
+    'v4-token-in-spoke',
+    'v4-token-in-tokenization-spoke',
+    'v4-token-in-position-manager',
+    'v4-hub-clean',
+    'v4-spoke-clean',
   ];
 
   const byKind: Record<string, {count: number; totalValueUsd: string}> = {};
@@ -1409,7 +1454,9 @@ async function main() {
     for (const v4inv of v4Chains) {
       const chain = CHAINS.find((c) => c.chainId === v4inv.chainId);
       if (!chain) {
-        console.warn(`No RPC config for V4 chain ${v4inv.chainAlias} (${v4inv.chainId}), skipping.`);
+        console.warn(
+          `No RPC config for V4 chain ${v4inv.chainAlias} (${v4inv.chainId}), skipping.`
+        );
         continue;
       }
       console.log(`\n>>> Scanning V4 ${v4inv.market} on ${chain.alias} (ID: ${chain.chainId})...`);
