@@ -32,6 +32,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import {
   createPublicClient,
+  encodeFunctionData,
   erc20Abi,
   formatUnits,
   http,
@@ -46,7 +47,6 @@ dotenv.config();
 // ============================================================================
 // Types
 // ============================================================================
-
 export type FindingKind =
   | 'underlying-surplus' // (a) aToken holding own underlying above virtual balance
   | 'token-in-pool' // (b) Pool contract holding underlying or aToken
@@ -310,7 +310,7 @@ function saveCache(cacheFile: string, cache: ScanCache): void {
 // Multicall Batch Executor
 // ============================================================================
 
-const CHUNK_SIZE = 1000;
+const VIEM_BATCH_SIZE = 100_000;
 
 type MulticallItem = {
   address: Address;
@@ -328,12 +328,30 @@ async function executeMulticall(
   const multicallAddress = getMulticallAddress(chainId);
   const results: (bigint | undefined)[] = [];
 
-  for (let i = 0; i < calls.length; i += CHUNK_SIZE) {
-    const chunk = calls.slice(i, i + CHUNK_SIZE);
+  for (let i = 0; i < calls.length;) {
+    let end = i;
+    let calldataBytes = 0;
+
+    while (end < calls.length) {
+      const call = calls[end];
+      const calldata = encodeFunctionData({
+        abi: call.abi as any,
+        functionName: call.functionName,
+        args: call.args as any,
+      });
+      const callBytes = (calldata.length - 2) / 2;
+      if (end > i && calldataBytes + callBytes > VIEM_BATCH_SIZE) break;
+      calldataBytes += callBytes;
+      end++;
+    }
+
+    const chunk = calls.slice(i, end);
+
     const res = await client.multicall({
       contracts: chunk as MulticallParameters['contracts'],
       multicallAddress,
       blockNumber,
+      batchSize: VIEM_BATCH_SIZE,
       allowFailure: true,
     });
     for (const r of res) {
@@ -341,6 +359,8 @@ async function executeMulticall(
         r.status === 'success' && r.result !== undefined ? BigInt(r.result as bigint) : undefined
       );
     }
+
+    i = end;
   }
   return results;
 }
@@ -422,7 +442,7 @@ export async function scanChain(
       retryDelay: 1_000,
     }),
     batch: {
-      multicall: true,
+      multicall: {batchSize: VIEM_BATCH_SIZE},
     },
   });
 
@@ -790,7 +810,7 @@ export async function scanV4Chain(
   const client: any = createPublicClient({
     chain: chainDef as any,
     transport: http(rpcUrl, {batch: false, timeout: 60_000, retryCount: 3, retryDelay: 1_000}),
-    batch: {multicall: true},
+    batch: {multicall: {batchSize: VIEM_BATCH_SIZE}},
   });
 
   // Determine block
@@ -855,6 +875,7 @@ export async function scanV4Chain(
       contracts: assetInfoCalls as any,
       multicallAddress,
       blockNumber: block,
+      batchSize: VIEM_BATCH_SIZE,
       allowFailure: true,
     });
 
