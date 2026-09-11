@@ -310,7 +310,7 @@ function saveCache(cacheFile: string, cache: ScanCache): void {
 // Multicall Batch Executor
 // ============================================================================
 
-const CHUNK_SIZE = 250;
+const CHUNK_SIZE = 1000;
 
 type MulticallItem = {
   address: Address;
