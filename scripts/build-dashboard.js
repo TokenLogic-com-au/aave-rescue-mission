@@ -23,12 +23,12 @@ const balancesCacheRaw = fs.readFileSync(balancesCachePath, "utf8");
 const balancesCacheMin = JSON.stringify(JSON.parse(balancesCacheRaw));
 
 const htmlContent = `<!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aave V3 — Balances & Surplus Dashboard | TokenLogic</title>
-  <meta name="description" content="Aave V3: Interactive Balances, Surplus, and Stuck Token Dashboard across 20+ EVM Networks." />
+  <title>Aave V3 & V4 — Balances & Surplus Dashboard | TokenLogic</title>
+  <meta name="description" content="Aave V3 & V4: Interactive Balances, Surplus, and Stuck Token Dashboard across 21 EVM Networks." />
   <link rel="icon" href="https://www.tokenlogic.xyz/figma/imagotype.svg" type="image/svg+xml" />
 
   <!-- Inter font -->
@@ -44,37 +44,39 @@ const htmlContent = `<!DOCTYPE html>
       theme: {
         extend: {
           colors: {
-            /* TokenLogic design system tokens — dark mode resolved values */
+            /* TokenLogic design system tokens — Day / Bright mode values */
             tl: {
               /* bg tokens */
-              'bg-base':       '#18181b',  /* neutral.900 */
-              'bg-canvas':     '#09090b',  /* neutral.950 */
-              'bg-subtle':     '#27272a',  /* neutral.800 */
-              'bg-component':  '#27272a',  /* neutral.800 */
-              'bg-hover':      '#09090b',  /* neutral.950 */
+              'bg-base':       '#ffffff',  /* neutral.0 */
+              'bg-canvas':     '#fafafa',  /* neutral.50 */
+              'bg-subtle':     '#f4f4f5',  /* neutral.100 */
+              'bg-component':  '#ffffff',  /* neutral.0 */
+              'bg-hover':      '#f4f4f5',  /* neutral.100 */
               /* fg tokens */
-              'fg-base':       '#f4f4f5',  /* neutral.100 */
-              'fg-subtle':     '#a1a1aa',  /* neutral.400 */
+              'fg-base':       '#09090b',  /* neutral.950 */
+              'fg-subtle':     '#52525b',  /* neutral.600 */
               'fg-muted':      '#71717a',  /* neutral.500 */
-              'fg-disabled':   '#52525b',  /* neutral.600 */
+              'fg-disabled':   '#a1a1aa',  /* neutral.400 */
               /* border tokens */
-              'border-base':   'rgba(255,255,255,0.10)',
-              'border-muted':  'rgba(255,255,255,0.06)',
+              'border-base':   'rgba(0, 0, 0, 0.10)',
+              'border-muted':  'rgba(0, 0, 0, 0.06)',
               /* accent */
-              'accent':        '#60a5fa',  /* blue.400 */
-              'accent-muted':  '#172554',  /* blue.950 */
+              'accent':        '#2563eb',  /* blue.600 */
+              'accent-muted':  '#eff6ff',  /* blue.50 */
+              'accent-border': '#bfdbfe',  /* blue.200 */
               /* status */
-              'success':       '#34d399',  /* green.400 */
-              'success-muted': '#022c22',  /* green.950 */
-              'success-border':'#064e3b',  /* green.900 */
-              'error':         '#fb7185',  /* red.400 */
-              'error-muted':   '#4c0519',  /* red.950 */
-              'error-border':  '#881337',  /* rose.900 */
-              'warning':       '#fb923c',  /* orange.400 */
-              'warning-muted': '#431407',  /* orange.950 */
-              'warning-border':'#7c2d12',  /* orange.900 */
+              'success':       '#059669',  /* green.600 */
+              'success-muted': '#ecfdf5',  /* green.50 */
+              'success-border':'#a7f3d0',  /* green.200 */
+              'error':         '#dc2626',  /* red.600 */
+              'error-muted':   '#fef2f2',  /* red.50 */
+              'error-border':  '#fecaca',  /* red.200 */
+              'warning':       '#ea580c',  /* orange.600 */
+              'warning-muted': '#fff7ed',  /* orange.50 */
+              'warning-border':'#fed7aa',  /* orange.200 */
               /* chart / brand */
-              'aave':          '#9896FF',
+              'aave':          '#7976FF',
+              'aave-muted':    '#f5f3ff',
             }
           },
           fontFamily: {
@@ -91,8 +93,8 @@ const htmlContent = `<!DOCTYPE html>
             'card': '0.25rem',  /* matches surface recipe rounded: 4 */
           },
           boxShadow: {
-            'card': '0 0 0 1px rgba(0,0,0,0.10), 0 1px 2px -1px rgba(0,0,0,0.08), 0 2px 4px 0 rgba(0,0,0,0.04)',
-            'card-outlined': '0 0 0 1px rgba(0,0,0,0.10)',
+            'card': '0 0 0 1px rgba(0, 0, 0, 0.10), 0 1px 2px -1px rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.04)',
+            'card-outlined': '0 0 0 1px rgba(0, 0, 0, 0.10)',
           }
         }
       }
@@ -108,14 +110,14 @@ const htmlContent = `<!DOCTYPE html>
       height: 8px;
     }
     ::-webkit-scrollbar-track {
-      background: #09090b;
+      background: #fafafa;
     }
     ::-webkit-scrollbar-thumb {
-      background: #27272a;
+      background: #d4d4d8;
       border-radius: 4px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #3f3f46;
+      background: #a1a1aa;
     }
 
     /* Table row transition */
@@ -134,46 +136,46 @@ const htmlContent = `<!DOCTYPE html>
   </style>
 </head>
 
-<body class="bg-tl-bg-canvas text-tl-fg-base min-h-screen font-sans selection:bg-blue-600/30 selection:text-blue-200 antialiased flex flex-col">
+<body class="bg-tl-bg-canvas text-tl-fg-base min-h-screen font-sans selection:bg-blue-100 selection:text-blue-900 antialiased flex flex-col">
 
   <!-- ==================================================================== -->
   <!-- TOP NAVIGATION BAR                                                   -->
   <!-- ==================================================================== -->
-  <header class="sticky top-0 z-30 bg-tl-bg-base border-b border-tl-border-base">
+  <header class="sticky top-0 z-30 bg-tl-bg-base border-b border-tl-border-base shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-12 flex items-center justify-between">
       
       <!-- Logos & Title -->
       <div class="flex items-center gap-2.5">
-        <a href="https://www.tokenlogic.xyz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center" title="TokenLogic">
+        <a href="https://tokenlogic.xyz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center" title="TokenLogic">
           <img 
-            src="./assets/tokenlogic-logo.svg" 
+            src="./assets/tokenlogic-logo-dark.svg" 
             alt="TokenLogic" 
-            class="h-[26px] w-auto"
+            class="h-[24px] w-auto"
           />
         </a>
 
         <!-- Diagonal separator matching hub's 120deg rotated line -->
         <div class="flex items-center justify-center w-2.5 h-[17px] relative">
-          <svg width="20" height="2" viewBox="0 0 20 2" aria-hidden="true" class="text-tl-border-base" style="transform: rotate(120deg); transform-origin: center;">
+          <svg width="20" height="2" viewBox="0 0 20 2" aria-hidden="true" class="text-neutral-300" style="transform: rotate(120deg); transform-origin: center;">
             <line x1="0" y1="1" x2="20" y2="1" stroke="currentColor" stroke-width="1" />
           </svg>
         </div>
 
         <a href="https://aave.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center" title="Aave">
           <img 
-            src="./assets/aave-logo.svg" 
+            src="./assets/aave-logo-dark.svg" 
             alt="Aave" 
-            class="h-5 w-auto"
+            class="h-4 sm:h-[18px] w-auto"
           />
         </a>
 
         <!-- Vertical separator -->
-        <svg width="1" height="16" viewBox="0 0 1 16" aria-hidden="true" class="text-tl-border-base hidden sm:block">
+        <svg width="1" height="16" viewBox="0 0 1 16" aria-hidden="true" class="text-neutral-200 hidden sm:block">
           <line x1="0.5" y1="0" x2="0.5" y2="16" stroke="currentColor" />
         </svg>
 
         <div class="hidden lg:flex flex-col">
-          <span class="text-xs font-semibold uppercase tracking-wider text-tl-aave">BALANCES</span>
+          <span class="text-xs font-semibold uppercase tracking-wider text-tl-accent">BALANCES</span>
           <span class="text-2xs text-tl-fg-muted">Surplus & Stuck Token Dashboard</span>
         </div>
       </div>
@@ -184,7 +186,7 @@ const htmlContent = `<!DOCTYPE html>
           href="https://github.com/TokenLogic-com-au/aave-rescue-mission" 
           target="_blank" 
           rel="noopener noreferrer" 
-          class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-tl-accent-muted hover:bg-blue-900 text-tl-accent border border-blue-800 font-medium transition"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-tl-bg-subtle hover:bg-neutral-200 text-tl-fg-base border border-tl-border-base font-medium transition"
         >
           <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
@@ -199,31 +201,31 @@ const htmlContent = `<!DOCTYPE html>
   <!-- ==================================================================== -->
   <!-- HERO BANNER                                                          -->
   <!-- ==================================================================== -->
-  <section class="border-b border-tl-border-base bg-gradient-to-b from-tl-bg-base to-tl-bg-canvas py-8 sm:py-10">
+  <section class="border-b border-tl-border-base bg-tl-bg-base py-8 sm:py-10 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-tl-accent-muted border border-blue-800 text-tl-accent text-xs font-medium mb-3">
-            <span class="w-1.5 h-1.5 rounded-full bg-tl-aave"></span>
-            Aave V3 • On-Chain Balance Audit
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-tl-accent-muted border border-tl-accent-border text-tl-accent text-xs font-medium mb-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-tl-accent"></span>
+            Aave V3 & V4 • On-Chain Balance Audit
           </div>
-          <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white">
-            Aave V3
-            <span class="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-300 to-indigo-400 mt-1">
+          <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-tl-fg-base">
+            Aave V3 & V4
+            <span class="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 mt-1">
               Balances & Surplus Dashboard
             </span>
           </h1>
-          <p id="hero-subtitle" class="mt-2 text-sm sm:text-base text-tl-fg-muted max-w-3xl leading-relaxed">
-            Multi-chain deterministic audit of rescueable underlying surplus, stuck tokens in pool contracts, foreign aToken holdings, and self-held aTokens. All values verified against pinned blocks via Aave Oracle feeds.
+          <p id="hero-subtitle" class="mt-2 text-sm sm:text-base text-tl-fg-subtle max-w-3xl leading-relaxed">
+            Multi-chain deterministic audit of rescueable underlying surplus, stuck tokens in pool & hub contracts, foreign aToken holdings, and self-held aTokens. All values verified against pinned blocks via Aave Oracle feeds.
           </p>
         </div>
 
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <button 
             id="btn-export-csv"
-            class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-tl-bg-canvas hover:bg-tl-bg-subtle text-tl-fg-base border border-tl-border-base font-medium text-sm transition shadow-sm"
+            class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded bg-tl-bg-base hover:bg-tl-bg-subtle text-tl-fg-base border border-tl-border-base font-medium text-sm transition shadow-sm"
           >
-            <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
             Export CSV
@@ -231,9 +233,9 @@ const htmlContent = `<!DOCTYPE html>
 
           <button 
             id="btn-export-json"
-            class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-tl-bg-canvas hover:bg-tl-bg-subtle text-tl-fg-base border border-tl-border-base font-medium text-sm transition shadow-sm"
+            class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded bg-tl-bg-base hover:bg-tl-bg-subtle text-tl-fg-base border border-tl-border-base font-medium text-sm transition shadow-sm"
           >
-            <svg class="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
             </svg>
             Export JSON
@@ -252,77 +254,77 @@ const htmlContent = `<!DOCTYPE html>
     <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       
       <!-- Card 1: Rescueable Surplus -->
-      <div class="bg-tl-bg-base border border-tl-border-base rounded-card p-5 shadow-card relative overflow-hidden group hover:border-emerald-500/40 transition">
-        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-400"></div>
+      <div class="bg-tl-bg-base border border-tl-border-base rounded-card p-5 shadow-card relative overflow-hidden group hover:border-black/20 transition">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-emerald-500"></div>
         <div class="flex items-center justify-between">
           <span class="text-xs font-semibold uppercase tracking-wider text-tl-fg-muted">Rescueable Surplus</span>
-          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+          <div class="w-8 h-8 rounded bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
             </svg>
           </div>
         </div>
         <div class="mt-3">
-          <div id="metric-surplus" class="text-2xl sm:text-3xl font-extrabold font-mono text-emerald-400 tracking-tight glow-emerald">
+          <div id="metric-surplus" class="text-2xl sm:text-3xl font-extrabold font-mono text-emerald-600 tracking-tight">
             $0.00
           </div>
           <p class="mt-1 text-xs text-tl-fg-muted flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
             <span>Positive recoverable asset value</span>
           </p>
         </div>
       </div>
 
       <!-- Card 2: Deficit -->
-      <div class="bg-tl-bg-base border border-tl-border-base rounded-card p-5 shadow-card relative overflow-hidden group hover:border-rose-500/40 transition">
-        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-rose-500 to-red-400"></div>
+      <div class="bg-tl-bg-base border border-tl-border-base rounded-card p-5 shadow-card relative overflow-hidden group hover:border-black/20 transition">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-red-500"></div>
         <div class="flex items-center justify-between">
           <span class="text-xs font-semibold uppercase tracking-wider text-tl-fg-muted">System Deficit</span>
-          <div class="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400">
+          <div class="w-8 h-8 rounded bg-red-50 border border-red-200 flex items-center justify-center text-red-600">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
             </svg>
           </div>
         </div>
         <div class="mt-3">
-          <div id="metric-deficit" class="text-2xl sm:text-3xl font-extrabold font-mono text-rose-400 tracking-tight glow-rose">
+          <div id="metric-deficit" class="text-2xl sm:text-3xl font-extrabold font-mono text-red-600 tracking-tight">
             $0.00
           </div>
           <p class="mt-1 text-xs text-tl-fg-muted flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
             <span>Underlying below virtual balance</span>
           </p>
         </div>
       </div>
 
       <!-- Card 3: Net Total -->
-      <div class="bg-tl-bg-base border border-tl-border-base rounded-card p-5 shadow-card relative overflow-hidden group hover:border-cyan-500/40 transition">
-        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-indigo-500 to-purple-500"></div>
+      <div class="bg-tl-bg-base border border-tl-border-base rounded-card p-5 shadow-card relative overflow-hidden group hover:border-black/20 transition">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-indigo-600"></div>
         <div class="flex items-center justify-between">
           <span class="text-xs font-semibold uppercase tracking-wider text-tl-fg-muted">Net Total Value</span>
-          <div class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+          <div class="w-8 h-8 rounded bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
             </svg>
           </div>
         </div>
         <div class="mt-3">
-          <div id="metric-net" class="text-2xl sm:text-3xl font-extrabold font-mono text-cyan-300 tracking-tight glow-cyan">
+          <div id="metric-net" class="text-2xl sm:text-3xl font-extrabold font-mono text-neutral-950 tracking-tight">
             $0.00
           </div>
           <p class="mt-1 text-xs text-tl-fg-muted flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
             <span>Surplus minus systemic deficit</span>
           </p>
         </div>
       </div>
 
       <!-- Card 4: Total Findings Count -->
-      <div class="bg-tl-bg-base border border-tl-border-base rounded-card p-5 shadow-card relative overflow-hidden group hover:border-purple-500/40 transition">
+      <div class="bg-tl-bg-base border border-tl-border-base rounded-card p-5 shadow-card relative overflow-hidden group hover:border-black/20 transition">
         <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500"></div>
         <div class="flex items-center justify-between">
           <span class="text-xs font-semibold uppercase tracking-wider text-tl-fg-muted">Active Findings</span>
-          <div class="w-8 h-8 rounded-lg bg-tl-accent-muted border border-blue-800 flex items-center justify-center text-tl-aave">
+          <div class="w-8 h-8 rounded bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-600">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
             </svg>
@@ -333,7 +335,7 @@ const htmlContent = `<!DOCTYPE html>
             0
           </div>
           <p id="metric-count-sub" class="mt-1 text-xs text-tl-fg-muted flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-tl-aave"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
             <span>Across all active filters</span>
           </p>
         </div>
@@ -397,10 +399,15 @@ const htmlContent = `<!DOCTYPE html>
             class="w-full appearance-none px-3.5 py-2 pr-9 rounded-lg bg-tl-bg-canvas border border-tl-border-base text-tl-fg-base text-sm focus:outline-none focus:border-tl-accent focus:ring-1 focus:ring-tl-accent transition cursor-pointer"
           >
             <option value="all">All Finding Types</option>
-            <option value="underlying-surplus">Underlying Surplus & Deficit</option>
-            <option value="token-in-pool">Token in Pool (Stuck)</option>
-            <option value="foreign-token-in-atoken">Foreign Token in aToken</option>
-            <option value="atoken-in-itself">aToken in itself</option>
+            <option value="underlying-surplus">V3: Underlying Surplus & Deficit</option>
+            <option value="token-in-pool">V3: Token in Pool (Stuck)</option>
+            <option value="foreign-token-in-atoken">V3: Foreign Token in aToken</option>
+            <option value="atoken-in-itself">V3: aToken in itself</option>
+            <option value="v4-hub-surplus">V4: Hub Surplus</option>
+            <option value="v4-hub-deficit">V4: Hub Deficit</option>
+            <option value="v4-token-in-spoke">V4: Token in Spoke (Stuck)</option>
+            <option value="v4-token-in-tokenization-spoke">V4: Token in TokenizationSpoke</option>
+            <option value="v4-token-in-position-manager">V4: Token in PositionManager</option>
           </select>
           <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-tl-fg-muted">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1141,10 +1148,10 @@ ${balancesCacheMin}
       const isAllActive = filters.network === 'all';
       allPill.className = \`px-3 py-1.5 rounded-full text-xs font-medium transition shrink-0 flex items-center gap-1.5 border \${
         isAllActive 
-          ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-purple-400/50 shadow-md shadow-purple-900/30' 
-          : 'bg-tl-bg-canvas hover:bg-tl-bg-subtle text-tl-fg-subtle border-tl-border-base'
+          ? 'bg-neutral-900 text-white border-neutral-900 shadow-sm' 
+          : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700 border-neutral-200/80'
       }\`;
-      allPill.innerHTML = \`<span>All Networks</span> <span class="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-black/30">\${allFindings.length}</span>\`;
+      allPill.innerHTML = \`<span>All Networks</span> <span class="px-1.5 py-0.2 rounded-full text-[10px] font-bold \${isAllActive ? 'bg-neutral-700 text-neutral-100' : 'bg-neutral-200 text-neutral-700'}">\${allFindings.length}</span>\`;
       allPill.onclick = () => {
         filters.network = 'all';
         renderNetworkPills();
@@ -1160,13 +1167,13 @@ ${balancesCacheMin}
         const isActive = filters.network === c.alias;
         pill.className = \`px-3 py-1.5 rounded-full text-xs font-medium transition shrink-0 flex items-center gap-1.5 border \${
           isActive 
-            ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-purple-400/50 shadow-md shadow-purple-900/30' 
-            : 'bg-tl-bg-canvas hover:bg-tl-bg-subtle text-tl-fg-subtle border-tl-border-base'
+            ? 'bg-neutral-900 text-white border-neutral-900 shadow-sm' 
+            : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700 border-neutral-200/80'
         }\`;
         
         pill.innerHTML = \`
           <span>\${c.name}</span>
-          <span class="px-1.5 py-0.2 rounded-full text-[10px] font-bold \${c.count > 0 ? 'bg-tl-accent-muted text-blue-200' : 'bg-tl-bg-subtle text-tl-fg-disabled'}">
+          <span class="px-1.5 py-0.2 rounded-full text-[10px] font-bold \${isActive ? 'bg-neutral-700 text-neutral-100' : (c.count > 0 ? 'bg-blue-100 text-blue-700' : 'bg-neutral-200 text-neutral-500')}">
             \${c.count}
           </span>
         \`;
@@ -1339,29 +1346,39 @@ ${balancesCacheMin}
         
         // Value styling
         const valNum = parseFloat(f.valueUsd || '0');
-        let valColorClass = 'text-tl-fg-muted';
+        let valColorClass = 'text-neutral-400';
         let valPrefix = '';
         if (valNum > 0) {
-          valColorClass = 'text-emerald-400 font-semibold';
+          valColorClass = 'text-emerald-600 font-semibold';
           valPrefix = '+';
         } else if (valNum < 0) {
-          valColorClass = 'text-rose-400 font-semibold';
+          valColorClass = 'text-red-600 font-semibold';
         }
 
         // Kind Badge
         let kindBadge = '';
         if (f.kind === 'underlying-surplus') {
           if (valNum < 0 || (f.amount && f.amount.startsWith('-'))) {
-            kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-tl-error-muted text-tl-error border border-tl-error-border">Deficit</span>';
+            kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-red-50 text-red-700 border border-red-200">Deficit</span>';
           } else {
-            kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-tl-success-muted text-tl-success border border-tl-success-border">Surplus</span>';
+            kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">Surplus</span>';
           }
         } else if (f.kind === 'token-in-pool') {
-          kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-tl-warning-muted text-tl-warning border border-tl-warning-border">Token in Pool</span>';
+          kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-800 border border-amber-200">Token in Pool</span>';
         } else if (f.kind === 'foreign-token-in-atoken') {
-          kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-tl-accent-muted text-tl-accent border border-blue-800">Foreign in aToken</span>';
+          kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-blue-50 text-blue-700 border border-blue-200">Foreign in aToken</span>';
         } else if (f.kind === 'atoken-in-itself') {
-          kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-tl-accent-muted text-tl-accent border border-blue-800">aToken in itself</span>';
+          kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-purple-50 text-purple-700 border border-purple-200">aToken in itself</span>';
+        } else if (f.kind === 'v4-hub-surplus') {
+          kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">V4 Hub Surplus</span>';
+        } else if (f.kind === 'v4-hub-deficit') {
+          kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-red-50 text-red-700 border border-red-200">V4 Hub Deficit</span>';
+        } else if (f.kind === 'v4-token-in-spoke') {
+          kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-800 border border-amber-200">V4 Stuck in Spoke</span>';
+        } else if (f.kind === 'v4-token-in-tokenization-spoke') {
+          kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-800 border border-amber-200">V4 Stuck in TSpoke</span>';
+        } else if (f.kind === 'v4-token-in-position-manager') {
+          kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-800 border border-amber-200">V4 Stuck in PM</span>';
         }
 
         // Virtual balance display
@@ -1379,7 +1396,7 @@ ${balancesCacheMin}
 
         html += \`
           <tr 
-            class="hover:bg-tl-bg-subtle/60 cursor-pointer group"
+            class="hover:bg-neutral-50/90 cursor-pointer group transition"
             onclick="openDrawerByIndex(\${globalIdx})"
           >
             <!-- Network & Market -->
@@ -1622,6 +1639,21 @@ ${balancesCacheMin}
       } else if (finding.kind === 'atoken-in-itself') {
         kindBadgeEl.textContent = 'aToken in itself (Self-holding)';
         kindBadgeEl.className = 'px-2.5 py-0.5 rounded-full text-xs font-medium bg-tl-accent-muted text-tl-accent border border-blue-800';
+      } else if (finding.kind === 'v4-hub-surplus') {
+        kindBadgeEl.textContent = 'V4 Hub Surplus';
+        kindBadgeEl.className = 'px-2.5 py-0.5 rounded-full text-xs font-medium bg-tl-success-muted text-tl-success border border-tl-success-border';
+      } else if (finding.kind === 'v4-hub-deficit') {
+        kindBadgeEl.textContent = 'V4 Hub Deficit';
+        kindBadgeEl.className = 'px-2.5 py-0.5 rounded-full text-xs font-medium bg-tl-error-muted text-tl-error border border-tl-error-border';
+      } else if (finding.kind === 'v4-token-in-spoke') {
+        kindBadgeEl.textContent = 'V4 Stuck in Spoke';
+        kindBadgeEl.className = 'px-2.5 py-0.5 rounded-full text-xs font-medium bg-tl-warning-muted text-tl-warning border border-tl-warning-border';
+      } else if (finding.kind === 'v4-token-in-tokenization-spoke') {
+        kindBadgeEl.textContent = 'V4 Stuck in Tokenization Spoke';
+        kindBadgeEl.className = 'px-2.5 py-0.5 rounded-full text-xs font-medium bg-tl-warning-muted text-tl-warning border border-tl-warning-border';
+      } else if (finding.kind === 'v4-token-in-position-manager') {
+        kindBadgeEl.textContent = 'V4 Stuck in Position Manager';
+        kindBadgeEl.className = 'px-2.5 py-0.5 rounded-full text-xs font-medium bg-tl-warning-muted text-tl-warning border border-tl-warning-border';
       }
 
       // Financial breakdown
@@ -1641,12 +1673,9 @@ ${balancesCacheMin}
       document.getElementById('drawer-holder-symbol').textContent = finding.holderSymbol || 'Holder';
       document.getElementById('drawer-holder-addr').textContent = finding.holder;
       document.getElementById('link-holder-explorer').href = getExplorerAddressUrl(finding.chainId, finding.holder);
-
-      document.getElementById('drawer-token-symbol').textContent = finding.tokenSymbol || 'TOKEN';
+      document.getElementById('drawer-token-symbol').textContent = finding.tokenSymbol || 'Token';
       document.getElementById('drawer-token-addr').textContent = finding.token;
       document.getElementById('link-token-explorer').href = getExplorerAddressUrl(finding.chainId, finding.token);
-
-      // Block Pinning
       document.getElementById('drawer-pinned-block').textContent = '#' + (finding.pinnedBlock ? finding.pinnedBlock.toLocaleString('en-US') : 'Unknown');
       if (finding.pinnedBlock) {
         document.getElementById('link-pinned-block').href = getExplorerBlockUrl(finding.chainId, finding.pinnedBlock);
@@ -1667,6 +1696,16 @@ ${balancesCacheMin}
         expEl.textContent = 'Foreign Asset: This aToken contract holds an ERC-20 token different from its own underlying asset. These usually result from accidental user transfers or distributions and can be recovered via governance rescue proposals.';
       } else if (finding.kind === 'atoken-in-itself') {
         expEl.textContent = 'Self-Holding: The aToken holds a balance of its own token address. This commonly happens when tokens are mistakenly minted or transferred to the token contract itself, and can be rescued through governance intervention.';
+      } else if (finding.kind === 'v4-hub-surplus') {
+        expEl.textContent = 'V4 Hub Surplus: The ERC-20 balance held by this V4 Hub exceeds its accounting balance (liquidity + accrued fees). This surplus can be rescued by the protocol.';
+      } else if (finding.kind === 'v4-hub-deficit') {
+        expEl.textContent = 'V4 Hub Deficit: The ERC-20 balance held by this V4 Hub is lower than its accounting balance (liquidity + accrued fees). This may reflect accrued protocol interest or uncollected fees.';
+      } else if (finding.kind === 'v4-token-in-spoke') {
+        expEl.textContent = 'V4 Stuck Token in Spoke: Aave V4 Spokes do not custody underlying tokens (all liquidity is held in Hubs). Any non-zero ERC-20 balance indicates tokens sent mistakenly to the Spoke contract.';
+      } else if (finding.kind === 'v4-token-in-tokenization-spoke') {
+        expEl.textContent = 'V4 Stuck Token in Tokenization Spoke: Tokenization Spokes act as ERC-4626 pass-through vaults and should not hold persistent token balances. Any positive balance is rescueable.';
+      } else if (finding.kind === 'v4-token-in-position-manager') {
+        expEl.textContent = 'V4 Stuck Token in Position Manager: Position Managers and Gateways are transient execution routers. Any persistent token balance indicates stuck funds that can be rescued by the rescue guardian.';
       }
 
       // Note
