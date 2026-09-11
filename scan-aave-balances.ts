@@ -974,9 +974,11 @@ export async function scanV4Chain(
     const accruedFees = results[2] ?? 0n;
     totalChecks += 1;
 
-    // The Hub should hold at least liquidity + accrued fees
-    // (swept amounts are held externally, so we don't add those)
-    const expectedBalance = liquidity + accruedFees;
+    // In Aave V4, asset.liquidity tracks the exact unborrowed underlying balance
+    // held in the Hub contract. Accrued fees represent interest owed by borrowers,
+    // which mints shares to the fee receiver rather than physical tokens.
+    // Therefore, the Hub expected balance is asset.liquidity.
+    const expectedBalance = liquidity;
     const diff = erc20Balance - expectedBalance;
 
     if (diff !== 0n) {
