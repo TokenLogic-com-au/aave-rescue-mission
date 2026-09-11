@@ -1,11 +1,15 @@
 /**
- * Standalone Aave V3 Balance & Surplus Scanner (Viem)
+ * Standalone Aave V3 + V4 Balance & Surplus Scanner (Viem)
  *
- * Checks:
+ * V3 Checks:
  *   a) aToken balance of own underlying minus virtual balance (surplus / deficit)
  *   b) Each Aave-supported token (underlyings and aTokens) balance in:
  *      - Pool (should be 0)
  *      - All aTokens (foreign underlyings, other aTokens, self-holding; should be 0)
+ *
+ * V4 Checks:
+ *   a) Hub ERC-20 balance vs Hub accounting (getAssetLiquidity) for each Hub asset
+ *   b) Any ERC-20 balances in Spokes, TokenizationSpokes, PositionManagers (should be 0)
  *
  * Features:
  *   - Aggregates totals by value per network and per market (Rescueable Surplus, Deficits, Net).
@@ -17,6 +21,7 @@
  * Usage:
  *   npx tsx scan-aave-balances.ts --chain polygon
  *   npx tsx scan-aave-balances.ts --chain mainnet
+ *   npx tsx scan-aave-balances.ts --chain mainnet --v4     # scan V4 Hubs/Spokes on mainnet
  *   npx tsx scan-aave-balances.ts --all
  *   npx tsx scan-aave-balances.ts --summary                  # print cached totals without RPC calls
  *   npx tsx scan-aave-balances.ts --chain arbitrum --repin   # force re-pin to latest block
@@ -46,7 +51,14 @@ export type FindingKind =
   | 'underlying-surplus' // (a) aToken holding own underlying above virtual balance
   | 'token-in-pool' // (b) Pool contract holding underlying or aToken
   | 'foreign-token-in-atoken' // (b) aToken holding a foreign underlying or another aToken
-  | 'atoken-in-itself'; // (b) aToken holding its own token address
+  | 'atoken-in-itself' // (b) aToken holding its own token address
+  | 'v4-hub-surplus' // V4: Hub ERC-20 balance exceeds accounting (liquidity + fees)
+  | 'v4-hub-deficit' // V4: Hub ERC-20 balance below accounting
+  | 'v4-token-in-spoke' // V4: Token stuck in a Spoke (should be 0)
+  | 'v4-token-in-tokenization-spoke' // V4: Token stuck in a TokenizationSpoke
+  | 'v4-token-in-position-manager' // V4: Token stuck in a PositionManager
+  | 'v4-hub-clean' // V4: Hub ERC-20 balance matches accounting (0 diff)
+  | 'v4-spoke-clean'; // V4: Spoke / PM verified clean (0 stuck tokens)
 
 export type Finding = {
   chainId: number;
@@ -174,6 +186,28 @@ const ORACLE_ABI = parseAbi([
 ]);
 
 // ============================================================================
+// V4 ABIs
+// ============================================================================
+
+const HUB_ABI = parseAbi([
+  'function getAssetCount() view returns (uint256)',
+  'function getAssetUnderlyingAndDecimals(uint256 assetId) view returns (address, uint8)',
+  'function getAssetLiquidity(uint256 assetId) view returns (uint256)',
+  'function getAssetSwept(uint256 assetId) view returns (uint256)',
+  'function getAssetAccruedFees(uint256 assetId) view returns (uint256)',
+]);
+
+const SPOKE_ABI = parseAbi([
+  'function getReserveCount() view returns (uint256)',
+  'function ORACLE() view returns (address)',
+]);
+
+const V4_ORACLE_ABI = parseAbi([
+  'function getReservePrice(uint256 reserveId) view returns (uint256)',
+  'function decimals() view returns (uint8)',
+]);
+
+// ============================================================================
 // USD Arithmetic Helpers (Pure integer cents to prevent floating errors)
 // ============================================================================
 
@@ -276,7 +310,7 @@ function saveCache(cacheFile: string, cache: ScanCache): void {
 // Multicall Batch Executor
 // ============================================================================
 
-const CHUNK_SIZE = 250;
+const CHUNK_SIZE = 1000;
 
 type MulticallItem = {
   address: Address;
@@ -286,7 +320,7 @@ type MulticallItem = {
 };
 
 async function executeMulticall(
-  client: ReturnType<typeof createPublicClient>,
+  client: any,
   chainId: number,
   calls: MulticallItem[],
   blockNumber: bigint
@@ -642,6 +676,542 @@ export async function scanChain(
 }
 
 // ============================================================================
+// V4 Inventory & Scanning
+// ============================================================================
+
+export type V4ChainInventory = {
+  chainId: number;
+  chainAlias: string;
+  market: string; // e.g. "AaveV4Ethereum"
+  hubs: {name: string; address: Address}[];
+  spokes: {name: string; address: Address}[];
+  tokenizationSpokes: {name: string; address: Address}[];
+  positionManagers: {name: string; address: Address}[];
+  treasurySpoke?: Address;
+};
+
+const V4_INVENTORY: V4ChainInventory[] = [
+  {
+    chainId: 1,
+    chainAlias: 'mainnet',
+    market: 'AaveV4Ethereum',
+    hubs: [
+      {name: 'CORE_HUB', address: '0xCca852Bc40e560adC3b1Cc58CA5b55638ce826c9'},
+      {name: 'PLUS_HUB', address: '0x06002e9c4412CB7814a791eA3666D905871E536A'},
+      {name: 'PRIME_HUB', address: '0x943827DCA022D0F354a8a8c332dA1e5Eb9f9F931'},
+      {name: 'GLOBAL_DOLLAR_HUB', address: '0x62d63197660c080236193CA60b70E49A08E90368'},
+    ],
+    spokes: [
+      {name: 'MAIN_SPOKE', address: '0x94e7A5dCbE816e498b89aB752661904E2F56c485'},
+      {name: 'BLUECHIP_SPOKE', address: '0x973a023A77420ba610f06b3858aD991Df6d85A08'},
+      {name: 'ETHENA_CORRELATED_SPOKE', address: '0x58131E79531caB1d52301228d1f7b842F26B9649'},
+      {name: 'ETHENA_ECOSYSTEM_SPOKE', address: '0xba1B3D55D249692b669A164024A838309B7508AF'},
+      {name: 'FOREX_SPOKE', address: '0xD8B93635b8C6d0fF98CbE90b5988E3F2d1Cd9da1'},
+      {name: 'GOLD_SPOKE', address: '0x65407b940966954b23dfA3caA5C0702bB42984DC'},
+      {name: 'LOMBARD_BTC_SPOKE', address: '0x7EC68b5695e803e98a21a9A05d744F28b0a7753D'},
+      {name: 'USDG_PENDLE_SPOKE', address: '0x956d8e0A89cfa3744428C4641b5a53B56167a7f9'},
+      {name: 'ETHERFI_ESPOKE', address: '0xbF10BDfE177dE0336aFD7fcCF80A904E15386219'},
+      {name: 'KELP_ESPOKE', address: '0x3131FE68C4722e726fe6B2819ED68e514395B9a4'},
+      {name: 'LIDO_ESPOKE', address: '0xe1900480ac69f0B296841Cd01cC37546d92F35Cd'},
+      {name: 'USDG_MAPLE_ESPOKE', address: '0x774b9655413c34809c1f1b16b654465A89EBE989'},
+    ],
+    tokenizationSpokes: [
+      {name: 'CORE_WETH_TSPOKE', address: '0x7320CF22Ac095bA2a2e0a652F77efB836c2E751b'},
+      {name: 'CORE_wstETH_TSPOKE', address: '0xcb0E7dA9c635628f6d4827355AeCa75aB8d3560f'},
+      {name: 'CORE_weETH_TSPOKE', address: '0x559cEc2C840D9DBB18936Afc5E5341D78bfC7Cbe'},
+      {name: 'CORE_rsETH_TSPOKE', address: '0x45a04Ca1A5cbEeA4B44356c75EDd29b33eB2527a'},
+      {name: 'CORE_USDC_TSPOKE', address: '0x531E90a2376902DE8915789Fcc1075e3B0c153E7'},
+      {name: 'CORE_USDT_TSPOKE', address: '0x5eC44a70F309854fe04d495cFE1B5dA63DD1cc73'},
+      {name: 'CORE_GHO_TSPOKE', address: '0x58C14a5E061c9bC6926c5b853445290F296C2F7B'},
+      {name: 'CORE_WBTC_TSPOKE', address: '0x82A9CC4656784E55Ef2E78F704028B5E1Bfc1732'},
+      {name: 'CORE_cbBTC_TSPOKE', address: '0x33B41B74366F55327d959FfF6D6b6fBc2853dbB1'},
+      {name: 'PLUS_USDC_TSPOKE', address: '0xc94bdd83D2c7655C280655D60954e79E88D4F949'},
+      {name: 'PLUS_USDT_TSPOKE', address: '0x80835EB50694EE0e519743f67e5401e6FD300006'},
+      {name: 'PLUS_GHO_TSPOKE', address: '0xA54382db40EC602c0a173A08f9E86Ed40F9D4D10'},
+      {name: 'PLUS_USDe_TSPOKE', address: '0x502Cd81da6a8F1785eb2eEE72713B7388E16A854'},
+      {name: 'PLUS_sUSDe_TSPOKE', address: '0x24f8c062e1E0451736C1D6E023510DA262a41df4'},
+      {name: 'PRIME_WETH_TSPOKE', address: '0x2087513383330B961A3753B47627Bbf149F31c70'},
+      {name: 'PRIME_USDC_TSPOKE', address: '0x486415fb1F8b062c89ED548f871cf64304AACb31'},
+      {name: 'PRIME_USDT_TSPOKE', address: '0x46c588DD8453aC259c1f6a54b4C9A93C2aC3762D'},
+      {name: 'PRIME_WBTC_TSPOKE', address: '0x5AE3d87De89CA6Ce501e8317887F71EABED69E18'},
+      {name: 'PRIME_wstETH_TSPOKE', address: '0xFCD3D3C69cd032DE0cc78fE529B7447D2fe7F666'},
+      {name: 'PRIME_GHO_TSPOKE', address: '0x900fD46d565d1ac8995928c0179052ec02a6D0E1'},
+      {name: 'PRIME_cbBTC_TSPOKE', address: '0xD38098faf52D8E915EdED84fBF30F81C17906938'},
+    ],
+    positionManagers: [
+      {name: 'GIVER_PM', address: '0x17A54b8d6D9C68e7fa1C7112AC998EA1BA51d11e'},
+      {name: 'TAKER_PM', address: '0x6c044c0D3801499bCAbfAd458B70880bc518e9F7'},
+      {name: 'CONFIG_PM', address: '0x51305839CE822a7b4b12AA7D86eA7005052d575c'},
+      {name: 'NATIVE_GW', address: '0xe68ab4F90Fe026B9873F5F276eD2d7efBbbE42Be'},
+      {name: 'SIGNATURE_GW', address: '0xfbC184337Dc6595D8bf62968Bda46e7De7AF9c3d'},
+    ],
+    treasurySpoke: '0xB9B0b8616f6Bf6841972a52058132BE08d723155',
+  },
+  {
+    chainId: 43114,
+    chainAlias: 'avalanche',
+    market: 'AaveV4Avalanche',
+    hubs: [{name: 'CORE_HUB', address: '0xd07369fAE4A5BB13c9Ce446B052c7867B1AbDf6e'}],
+    spokes: [
+      {name: 'MAIN_SPOKE', address: '0x435272CefF93a1E657E8ABfdf0A13e95900A3a56'},
+      {name: 'FOREX_SPOKE', address: '0x6a37776B5E026dBdF043b4F933c323C84DD1B514'},
+      {name: 'AVAX_CORRELATED_SPOKE', address: '0x3b517594277c67307CF2d7CBE6FE1D4399B68c41'},
+    ],
+    tokenizationSpokes: [],
+    positionManagers: [
+      {name: 'GIVER_PM', address: '0x50c4C40aB6BaE46B372a251BEacE388439aa96b4'},
+      {name: 'TAKER_PM', address: '0x5A5A711560eb9293Ef6F4bc33CD8589b4A603D10'},
+      {name: 'CONFIG_PM', address: '0x50BE00C5EbF6CC230B8970f4205Cd0B5A70EaEB1'},
+      {name: 'NATIVE_GW', address: '0xE4C7183A5f22c365140F41d733d8A8baD5A1a6bA'},
+      {name: 'SIGNATURE_GW', address: '0x6E3B91A951DA9b515a5E98F0c7D210a697382e7F'},
+    ],
+    treasurySpoke: '0x2C4Aea1A5F000889c6DfFE8f52377aFc2CB113a6',
+  },
+];
+
+export async function scanV4Chain(
+  chain: ChainConfig,
+  v4inv: V4ChainInventory,
+  v3Targets: TargetRow[],
+  cache: ScanCache,
+  options: {repin?: boolean} = {}
+): Promise<ChainScanResult> {
+  const rpcUrl = getRpcUrl(chain);
+  const multicallAddress = getMulticallAddress(chain.chainId);
+
+  const chainDef = {
+    id: chain.chainId,
+    name: chain.alias,
+    nativeCurrency: {name: 'Ether', symbol: 'ETH', decimals: 18},
+    rpcUrls: {default: {http: [rpcUrl]}},
+    contracts: {multicall3: {address: multicallAddress}},
+  };
+
+  const client: any = createPublicClient({
+    chain: chainDef as any,
+    transport: http(rpcUrl, {batch: false, timeout: 60_000, retryCount: 3, retryDelay: 1_000}),
+    batch: {multicall: true},
+  });
+
+  // Determine block
+  const cacheKey = `${chain.alias}-v4`;
+  const cachedChain = cache.chains[cacheKey];
+  let pinnedBlock: number;
+  let pinnedAt: string;
+
+  if (cachedChain?.pinnedBlock && !options.repin) {
+    pinnedBlock = cachedChain.pinnedBlock;
+    pinnedAt = cachedChain.pinnedAt;
+    console.log(`  [V4] Using pinned block ${pinnedBlock} (pinned: ${pinnedAt})`);
+  } else {
+    const current = await client.getBlockNumber();
+    pinnedBlock = Number(current);
+    pinnedAt = new Date().toISOString();
+    console.log(`  [V4] Pinning fresh block: ${pinnedBlock} at ${pinnedAt}`);
+  }
+
+  const block = BigInt(pinnedBlock);
+  const findings: Finding[] = [];
+  const cachedPrices: Record<string, CachedOraclePrice> = {};
+  let oracleBaseUnit = '100000000';
+  let totalChecks = 0;
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Step 1: Discover all unique underlyings across all Hubs
+  // ──────────────────────────────────────────────────────────────────────────
+  type HubAssetInfo = {
+    hubName: string;
+    hubAddress: Address;
+    assetId: number;
+    underlying: Address;
+    decimals: number;
+    symbol: string;
+  };
+
+  const allHubAssets: HubAssetInfo[] = [];
+
+  for (const hub of v4inv.hubs) {
+    console.log(`  [V4] Discovering assets for ${hub.name}...`);
+    const countResult = await client.readContract({
+      address: hub.address,
+      abi: HUB_ABI,
+      functionName: 'getAssetCount',
+      blockNumber: block,
+    });
+    const assetCount = Number(countResult);
+
+    // Batch read all underlying + decimals
+    const assetInfoCalls: MulticallItem[] = [];
+    for (let i = 0; i < assetCount; i++) {
+      assetInfoCalls.push({
+        address: hub.address,
+        abi: HUB_ABI,
+        functionName: 'getAssetUnderlyingAndDecimals',
+        args: [BigInt(i)],
+      });
+    }
+
+    const assetInfoResults = await client.multicall({
+      contracts: assetInfoCalls as any,
+      multicallAddress,
+      blockNumber: block,
+      allowFailure: true,
+    });
+
+    for (let i = 0; i < assetCount; i++) {
+      const r = assetInfoResults[i];
+      if (r.status === 'success' && r.result) {
+        const [underlying, decimals] = r.result as [Address, number];
+        // Resolve symbol via ERC20
+        let symbol = `asset${i}`;
+        try {
+          const sym = await client.readContract({
+            address: underlying,
+            abi: parseAbi(['function symbol() view returns (string)']),
+            blockNumber: block,
+          });
+          symbol = sym as string;
+        } catch {}
+
+        allHubAssets.push({
+          hubName: hub.name,
+          hubAddress: hub.address,
+          assetId: i,
+          underlying,
+          decimals: Number(decimals),
+          symbol,
+        });
+      }
+    }
+    console.log(`    Found ${assetCount} assets in ${hub.name}`);
+  }
+
+  // Build unique underlying set for checking stuck tokens later
+  const uniqueUnderlyings = new Map<string, {address: Address; symbol: string; decimals: number}>();
+  for (const a of allHubAssets) {
+    uniqueUnderlyings.set(a.underlying.toLowerCase(), {
+      address: a.underlying,
+      symbol: a.symbol,
+      decimals: a.decimals,
+    });
+  }
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Step 2: Get prices using V3 oracle from same chain (works for same tokens)
+  // ──────────────────────────────────────────────────────────────────────────
+  const priceMap = new Map<string, bigint>();
+  let oracleUnitBn = 100_000_000n;
+  let oracleDecimals = 8;
+
+  // Find V3 oracle on same chain from inventory
+  const v3Pool = v3Targets.find(
+    (t) => t.chainId === chain.chainId && t.targetType === 'pool' && t.oracle
+  );
+
+  if (v3Pool) {
+    try {
+      const v3Oracle = v3Pool.oracle;
+      console.log(`  [V4] Using V3 oracle ${v3Oracle.slice(0, 10)}... for pricing`);
+
+      // Get base currency unit
+      const unitCalls: MulticallItem[] = [
+        {address: v3Oracle, abi: ORACLE_ABI, functionName: 'BASE_CURRENCY_UNIT', args: []},
+      ];
+      const unitResults = await executeMulticall(client, chain.chainId, unitCalls, block);
+      const rawUnit = unitResults[0] ?? 100_000_000n;
+      oracleUnitBn = rawUnit;
+      oracleBaseUnit = rawUnit.toString();
+      oracleDecimals = rawUnit.toString().length - 1;
+
+      // Get prices for all unique underlyings
+      const priceCalls: MulticallItem[] = [...uniqueUnderlyings.values()].map((u) => ({
+        address: v3Oracle,
+        abi: ORACLE_ABI,
+        functionName: 'getAssetPrice',
+        args: [u.address],
+      }));
+
+      const priceResults = await executeMulticall(client, chain.chainId, priceCalls, block);
+
+      const underlyingsList = [...uniqueUnderlyings.values()];
+      let priced = 0;
+      underlyingsList.forEach((u, idx) => {
+        const price = priceResults[idx];
+        if (price !== undefined && price > 0n) {
+          priceMap.set(u.address.toLowerCase(), price);
+          const priceUsd = formatUnits(price, oracleDecimals);
+          cachedPrices[u.address.toLowerCase()] = {
+            symbol: u.symbol,
+            priceRaw: price.toString(),
+            priceUsd,
+          };
+          priced++;
+        }
+      });
+      console.log(`  [V4] Priced ${priced}/${underlyingsList.length} assets via V3 oracle`);
+    } catch (err: any) {
+      console.warn(`  [V4] Warning: could not fetch V3 oracle prices: ${err.message}`);
+    }
+  } else {
+    console.warn(`  [V4] No V3 oracle found for ${chain.alias}, prices will be N/A`);
+  }
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Step 3: Check Hub balances vs accounting
+  // ──────────────────────────────────────────────────────────────────────────
+  console.log(`  [V4] Checking Hub balances...`);
+
+  for (const asset of allHubAssets) {
+    const balanceCalls: MulticallItem[] = [
+      {
+        address: asset.underlying,
+        abi: erc20Abi,
+        functionName: 'balanceOf',
+        args: [asset.hubAddress],
+      },
+      {
+        address: asset.hubAddress,
+        abi: HUB_ABI,
+        functionName: 'getAssetLiquidity',
+        args: [BigInt(asset.assetId)],
+      },
+      {
+        address: asset.hubAddress,
+        abi: HUB_ABI,
+        functionName: 'getAssetAccruedFees',
+        args: [BigInt(asset.assetId)],
+      },
+    ];
+
+    const results = await executeMulticall(client, chain.chainId, balanceCalls, block);
+    const erc20Balance = results[0] ?? 0n;
+    const liquidity = results[1] ?? 0n;
+    const accruedFees = results[2] ?? 0n;
+    totalChecks += 1;
+
+    // In Aave V4, asset.liquidity tracks the exact unborrowed underlying balance
+    // held in the Hub contract. Accrued fees represent interest owed by borrowers,
+    // which mints shares to the fee receiver rather than physical tokens.
+    // Therefore, the Hub expected balance is asset.liquidity.
+    const expectedBalance = liquidity;
+    const diff = erc20Balance - expectedBalance;
+
+    if (diff !== 0n) {
+      const kind: FindingKind = diff > 0n ? 'v4-hub-surplus' : 'v4-hub-deficit';
+      const price = priceMap.get(asset.underlying.toLowerCase());
+      const priceUsd = price !== undefined ? formatUnits(price, oracleDecimals) : undefined;
+      const valueUsd =
+        price !== undefined
+          ? calculateUsdValue(diff, asset.decimals, price, oracleUnitBn)
+          : undefined;
+
+      findings.push({
+        chainId: chain.chainId,
+        chainAlias: chain.alias,
+        market: v4inv.market,
+        kind,
+        holder: asset.hubAddress,
+        holderSymbol: asset.hubName,
+        token: asset.underlying,
+        tokenSymbol: asset.symbol,
+        decimals: asset.decimals,
+        amount: diff.toString(),
+        amountFormatted: formatUnits(diff, asset.decimals),
+        virtualBalance: expectedBalance.toString(),
+        ...(priceUsd !== undefined ? {priceUsd} : {}),
+        ...(valueUsd !== undefined ? {valueUsd} : {}),
+        note: `Hub ERC20=${formatUnits(erc20Balance, asset.decimals)}, liquidity=${formatUnits(liquidity, asset.decimals)}, fees=${formatUnits(accruedFees, asset.decimals)}`,
+      });
+    } else {
+      const price = priceMap.get(asset.underlying.toLowerCase());
+      const priceUsd = price !== undefined ? formatUnits(price, oracleDecimals) : undefined;
+      findings.push({
+        chainId: chain.chainId,
+        chainAlias: chain.alias,
+        market: v4inv.market,
+        kind: 'v4-hub-clean',
+        holder: asset.hubAddress,
+        holderSymbol: asset.hubName,
+        token: asset.underlying,
+        tokenSymbol: asset.symbol,
+        decimals: asset.decimals,
+        amount: '0',
+        amountFormatted: '0',
+        virtualBalance: expectedBalance.toString(),
+        ...(priceUsd !== undefined ? {priceUsd} : {}),
+        valueUsd: '0.00',
+        note: `Hub ERC20=${formatUnits(erc20Balance, asset.decimals)}, liquidity=${formatUnits(liquidity, asset.decimals)}, fees=${formatUnits(accruedFees, asset.decimals)} (Verified Clean)`,
+      });
+    }
+  }
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Step 4: Check stuck tokens in Spokes, TokenizationSpokes, PositionManagers
+  // ──────────────────────────────────────────────────────────────────────────
+  type HolderDef = {address: Address; symbol: string; kind: FindingKind};
+
+  const holdersToCheck: HolderDef[] = [
+    ...v4inv.spokes.map((s) => ({
+      address: s.address,
+      symbol: s.name,
+      kind: 'v4-token-in-spoke' as FindingKind,
+    })),
+    ...v4inv.tokenizationSpokes.map((s) => ({
+      address: s.address,
+      symbol: s.name,
+      kind: 'v4-token-in-tokenization-spoke' as FindingKind,
+    })),
+    ...v4inv.positionManagers.map((s) => ({
+      address: s.address,
+      symbol: s.name,
+      kind: 'v4-token-in-position-manager' as FindingKind,
+    })),
+  ];
+
+  if (v4inv.treasurySpoke) {
+    holdersToCheck.push({
+      address: v4inv.treasurySpoke,
+      symbol: 'TREASURY_SPOKE',
+      kind: 'v4-token-in-spoke',
+    });
+  }
+
+  console.log(
+    `  [V4] Checking ${holdersToCheck.length} contracts for stuck tokens across ${uniqueUnderlyings.size} assets...`
+  );
+
+  // Build cartesian: holder x underlying
+  const stuckCalls: MulticallItem[] = [];
+  type StuckCheckInfo = {
+    holder: HolderDef;
+    underlying: {address: Address; symbol: string; decimals: number};
+  };
+  const stuckChecks: StuckCheckInfo[] = [];
+
+  for (const holder of holdersToCheck) {
+    for (const [, underlying] of uniqueUnderlyings) {
+      stuckCalls.push({
+        address: underlying.address,
+        abi: erc20Abi,
+        functionName: 'balanceOf',
+        args: [holder.address],
+      });
+      stuckChecks.push({holder, underlying});
+    }
+  }
+
+  totalChecks += stuckChecks.length;
+  const stuckResults = await executeMulticall(client, chain.chainId, stuckCalls, block);
+
+  const holderStuckCount = new Map<string, number>();
+  stuckChecks.forEach((check, idx) => {
+    const balance = stuckResults[idx] ?? 0n;
+    if (balance > 0n) {
+      holderStuckCount.set(
+        check.holder.address.toLowerCase(),
+        (holderStuckCount.get(check.holder.address.toLowerCase()) ?? 0) + 1
+      );
+      const price = priceMap.get(check.underlying.address.toLowerCase());
+      const priceUsd = price !== undefined ? formatUnits(price, oracleDecimals) : undefined;
+      const valueUsd =
+        price !== undefined
+          ? calculateUsdValue(balance, check.underlying.decimals, price, oracleUnitBn)
+          : undefined;
+
+      findings.push({
+        chainId: chain.chainId,
+        chainAlias: chain.alias,
+        market: v4inv.market,
+        kind: check.holder.kind,
+        holder: check.holder.address,
+        holderSymbol: check.holder.symbol,
+        token: check.underlying.address,
+        tokenSymbol: check.underlying.symbol,
+        decimals: check.underlying.decimals,
+        amount: balance.toString(),
+        amountFormatted: formatUnits(balance, check.underlying.decimals),
+        ...(priceUsd !== undefined ? {priceUsd} : {}),
+        ...(valueUsd !== undefined ? {valueUsd} : {}),
+      });
+    }
+  });
+
+  // For holders with 0 stuck tokens across all scanned assets, record verified clean entry
+  for (const holder of holdersToCheck) {
+    if ((holderStuckCount.get(holder.address.toLowerCase()) ?? 0) === 0) {
+      findings.push({
+        chainId: chain.chainId,
+        chainAlias: chain.alias,
+        market: v4inv.market,
+        kind: 'v4-spoke-clean',
+        holder: holder.address,
+        holderSymbol: holder.symbol,
+        token: '0x0000000000000000000000000000000000000000',
+        tokenSymbol: `All Assets (${uniqueUnderlyings.size})`,
+        decimals: 18,
+        amount: '0',
+        amountFormatted: '0',
+        valueUsd: '0.00',
+        note: `Verified clean: 0 stuck tokens across all ${uniqueUnderlyings.size} scanned assets`,
+      });
+    }
+  }
+
+  // Sort findings
+  findings.sort(
+    (a, b) => a.kind.localeCompare(b.kind) || a.tokenSymbol.localeCompare(b.tokenSymbol)
+  );
+
+  // Compute stats
+  const allKinds: FindingKind[] = [
+    'v4-hub-surplus',
+    'v4-hub-deficit',
+    'v4-token-in-spoke',
+    'v4-token-in-tokenization-spoke',
+    'v4-token-in-position-manager',
+    'v4-hub-clean',
+    'v4-spoke-clean',
+  ];
+
+  const byKind: Record<string, {count: number; totalValueUsd: string}> = {};
+  for (const kind of allKinds) {
+    const kf = findings.filter((f) => f.kind === kind);
+    const kSums = sumCents(kf.map((f) => f.valueUsd));
+    byKind[kind] = {count: kf.length, totalValueUsd: formatCents(kSums.netCents)};
+  }
+
+  const chainSums = sumCents(findings.map((f) => f.valueUsd));
+
+  return {
+    chainId: chain.chainId,
+    alias: cacheKey,
+    pinnedBlock,
+    pinnedAt,
+    oracleBaseUnit,
+    oraclePrices: cachedPrices,
+    stats: {
+      marketsScanned: 1,
+      tokensScanned: uniqueUnderlyings.size,
+      checksPerformed: totalChecks,
+      findingsCount: findings.length,
+      surplusValueUsd: formatCents(chainSums.posCents),
+      deficitValueUsd: formatCents(chainSums.negCents),
+      netValueUsd: formatCents(chainSums.netCents),
+      byMarket: {
+        [v4inv.market]: {
+          findingsCount: findings.length,
+          surplusValueUsd: formatCents(chainSums.posCents),
+          deficitValueUsd: formatCents(chainSums.negCents),
+          netValueUsd: formatCents(chainSums.netCents),
+          byKind,
+        },
+      },
+    },
+    findings,
+  };
+}
+
+// ============================================================================
 // CLI Entry Point & Pretty Printing
 // ============================================================================
 
@@ -818,6 +1388,7 @@ async function main() {
   const isAll = args.includes('--all');
   const isSummaryOnly = args.includes('--summary');
   const isRepin = args.includes('--repin') || args.includes('--latest');
+  const isV4 = args.includes('--v4');
   const cacheFile =
     args
       .find((a, i) => args[i - 1] === '--cache' || a.startsWith('--cache='))
@@ -830,7 +1401,7 @@ async function main() {
     return;
   }
 
-  console.log('--- Aave V3 Viem Balance & Surplus Scanner ---');
+  console.log(`--- Aave V3${isV4 ? ' + V4' : ''} Viem Balance & Surplus Scanner ---`);
   console.log(`Cache file: ${path.relative(process.cwd(), cacheFile)}`);
 
   const inventory = loadInventory();
@@ -856,15 +1427,47 @@ async function main() {
     targetChains = [CHAINS.find((c) => c.alias === 'mainnet')!];
   }
 
-  for (const chain of targetChains) {
-    console.log(`\n>>> Scanning ${chain.alias} (ID: ${chain.chainId})...`);
-    try {
-      const result = await scanChain(chain, inventory, cache, {repin: isRepin});
-      cache.chains[chain.alias] = result;
-      saveCache(cacheFile, cache);
-      printFindingsTable(result);
-    } catch (err: any) {
-      console.error(`Error scanning ${chain.alias}: ${err.message}`);
+  // V3 Scanning
+  if (!isV4) {
+    for (const chain of targetChains) {
+      console.log(`\n>>> Scanning V3 ${chain.alias} (ID: ${chain.chainId})...`);
+      try {
+        const result = await scanChain(chain, inventory, cache, {repin: isRepin});
+        cache.chains[chain.alias] = result;
+        saveCache(cacheFile, cache);
+        printFindingsTable(result);
+      } catch (err: any) {
+        console.error(`Error scanning V3 ${chain.alias}: ${err.message}`);
+      }
+    }
+  }
+
+  // V4 Scanning
+  if (isV4 || isAll) {
+    const v4Chains = isAll
+      ? V4_INVENTORY
+      : V4_INVENTORY.filter((inv) => {
+          const chainMatch = targetChains.find((tc) => tc.chainId === inv.chainId);
+          return !!chainMatch;
+        });
+
+    for (const v4inv of v4Chains) {
+      const chain = CHAINS.find((c) => c.chainId === v4inv.chainId);
+      if (!chain) {
+        console.warn(
+          `No RPC config for V4 chain ${v4inv.chainAlias} (${v4inv.chainId}), skipping.`
+        );
+        continue;
+      }
+      console.log(`\n>>> Scanning V4 ${v4inv.market} on ${chain.alias} (ID: ${chain.chainId})...`);
+      try {
+        const result = await scanV4Chain(chain, v4inv, inventory, cache, {repin: isRepin});
+        cache.chains[result.alias] = result;
+        saveCache(cacheFile, cache);
+        printFindingsTable(result);
+      } catch (err: any) {
+        console.error(`Error scanning V4 ${v4inv.market}: ${err.message}`);
+      }
     }
   }
 
