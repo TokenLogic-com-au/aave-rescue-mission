@@ -82,6 +82,9 @@ jobs:
       - name: Rebuild Dashboard with Fresh Cache
         run: yarn build:dashboard
 
+      - name: Fix formatting of generated HTML
+        run: yarn lint:fix  
+
       - name: Commit Updated Data
         run: |
           git config user.name "github-actions[bot]"
