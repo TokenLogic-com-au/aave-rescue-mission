@@ -214,6 +214,9 @@ const htmlContent = `<!DOCTYPE html>
           <p id="hero-subtitle" class="mt-2 text-sm sm:text-base text-tl-fg-subtle max-w-3xl leading-relaxed">
             Multi-chain deterministic audit of rescueable underlying surplus, stuck tokens in pool & hub contracts, foreign aToken holdings, and self-held aTokens. All values verified against pinned blocks via Aave Oracle feeds.
           </p>
+          <p id="last-update" class="mt-3 text-xs text-tl-fg-muted" aria-live="polite">
+            Latest pinned update: loading...
+          </p>
         </div>
 
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
@@ -1148,6 +1151,40 @@ ${balancesCacheMin}
       allFindings = [];
       const chainAliases = Object.keys(rawCacheData.chains);
       let totalPinnedBlocks = 0;
+        const pinnedDates = chainAliases
+          .map((alias) => rawCacheData.chains[alias].pinnedAt)
+          .filter(Boolean)
+          .map((value) => new Date(value))
+          .filter((value) => !Number.isNaN(value.getTime()));
+        const latestPinnedAt = pinnedDates.length
+          ? new Date(Math.max(...pinnedDates.map((value) => value.getTime())))
+          : null;
+
+        function formatTimeAgo(date) {
+          const seconds = Math.max(0, Math.floor((Date.now() - date.getTime()) / 1000));
+          if (seconds < 60) return "just now";
+          const minutes = Math.floor(seconds / 60);
+          if (minutes < 60) return minutes + "m ago";
+          const hours = Math.floor(minutes / 60);
+          if (hours < 24) return hours + "h ago";
+          const days = Math.floor(hours / 24);
+          return days + "d ago";
+        }
+
+        function updateLastUpdateLabel() {
+          const element = document.getElementById("last-update");
+          if (!element || !latestPinnedAt) return;
+          element.textContent =
+            "Latest pinned update: " +
+            latestPinnedAt.toLocaleString() +
+            " (" +
+            formatTimeAgo(latestPinnedAt) +
+            ")";
+          element.title = latestPinnedAt.toISOString();
+        }
+
+        updateLastUpdateLabel();
+        setInterval(updateLastUpdateLabel, 60_000);
 
       for (const [alias, chain] of Object.entries(rawCacheData.chains)) {
         if (chain.pinnedBlock) totalPinnedBlocks++;

@@ -1,6 +1,8 @@
 name: Update Balances Dashboard
 
 on:
+  schedule:
+    - cron: "0 0 * * *"
   workflow_dispatch:
     inputs:
       chain:
@@ -69,7 +71,9 @@ jobs:
           ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
         run: |
           ARGS=""
-          if [ "${{ inputs.chain }}" != "all" ]; then
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            ARGS="--all --repin"
+          elif [ "${{ inputs.chain }}" != "all" ]; then
             ARGS="--chain ${{ inputs.chain }}"
           else
             ARGS="--all"
