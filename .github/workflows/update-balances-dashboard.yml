@@ -51,6 +51,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -86,7 +89,26 @@ jobs:
           git add balances-cache.json docs/data/balances-cache.json docs/index.html
           if ! git diff --cached --quiet; then
             git commit -m "chore(data): update aave balances cache [skip ci]"
-            git push
+            pushed=false
+            for attempt in 1 2 3 4 5; do
+              echo "Sync and push attempt $attempt..."
+              git fetch origin "${{ github.ref_name }}"
+              if git rebase -X theirs "origin/${{ github.ref_name }}"; then
+                if git push origin "HEAD:${{ github.ref_name }}"; then
+                  echo "Successfully pushed updated balances."
+                  pushed=true
+                  break
+                fi
+              else
+                git rebase --abort || true
+              fi
+              echo "Push failed, retrying in 3 seconds..."
+              sleep 3
+            done
+            if [ "$pushed" = false ]; then
+              echo "Failed to push updated balances after multiple attempts."
+              exit 1
+            fi
           fi
 
       - name: Setup Pages
