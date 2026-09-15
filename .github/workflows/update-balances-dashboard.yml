@@ -1,6 +1,8 @@
 name: Update Balances Dashboard
 
 on:
+  schedule:
+    - cron: "0 0 * * *"
   workflow_dispatch:
     inputs:
       chain:
@@ -51,6 +53,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -66,7 +71,9 @@ jobs:
           ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
         run: |
           ARGS=""
-          if [ "${{ inputs.chain }}" != "all" ]; then
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            ARGS="--all --repin"
+          elif [ "${{ inputs.chain }}" != "all" ]; then
             ARGS="--chain ${{ inputs.chain }}"
           else
             ARGS="--all"
@@ -79,14 +86,38 @@ jobs:
       - name: Rebuild Dashboard with Fresh Cache
         run: yarn build:dashboard
 
+      - name: Fix formatting of generated HTML
+        run: npx prettier --write docs/index.html docs/data/balances-cache.json balances-cache.json
+
       - name: Commit Updated Data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add balances-cache.json docs/data/balances-cache.json docs/index.html
+          # Discard any unstaged changes to other files so git rebase is guaranteed a clean working tree
+          git checkout -- .
           if ! git diff --cached --quiet; then
             git commit -m "chore(data): update aave balances cache [skip ci]"
-            git push
+            pushed=false
+            for attempt in 1 2 3 4 5; do
+              echo "Sync and push attempt $attempt..."
+              git fetch origin "${{ github.ref_name }}"
+              if git rebase -X theirs "origin/${{ github.ref_name }}"; then
+                if git push origin "HEAD:${{ github.ref_name }}"; then
+                  echo "Successfully pushed updated balances."
+                  pushed=true
+                  break
+                fi
+              else
+                git rebase --abort || true
+              fi
+              echo "Push failed, retrying in 3 seconds..."
+              sleep 3
+            done
+            if [ "$pushed" = false ]; then
+              echo "Failed to push updated balances after multiple attempts."
+              exit 1
+            fi
           fi
 
       - name: Setup Pages

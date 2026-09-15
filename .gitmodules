@@ -10,3 +10,6 @@
 [submodule "lib/rescue-mission-phase-1"]
 	path = lib/rescue-mission-phase-1
 	url = https://github.com/TokenLogic-com-au/aave-rescue-mission-phase-1
+[submodule "lib/aave-permissions-book"]
+	path = lib/aave-permissions-book
+	url = https://github.com/aave-dao/aave-permissions-book
