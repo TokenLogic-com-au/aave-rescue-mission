@@ -1,9 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-import {createPublicClient, getAddress, http, pad, type Address, type Hash} from 'viem';
+import {getAddress, pad, type Address, type Hash} from 'viem';
 import {Holding} from './balances';
 import {sha256, writeCanonical} from './canonical';
-import {assertChainId, ChainConfig, chainById, envReaders, rpcEnv} from './chains';
+import {envChainReaders} from './chain';
+import {assertChainId, ChainConfig, chainById, rpcEnv} from './chains';
 import {ChainFailure, chainFailure, runCli} from './cli';
 import {PipelineInputs, readInputs} from './inputs';
 import {poolOf} from './inventory';
@@ -265,15 +266,12 @@ export async function querySlice(
 export type BlockTime = (chain: ChainConfig, block: number) => Promise<number>;
 
 function envBlockTime(env: NodeJS.ProcessEnv = process.env): BlockTime {
-  const clients = envReaders(
-    (url) => createPublicClient({transport: http(url, {batch: false, timeout: 60_000})}),
-    env
-  );
+  const readers = envChainReaders(env);
   return async (chain, block) => {
-    const client = clients(chain);
-    if (!client) throw new Error(`missing ${rpcEnv(chain)} or ALCHEMY_API_KEY`);
-    assertChainId(await client.getChainId(), chain);
-    return Number((await client.getBlock({blockNumber: BigInt(block)})).timestamp);
+    const reader = readers(chain);
+    if (!reader) throw new Error(`missing ${rpcEnv(chain)} or ALCHEMY_API_KEY`);
+    assertChainId(await reader.chainId(), chain);
+    return Number((await reader.header(BigInt(block))).timestamp);
   };
 }
 

@@ -1,83 +1,50 @@
 import fs from 'fs';
 import path from 'path';
 import type {Address} from 'viem';
-import type {Inventory, Target, TargetType} from '../common/types';
-import {loadExecutors, loadMarkets, loadProvenance} from './addressBook';
-import {CHAINS, chainById} from './chains';
-import {canonicalJson, compareAddresses, compareStrings, writeCanonical} from './canonical';
+import type {Inventory, Market} from '../common/types';
+import {loadMarkets, loadProvenance} from './addressBook';
+import {CHAINS} from './chains';
+import {canonicalJson, writeCanonical} from './canonical';
 
 export const INVENTORY_PATH = path.resolve(__dirname, 'data/inventory.json');
 
-const TYPE_ORDER: Record<TargetType, number> = {pool: 0, aToken: 1};
+/** A market discovery scans: every V4 market, and the V3 markets the DAO executor governs. */
+export const discoverable = (m: Market): boolean => m.authority?.governedByDao ?? true;
 
-function compareTargets(a: Target, b: Target): number {
-  return (
-    a.chainId - b.chainId ||
-    compareStrings(a.market, b.market) ||
-    TYPE_ORDER[a.targetType] - TYPE_ORDER[b.targetType] ||
-    compareAddresses(a.target, b.target)
-  );
-}
-
-/** Builds the inventory from the pinned address-book package. Pure. */
+/** Builds the inventory from the pinned address book. Pure. */
 export function buildInventory(): Inventory {
   const markets = loadMarkets();
-  const executors = loadExecutors();
-
-  const missingExecutor = CHAINS.filter((c) => !executors.has(c.chainId));
-  if (missingExecutor.length) {
-    throw new Error(
-      `no Governance V3 executor for chain(s): ${missingExecutor.map((c) => c.alias).join(', ')}`
-    );
-  }
-  const missingMarket = CHAINS.filter((c) => !markets.some((m) => m.chainId === c.chainId));
-  if (missingMarket.length) {
-    throw new Error(`no V3 market for chain(s): ${missingMarket.map((c) => c.alias).join(', ')}`);
-  }
-
-  const targets: Target[] = [];
-  for (const m of markets) {
-    const chain = chainById(m.chainId);
-    const executor = executors.get(m.chainId)!;
-    const common = {
-      chainId: m.chainId,
-      chainAlias: chain.alias,
-      market: m.market,
-      executor,
-      aclAdmin: m.aclAdmin,
-      aclManager: m.aclManager,
-      oracle: m.oracle,
-      // The executor governs the market only if it is the ACL admin; whitelabel and other
-      // permissioned instances have a different admin and are out of a DAO payload's reach.
-      governedByDao: m.aclAdmin.toLowerCase() === executor.toLowerCase(),
-    };
-    targets.push({...common, targetType: 'pool', target: m.pool, source: `${m.market}.POOL`});
-    for (const a of m.assets) {
-      targets.push({
-        ...common,
-        targetType: 'aToken',
-        target: a.aToken,
-        underlying: a.underlying,
-        symbol: a.symbol,
-        decimals: a.decimals,
-        source: `${m.market}.ASSETS.${a.symbol}`,
-      });
-    }
-  }
-  targets.sort(compareTargets);
-  return {addressBook: loadProvenance(), targets};
-}
-
-/** The committed inventory, accepted only if it equals a fresh build from the pinned address book. */
-/** The Pool of one market. */
-export function poolOf(inventory: Inventory, chainId: number, market: string): Address {
-  const pool = inventory.targets.find(
-    (t) => t.chainId === chainId && t.market === market && t.targetType === 'pool'
+  const missing = CHAINS.filter(
+    (c) => !markets.some((m) => m.chainId === c.chainId && m.protocol === 'v3')
   );
-  if (!pool) throw new Error(`no pool in inventory for ${market} on chain ${chainId}`);
-  return pool.target;
+  if (missing.length)
+    throw new Error(`no V3 market for chain(s): ${missing.map((c) => c.alias).join(', ')}`);
+  // A V4 market has no oracle of its own in the address book; it values its tokens with the
+  // chain's first DAO-governed V3 oracle, recorded here so the choice is part of the artifact.
+  for (const m of markets) {
+    if (m.protocol !== 'v4') continue;
+    const v3 = markets.find(
+      (x) => x.chainId === m.chainId && x.protocol === 'v3' && discoverable(x)
+    );
+    if (v3?.oracle) m.oracle = v3.oracle;
+  }
+  return {addressBook: loadProvenance(), markets};
 }
 
+export function marketOf(inventory: Inventory, chainId: number, market: string): Market {
+  const m = inventory.markets.find((x) => x.chainId === chainId && x.market === market);
+  if (!m) throw new Error(`no market ${market} on chain ${chainId} in the inventory`);
+  return m;
+}
+
+/** The Pool of one V3 market. */
+export function poolOf(inventory: Inventory, chainId: number, market: string): Address {
+  const pool = marketOf(inventory, chainId, market).holders.find((h) => h.role === 'pool');
+  if (!pool) throw new Error(`no pool in inventory for ${market} on chain ${chainId}`);
+  return pool.address;
+}
+
+/** The committed inventory, which must equal a fresh build from the pinned address book. */
 export function readVerifiedInventory(): {inventory: Inventory; text: string} {
   const text = fs.readFileSync(INVENTORY_PATH, 'utf8');
   if (text !== canonicalJson(buildInventory())) {
@@ -91,11 +58,13 @@ export function readVerifiedInventory(): {inventory: Inventory; text: string} {
 if (require.main === module) {
   const inventory = buildInventory();
   const sha256 = writeCanonical(INVENTORY_PATH, inventory);
-  const pools = inventory.targets.filter((t) => t.targetType === 'pool').length;
-  const notDao = new Set(inventory.targets.filter((t) => !t.governedByDao).map((t) => t.market));
+  const count = (protocol: string) => inventory.markets.filter((m) => m.protocol === protocol);
+  const holders = (ms: Market[]) => ms.reduce((n, m) => n + m.holders.length, 0);
+  const notDao = inventory.markets.filter((m) => !discoverable(m)).map((m) => m.market);
   console.log(
-    `inventory: ${CHAINS.length} chains, ${pools} pools, ${inventory.targets.length - pools} aTokens ` +
-      `(address book ${inventory.addressBook.tag}); not DAO-governed: ${[...notDao].join(', ') || 'none'}`
+    `inventory: ${CHAINS.length} chains, ${count('v3').length} V3 markets with ${holders(count('v3'))} holders, ` +
+      `${count('v4').length} V4 markets with ${holders(count('v4'))} holders ` +
+      `(address book ${inventory.addressBook.tag}); not DAO-governed: ${notDao.join(', ') || 'none'}`
   );
   console.log(`written ${path.relative(process.cwd(), INVENTORY_PATH)} sha256 ${sha256}`);
 }

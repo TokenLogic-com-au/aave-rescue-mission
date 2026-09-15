@@ -362,10 +362,6 @@
       "scope": "Aave V1 and V2 markets"
     },
     {
-      "reason": "not in the address book; separate initiative",
-      "scope": "Aave V4 hubs"
-    },
-    {
       "reason": "whitelabel market: ACL admin is the permissioned payloads controller executor, not the DAO executor, so a governance payload cannot call rescueTokens",
       "scope": "AaveV3InkWhitelabel (57073)"
     },
@@ -375,9 +371,9 @@
     }
   ],
   "failures": [],
-  "inventorySha256": "6b9014ae423db82c97362d202ad346e0599b6e8e4d0b4380d4d1f9d195276732",
+  "inventorySha256": "7b5154be49db02e89b613d143dbeac9f6395c3d6b35458aa19c83a9f8db0a6a2",
   "permissionsBook": {
-    "commit": "a8104bb5dc425256ed8abf36406c4ae54af8483d",
+    "commit": "ce4675c5015b4fef7d585f1fc0f1c7b5693f3f74",
     "repository": "https://github.com/aave-dao/aave-permissions-book"
   },
   "pinnedAt": "2026-09-01T00:00:00.000Z"

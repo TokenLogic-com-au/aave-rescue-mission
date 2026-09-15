@@ -1,6 +1,6 @@
 {
   "failures": [],
-  "filteredSha256": "daf2aa5a26f09217ab139a2cad8aeef920a099eec39397ae2ddd091eac7f05dc",
+  "filteredSha256": "03ee7fd8f2d65c4d74b7cb626e856ddcaf27677e1051c3aec86153865d906944",
   "holdings": [
     {
       "chainAlias": "mainnet",
@@ -8,32 +8,32 @@
       "executions": [
         {
           "fromTime": "2023-09-23 03:01:35",
-          "id": "01M22RDGPB4KK06MRVY3ZZ94QZ",
+          "id": "01M2JSYEQMHFJQGJ3R2BEPWFHN",
           "toTime": "2024-03-21 03:01:35"
         },
         {
           "fromTime": "2024-03-21 03:01:35",
-          "id": "01M22RE5R2RKTSB1F0C2KHHHQE",
+          "id": "01M2JSYM6G1H4DS6WMV2DWAF82",
           "toTime": "2024-09-17 03:01:35"
         },
         {
           "fromTime": "2024-09-17 03:01:35",
-          "id": "01M22REG8XVN3KMSAJFEHX10RJ",
+          "id": "01M2JSZ3WN543PNK04EYZ33N88",
           "toTime": "2025-03-16 03:01:35"
         },
         {
           "fromTime": "2025-03-16 03:01:35",
-          "id": "01M22RETVQKNRTHEQYVKMP462D",
+          "id": "01M2JSZXNMQ7FQBAATYZ746PXS",
           "toTime": "2025-09-12 03:01:35"
         },
         {
           "fromTime": "2025-09-12 03:01:35",
-          "id": "01M22RFAK8NS05D9R27T18D124",
+          "id": "01M2JT0DJ5KSG72Z9XWCC79BVP",
           "toTime": "2026-03-11 03:01:35"
         },
         {
           "fromTime": "2026-03-11 03:01:35",
-          "id": "01M22RFZBPYWEAW1F5JFMFPB72",
+          "id": "01M2JT12Q6NNEM1K1K4734JMG1",
           "toTime": "2026-09-01 00:00:00"
         }
       ],
@@ -10167,32 +10167,32 @@
       "executions": [
         {
           "fromTime": "2023-09-23 03:01:35",
-          "id": "01M22RGSKYQP9Z554K4EKR66MK",
+          "id": "01M2JT1QX9YXYBRVB3PR2WQ680",
           "toTime": "2024-03-21 03:01:35"
         },
         {
           "fromTime": "2024-03-21 03:01:35",
-          "id": "01M22RHE7WGPRQPKQ4T5PWE9N7",
+          "id": "01M2JT2CYAPZBB84NY406KKBPS",
           "toTime": "2024-09-17 03:01:35"
         },
         {
           "fromTime": "2024-09-17 03:01:35",
-          "id": "01M22RHXPSBTRZ1XXPZVDDWCYP",
+          "id": "01M2JT3HP2M5ZXHHA2ZGHT6T2K",
           "toTime": "2025-03-16 03:01:35"
         },
         {
           "fromTime": "2025-03-16 03:01:35",
-          "id": "01M22RJJF3HM7GZC41PGJG90RE",
+          "id": "01M2JT41D217FNFR94V5XRDFS0",
           "toTime": "2025-09-12 03:01:35"
         },
         {
           "fromTime": "2025-09-12 03:01:35",
-          "id": "01M22RKCN4E3JPMWEPFM1KEC3T",
+          "id": "01M2JT50QMQA2QBJSW6SP4KEZE",
           "toTime": "2026-03-11 03:01:35"
         },
         {
           "fromTime": "2026-03-11 03:01:35",
-          "id": "01M22RM1CP6BFGS1MJF61XRGJM",
+          "id": "01M2JT5GQHN78NNE3RM1GW0NC5",
           "toTime": "2026-09-01 00:00:00"
         }
       ],
@@ -21361,52 +21361,32 @@
       "executions": [
         {
           "fromTime": "2023-11-17 12:25:17",
-          "id": "01M22RMPN2ZKPHADA2J7BVN0FF",
+          "id": "01M2JT60SF4EWHC01Q2QAXF2MG",
           "toTime": "2024-05-15 12:25:17"
         },
         {
           "fromTime": "2024-05-15 12:25:17",
-          "id": "01M22RNTR3RNWCC8AF726BS8MZ",
+          "id": "01M2JT6NN7E7S4Q6A391D5XFWD",
           "toTime": "2024-11-11 12:25:17"
         },
         {
           "fromTime": "2024-11-11 12:25:17",
-          "id": "01M22RRJ3J8RP5QSPYDG7QJ9CG",
+          "id": "01M2JT7FNC6BB2GF8K7KK5MR2V",
           "toTime": "2025-05-10 12:25:17"
         },
         {
           "fromTime": "2025-05-10 12:25:17",
-          "id": "01M22S305HVT2PNTKJG8CXEAF7",
-          "toTime": "2025-06-24 12:25:17"
-        },
-        {
-          "fromTime": "2025-06-24 12:25:17",
-          "id": "01M22S4XXTN0VQQWB8HDYD7AAJ",
-          "toTime": "2025-08-08 12:25:17"
-        },
-        {
-          "fromTime": "2025-08-08 12:25:17",
-          "id": "01M22SACA25ZRMCXAXS7H6ECBZ",
-          "toTime": "2025-09-22 12:25:17"
-        },
-        {
-          "fromTime": "2025-09-22 12:25:17",
-          "id": "01M22SCFRTBKDT1X0PR49SHJWW",
+          "id": "01M2JT8M3KGQHF7CXQTB1FKFGH",
           "toTime": "2025-11-06 12:25:17"
         },
         {
           "fromTime": "2025-11-06 12:25:17",
-          "id": "01M22SJSXBTQQBGJC6SF02Q4MJ",
-          "toTime": "2026-02-04 12:25:17"
-        },
-        {
-          "fromTime": "2026-02-04 12:25:17",
-          "id": "01M22SNAGNM51VVM60VW7T21C5",
+          "id": "01M2JTBC6CGBJE6VG5CG93R1W7",
           "toTime": "2026-05-05 12:25:17"
         },
         {
           "fromTime": "2026-05-05 12:25:17",
-          "id": "01M22SQJDPD4YF04B2Y7EBZKP5",
+          "id": "01M2JTCP74NTQQ0YHEK9SN5T5K",
           "toTime": "2026-09-01 00:00:01"
         }
       ],
@@ -21604,37 +21584,32 @@
       "executions": [
         {
           "fromTime": "2023-11-17 12:25:17",
-          "id": "01M22SSZWDWT2RX5FVAER28GEX",
+          "id": "01M2JTEYXRQTVVZYD8TZ4C73TK",
           "toTime": "2024-05-15 12:25:17"
         },
         {
           "fromTime": "2024-05-15 12:25:17",
-          "id": "01M22STYWPAHYDY782SACY2F10",
+          "id": "01M2JTFETC8QRPJQTZXGZKT9S6",
           "toTime": "2024-11-11 12:25:17"
         },
         {
           "fromTime": "2024-11-11 12:25:17",
-          "id": "01M22SVS0TR6NRWVDA16GGGADE",
+          "id": "01M2JTG3MRBYN3W5J7WAR90FKT",
           "toTime": "2025-05-10 12:25:17"
         },
         {
           "fromTime": "2025-05-10 12:25:17",
-          "id": "01M22SWJMSKK93SSWSKKG1JJ0Y",
+          "id": "01M2JTGRQ244S2ATG53NTQ7RHW",
           "toTime": "2025-11-06 12:25:17"
         },
         {
           "fromTime": "2025-11-06 12:25:17",
-          "id": "01M22SYTSPSDTMNXY58FXGAQJ7",
+          "id": "01M2JTJ7HSGBSAN3GNJDMRR0JP",
           "toTime": "2026-05-05 12:25:17"
         },
         {
           "fromTime": "2026-05-05 12:25:17",
-          "id": "01M22T5DRGA84ZFDWGXFYC6G8C",
-          "toTime": "2026-07-03 18:12:39"
-        },
-        {
-          "fromTime": "2026-07-03 18:12:39",
-          "id": "01M22T76WZVQGXJ6QY76WGT8VE",
+          "id": "01M2JTKH33019KE6XDSK4ST3EA",
           "toTime": "2026-09-01 00:00:01"
         }
       ],
@@ -29653,42 +29628,32 @@
       "executions": [
         {
           "fromTime": "2023-09-25 03:20:04",
-          "id": "01M22T99TJ4J4TQV0WCGW3QFKA",
+          "id": "01M2JTM6H97E2VBENNDE0QAC2R",
           "toTime": "2024-03-23 03:20:04"
         },
         {
           "fromTime": "2024-03-23 03:20:04",
-          "id": "01M22TBHYV1NZA0C29CAEJCQ30",
+          "id": "01M2JTN5WNHC5637K7K6HJHB7W",
           "toTime": "2024-09-19 03:20:04"
         },
         {
           "fromTime": "2024-09-19 03:20:04",
-          "id": "01M22TCP7K04KZZPZ8YRZ6CKBF",
+          "id": "01M2JTNGMFX8PD7AZRH9R6P0AS",
           "toTime": "2025-03-18 03:20:04"
         },
         {
           "fromTime": "2025-03-18 03:20:04",
-          "id": "01M22TDZQDCVN02C82F8YNS4RD",
+          "id": "01M2JTP5G24Z2RFNPP215XVQ3S",
           "toTime": "2025-09-14 03:20:04"
         },
         {
           "fromTime": "2025-09-14 03:20:04",
-          "id": "01M22TPBKFGRXESK178346F8P9",
-          "toTime": "2025-10-29 03:20:04"
-        },
-        {
-          "fromTime": "2025-10-29 03:20:04",
-          "id": "01M22TQAHCDE2XP14AWDTYM5YP",
-          "toTime": "2025-12-13 03:20:04"
-        },
-        {
-          "fromTime": "2025-12-13 03:20:04",
-          "id": "01M22TRS0NQZFKPFP6P48ZF994",
+          "id": "01M2JTPZNA1TZ0QDMC9CB13QRZ",
           "toTime": "2026-03-13 03:20:04"
         },
         {
           "fromTime": "2026-03-13 03:20:04",
-          "id": "01M22TTPPT3HPM188HXXB0Y268",
+          "id": "01M2JTRKMC3QJJVHDX25JJ315A",
           "toTime": "2026-09-01 00:00:01"
         }
       ],
@@ -40803,52 +40768,52 @@
       "executions": [
         {
           "fromTime": "2022-03-11 14:06:55",
-          "id": "01M22TX9VCXZY1ZG803VF534QV",
+          "id": "01M2JTT2RTRPSNR07GHD7QVRMZ",
           "toTime": "2022-09-07 14:06:55"
         },
         {
           "fromTime": "2022-09-07 14:06:55",
-          "id": "01M22TXF51R1GRNMEZ2F638HNJ",
+          "id": "01M2JTTDACKSANSJ2D9NS7R0PF",
           "toTime": "2023-03-06 14:06:55"
         },
         {
           "fromTime": "2023-03-06 14:06:55",
-          "id": "01M22TXMGJC07G3DEWNAW66GW4",
+          "id": "01M2JTTQV4DHS7N3HAMC5RV843",
           "toTime": "2023-09-02 14:06:55"
         },
         {
           "fromTime": "2023-09-02 14:06:55",
-          "id": "01M22TXSVXCNWSE97JPBFQQP89",
+          "id": "01M2JTVHV1RT3TSJJQFJF6ZZX2",
           "toTime": "2024-02-29 14:06:55"
         },
         {
           "fromTime": "2024-02-29 14:06:55",
-          "id": "01M22TXZA0GYZQG9XPWHQNVHNS",
+          "id": "01M2JTVWBS5VX2TH9F1XQR5SCS",
           "toTime": "2024-08-27 14:06:55"
         },
         {
           "fromTime": "2024-08-27 14:06:55",
-          "id": "01M22TZ7P47XV6FJY10JMGJ54H",
+          "id": "01M2JTW6WQ9Q8WJKNZJZ61RW6H",
           "toTime": "2025-02-23 14:06:55"
         },
         {
           "fromTime": "2025-02-23 14:06:55",
-          "id": "01M22TZQCMC28Y4Z5GAX592S14",
+          "id": "01M2JTWVQWHVCBC2KGH0YDEPZ3",
           "toTime": "2025-08-22 14:06:55"
         },
         {
           "fromTime": "2025-08-22 14:06:55",
-          "id": "01M22V29NXP0VHR4S5SBMH8J4T",
+          "id": "01M2JTX6CV611RBAGEZJ1ZGXYP",
           "toTime": "2026-02-18 14:06:55"
         },
         {
           "fromTime": "2026-02-18 14:06:55",
-          "id": "01M22V2M6C756KJ9SG3HNHY1AR",
+          "id": "01M2JTXH4M4SZD0KR8YRQKJQXK",
           "toTime": "2026-08-17 14:06:55"
         },
         {
           "fromTime": "2026-08-17 14:06:55",
-          "id": "01M22V4QBY1HMY2TG9Y8VV1E6Z",
+          "id": "01M2JTXVVVNWZHKP6EN58V2V36",
           "toTime": "2026-09-01 00:00:01"
         }
       ],

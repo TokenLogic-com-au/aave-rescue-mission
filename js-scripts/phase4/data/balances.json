@@ -801,6 +801,53 @@
           "tokenSymbol": "USDC",
           "valueUsd": "0.13",
           "virtualBalance": "1533650598011"
+        },
+        {
+          "amount": "1001000000",
+          "amountFormatted": "1001",
+          "chainAlias": "mainnet",
+          "chainId": 1,
+          "decimals": 6,
+          "holder": "0x94e7A5dCbE816e498b89aB752661904E2F56c485",
+          "holderSymbol": "MAIN_SPOKE",
+          "kind": "market-token-in-v4-contract",
+          "market": "AaveV4Ethereum",
+          "priceUsd": "0.99988001",
+          "token": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+          "tokenSymbol": "USDT",
+          "valueUsd": "1000.87"
+        },
+        {
+          "amount": "1600000000000000",
+          "amountFormatted": "0.0016",
+          "chainAlias": "mainnet",
+          "chainId": 1,
+          "decimals": 18,
+          "holder": "0xCca852Bc40e560adC3b1Cc58CA5b55638ce826c9",
+          "holderSymbol": "CORE_HUB",
+          "kind": "underlying-in-own-hub",
+          "market": "AaveV4Ethereum",
+          "priceUsd": "11.31233776",
+          "token": "0x514910771AF9Ca656af840dff83E8264EcF986CA",
+          "tokenSymbol": "LINK",
+          "valueUsd": "0.01",
+          "virtualBalance": "452053110799874140284705"
+        },
+        {
+          "amount": "315",
+          "amountFormatted": "0.000315",
+          "chainAlias": "mainnet",
+          "chainId": 1,
+          "decimals": 6,
+          "holder": "0xCca852Bc40e560adC3b1Cc58CA5b55638ce826c9",
+          "holderSymbol": "CORE_HUB",
+          "kind": "underlying-in-own-hub",
+          "market": "AaveV4Ethereum",
+          "priceUsd": "1",
+          "token": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+          "tokenSymbol": "USDC",
+          "valueUsd": "0.00",
+          "virtualBalance": "923354134789"
         }
       ]
     },
@@ -3686,6 +3733,6 @@
     }
   ],
   "failures": [],
-  "inventorySha256": "6b9014ae423db82c97362d202ad346e0599b6e8e4d0b4380d4d1f9d195276732",
-  "runSha256": "7274ae6a1e6a22debccc0324a12b3b3f42b90a3e345dc13069cda457e3105fcf"
+  "inventorySha256": "7b5154be49db02e89b613d143dbeac9f6395c3d6b35458aa19c83a9f8db0a6a2",
+  "runSha256": "7345f86c235d82c7f963ebd150395b0561aec3fcfbebaa7bb8c28a7be0e6b1b8"
 }

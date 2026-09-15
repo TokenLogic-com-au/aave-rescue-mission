@@ -1,5 +1,5 @@
 {
-  "balancesSha256": "15a8875de7344345ed7ff5d949edc92438c60772d0ce1bcf9b734cf06e1196db",
+  "balancesSha256": "3d9504a8347439a04222c290ff3a4280efd84c9f7f897951cf4f829812b07d27",
   "chains": [
     {
       "alias": "mainnet",
@@ -52,6 +52,21 @@
           "tokenSymbol": "USDC",
           "valueUsd": "31701.67",
           "virtualBalance": "24915040885575"
+        },
+        {
+          "amount": "1001000000",
+          "amountFormatted": "1001",
+          "chainAlias": "mainnet",
+          "chainId": 1,
+          "decimals": 6,
+          "holder": "0x94e7A5dCbE816e498b89aB752661904E2F56c485",
+          "holderSymbol": "MAIN_SPOKE",
+          "kind": "market-token-in-v4-contract",
+          "market": "AaveV4Ethereum",
+          "priceUsd": "0.99988001",
+          "token": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+          "tokenSymbol": "USDT",
+          "valueUsd": "1000.87"
         }
       ]
     },
@@ -172,6 +187,6 @@
     }
   ],
   "minUsd": 1000,
-  "totalUsd": "95377.88",
+  "totalUsd": "96378.75",
   "unpriced": []
 }

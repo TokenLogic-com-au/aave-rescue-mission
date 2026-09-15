@@ -1576,6 +1576,8 @@ ${balancesCacheMin}
           kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">V4 Hub Surplus</span>';
         } else if (f.kind === 'v4-hub-deficit') {
           kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-red-50 text-red-700 border border-red-200">V4 Hub Deficit</span>';
+        } else if (f.kind === 'v4-token-in-hub') {
+          kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-800 border border-amber-200">V4 Foreign in Hub</span>';
         } else if (f.kind === 'v4-token-in-spoke') {
           kindBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-800 border border-amber-200">V4 Stuck in Spoke</span>';
         } else if (f.kind === 'v4-token-in-tokenization-spoke') {
@@ -1852,6 +1854,9 @@ ${balancesCacheMin}
       } else if (finding.kind === 'v4-hub-deficit') {
         kindBadgeEl.textContent = 'V4 Hub Deficit';
         kindBadgeEl.className = 'px-2.5 py-0.5 rounded-full text-xs font-medium bg-tl-error-muted text-tl-error border border-tl-error-border';
+      } else if (finding.kind === 'v4-token-in-hub') {
+        kindBadgeEl.textContent = 'V4 Foreign in Hub';
+        kindBadgeEl.className = 'px-2.5 py-0.5 rounded-full text-xs font-medium bg-tl-warning-muted text-tl-warning border border-tl-warning-border';
       } else if (finding.kind === 'v4-token-in-spoke') {
         kindBadgeEl.textContent = 'V4 Stuck in Spoke';
         kindBadgeEl.className = 'px-2.5 py-0.5 rounded-full text-xs font-medium bg-tl-warning-muted text-tl-warning border border-tl-warning-border';
@@ -1910,9 +1915,11 @@ ${balancesCacheMin}
       } else if (finding.kind === 'atoken-in-itself') {
         expEl.textContent = 'Self-Holding: The aToken holds a balance of its own token address. This commonly happens when tokens are mistakenly minted or transferred to the token contract itself, and can be rescued through governance intervention.';
       } else if (finding.kind === 'v4-hub-surplus') {
-        expEl.textContent = 'V4 Hub Surplus: The ERC-20 balance held by this V4 Hub exceeds its accounting balance (liquidity + accrued fees). This surplus can be rescued by the protocol.';
+        expEl.textContent = 'V4 Hub Surplus: The ERC-20 balance held by this V4 Hub exceeds the liquidity it tracks for this asset. Nothing in the protocol references the surplus.';
       } else if (finding.kind === 'v4-hub-deficit') {
-        expEl.textContent = 'V4 Hub Deficit: The ERC-20 balance held by this V4 Hub is lower than its accounting balance (liquidity + accrued fees). This may reflect accrued protocol interest or uncollected fees.';
+        expEl.textContent = 'V4 Hub Deficit: The ERC-20 balance held by this V4 Hub is lower than the liquidity it tracks for this asset; review.';
+      } else if (finding.kind === 'v4-token-in-hub') {
+        expEl.textContent = 'V4 Foreign Token in Hub: This Hub does not list this asset, so it has no accounting for it. Any non-zero balance was sent to the Hub by mistake.';
       } else if (finding.kind === 'v4-token-in-spoke') {
         expEl.textContent = 'V4 Stuck Token in Spoke: Aave V4 Spokes do not custody underlying tokens (all liquidity is held in Hubs). Any non-zero ERC-20 balance indicates tokens sent mistakenly to the Spoke contract.';
       } else if (finding.kind === 'v4-token-in-tokenization-spoke') {

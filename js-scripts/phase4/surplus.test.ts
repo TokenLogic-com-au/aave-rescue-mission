@@ -235,19 +235,16 @@ describe('buildSurplus', () => {
   const inputs = {
     inventory: {
       addressBook: {repository: 'x', commit: 'y', tag: 'z'},
-      targets: [
+      markets: [
         {
+          market: 'AaveV3Ethereum',
+          protocol: 'v3',
           chainId: 1,
           chainAlias: 'mainnet',
-          market: 'AaveV3Ethereum',
-          executor: POOL,
-          aclAdmin: POOL,
-          aclManager: POOL,
           oracle: POOL,
-          governedByDao: true,
-          targetType: 'pool' as const,
-          target: POOL,
-          source: 's',
+          authority: {executor: POOL, aclAdmin: POOL, aclManager: POOL, governedByDao: true},
+          holders: [{name: 'Pool', address: POOL, role: 'pool', source: 's'}],
+          tokens: [],
         },
       ],
     },

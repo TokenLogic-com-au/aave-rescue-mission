@@ -1,10 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import {
-  createPublicClient,
   formatUnits,
   getAddress,
-  http,
   isAddressEqual,
   parseAbiItem,
   toEventSelector,
@@ -13,16 +11,17 @@ import {
   type Hash,
 } from 'viem';
 import {Holding, HoldingKind} from './balances';
-import {assertChainId, ChainConfig, chainById, envReaders, rpcEnv} from './chains';
+import {ChainReader, ChainReaders, envChainReaders} from './chain';
+import {assertChainId, ChainConfig, chainById, rpcEnv} from './chains';
 import {compareAddresses, sha256, writeCanonical} from './canonical';
 import {ChainFailure, chainFailure, runCli} from './cli';
 import {FilteredBalances} from './filter';
 import {PipelineInputs, readInputs} from './inputs';
-import {poolOf} from './inventory';
+import {marketOf, poolOf} from './inventory';
 import {ChainRange} from './ranges';
 import {SURPLUS_PATH, SURPLUS_SQL_PATH, SurplusHolding, SurplusManifest} from './surplus';
 import {shareUsd, transferCents} from './usd';
-import {Inventory} from '../common/types';
+import {Market} from '../common/types';
 
 /**
  * Attribution: who sent the tokens found by balance discovery. Runs over the filtered holdings
@@ -114,12 +113,19 @@ export type AttributionManifest = {
   /** Present when surplus-transfers.json was used; ties the Dune rows to this run. */
   surplus?: {sha256: string; sqlSha256: string};
   groups: Group[];
-  /** Surplus holdings, only when no surplus file was given. */
+  /** Surplus holdings when no surplus file was given, and every V4 holding: V4 has no attribution path yet. */
   deferred: Holding[];
   failures: ChainFailure[];
 };
 
 const ATTRIBUTION_PATH = path.resolve(__dirname, 'data/attribution.json');
+
+/** Kinds with no legitimate inbound flow: every Transfer into the holder is a candidate. */
+const RPC_KINDS: readonly HoldingKind[] = [
+  'atoken-in-itself',
+  'market-token-in-atoken',
+  'market-token-in-pool',
+];
 
 // ---- Chain reads ----------------------------------------------------------------------------
 
@@ -137,115 +143,15 @@ export type RawTransfer = {
   value: bigint;
 };
 
-export type Receipt = {
-  from: Address;
-  to: Address | null;
-  block: bigint;
-  logs: {address: Address; topics: readonly Hash[]; data: Hash; logIndex: number}[];
-};
-
-/** Log and receipt reads over a block range. Needs no historical state. */
-export type LogReader = {
-  chainId(): Promise<number>;
-  /** Canonical Transfer logs of `token` where `to` (or `from`) is `party`, in [fromBlock, toBlock]. */
-  transfers(
-    token: Address,
-    side: 'to' | 'from',
-    party: Address,
-    fromBlock: bigint,
-    toBlock: bigint
-  ): Promise<RawTransfer[]>;
-  receipt(hash: Hash): Promise<Receipt>;
-};
-
-/** Providers cap eth_getLogs by span and result size; halve the range on any error until it is one block. */
-export async function adaptiveLogs<T>(
-  fetch: (from: bigint, to: bigint) => Promise<T[]>,
-  from: bigint,
-  to: bigint
-): Promise<T[]> {
-  try {
-    return await fetch(from, to);
-  } catch (error) {
-    if (from >= to) throw error;
-    const mid = (from + to) / 2n;
-    return [
-      ...(await adaptiveLogs(fetch, from, mid)),
-      ...(await adaptiveLogs(fetch, mid + 1n, to)),
-    ];
-  }
-}
-
-function viemLogReader(url: string): LogReader {
-  const client = createPublicClient({transport: http(url, {batch: false, timeout: 60_000})});
-  const receipts = new Map<Hash, Receipt>();
-  return {
-    chainId: () => client.getChainId(),
-    transfers: (token, side, party, fromBlock, toBlock) =>
-      adaptiveLogs(
-        async (from, to) =>
-          (
-            await client.getLogs({
-              address: token,
-              event: TRANSFER,
-              args: side === 'to' ? {to: party} : {from: party},
-              fromBlock: from,
-              toBlock: to,
-            })
-          )
-            .filter((l) => !l.removed)
-            .map((l) => ({
-              block: l.blockNumber,
-              txHash: l.transactionHash,
-              logIndex: l.logIndex,
-              from: getAddress(l.args.from!),
-              to: getAddress(l.args.to!),
-              value: l.args.value!,
-            })),
-        fromBlock,
-        toBlock
-      ),
-    receipt: async (hash) => {
-      let r = receipts.get(hash);
-      if (!r) {
-        const t = await client.getTransactionReceipt({hash});
-        r = {
-          from: getAddress(t.from),
-          to: t.to ? getAddress(t.to) : null,
-          block: t.blockNumber,
-          logs: t.logs.map((l) => ({
-            address: getAddress(l.address),
-            topics: l.topics,
-            data: l.data,
-            logIndex: l.logIndex,
-          })),
-        };
-        receipts.set(hash, r);
-      }
-      return r;
-    },
-  };
-}
-
-export type ReaderFactory = (chain: ChainConfig) => LogReader | undefined;
-
-export const envReaderFactory = (env: NodeJS.ProcessEnv = process.env): ReaderFactory =>
-  envReaders(viemLogReader, env);
-
 // ---- Classification and reconciliation ------------------------------------------------------
 
 const isDust = (t: RawTransfer, holding: Holding, minTransferUsd: number): boolean =>
   holding.priceUsd !== undefined &&
   transferCents(t.value, holding.decimals, holding.priceUsd) < BigInt(minTransferUsd * 100);
 
-/** Pool and aTokens of one market, lower-cased; a transfer from them is not a user mistake. */
-function protocolAddresses(inventory: Inventory, chainId: number, market: string): Set<string> {
-  return new Set(
-    inventory.targets
-      .filter((t) => t.chainId === chainId && t.market === market)
-      .map((t) => t.target.toLowerCase())
-  );
-}
+/** The market's own contracts, lower-cased; a transfer from them is not a user mistake. */
+const protocolAddresses = (market: Market): Set<string> =>
+  new Set(market.holders.map((h) => h.address.toLowerCase()));
 
 function classify(
   t: RawTransfer,
@@ -423,7 +329,7 @@ function assembleGroup(
 /** RPC logs in and out of the holder; every inbound transfer is a candidate until classified. */
 export async function scanGroup(
   chain: ChainConfig,
-  reader: LogReader,
+  reader: ChainReader,
   holding: Holding,
   range: Pick<ChainRange, 'fromBlock' | 'toBlock'>,
   protocol: Set<string>,
@@ -431,9 +337,26 @@ export async function scanGroup(
 ): Promise<Group> {
   const from = BigInt(range.fromBlock);
   const to = BigInt(range.toBlock);
+  const transfers = async (args: {to: Address} | {from: Address}): Promise<RawTransfer[]> =>
+    (
+      await reader.logs({
+        address: holding.token,
+        event: TRANSFER,
+        args,
+        fromBlock: from,
+        toBlock: to,
+      })
+    ).map((l) => ({
+      block: l.block,
+      txHash: l.txHash,
+      logIndex: l.logIndex,
+      from: getAddress(l.args.from as Address),
+      to: getAddress(l.args.to as Address),
+      value: l.args.value as bigint,
+    }));
   const [inbound, outbound] = await Promise.all([
-    reader.transfers(holding.token, 'to', holding.holder, from, to),
-    reader.transfers(holding.token, 'from', holding.holder, from, to),
+    transfers({to: holding.holder}),
+    transfers({from: holding.holder}),
   ]);
   const withSigner: Inbound[] = [];
   for (const t of inbound.sort(byPosition)) {
@@ -466,7 +389,7 @@ const topicAddress = (topic: Hash): Address => getAddress(`0x${topic.slice(-40)}
  */
 export async function verifySurplusGroup(
   chain: ChainConfig,
-  reader: LogReader,
+  reader: ChainReader,
   holding: Holding,
   entry: SurplusHolding,
   pool: Address,
@@ -564,7 +487,7 @@ function holdingsByChain(filtered: FilteredBalances): [number, Holding[]][] {
 export async function buildAttribution(
   inputs: PipelineInputs,
   surplus: SurplusInput | undefined,
-  readers: ReaderFactory,
+  readers: ChainReaders,
   minTransferUsd: number,
   log: (line: string) => void = () => {}
 ): Promise<AttributionManifest> {
@@ -590,14 +513,14 @@ export async function buildAttribution(
       if (!reader) throw new Error(`missing ${rpcEnv(chain)} or ALCHEMY_API_KEY`);
       assertChainId(await reader.chainId(), chain);
       for (const h of holdings) {
-        const protocol = protocolAddresses(inventory, chainId, h.market);
+        const protocol = protocolAddresses(marketOf(inventory, chainId, h.market));
         let group: Group;
-        if (h.kind !== 'underlying-in-own-atoken') {
+        if (RPC_KINDS.includes(h.kind)) {
           log(
             `${chain.alias} (${chainId}): ${h.holderSymbol} holds ${h.amountFormatted} ${h.tokenSymbol}, scanning ${range.fromBlock}..${range.toBlock}...`
           );
           group = await scanGroup(chain, reader, h, range, protocol, minTransferUsd);
-        } else if (!surplus) {
+        } else if (h.kind !== 'underlying-in-own-atoken' || !surplus) {
           manifest.deferred.push(h);
           continue;
         } else {
@@ -667,7 +590,7 @@ if (require.main === module)
     const manifest = await buildAttribution(
       inputs,
       surplus,
-      envReaderFactory(),
+      envChainReaders(),
       minTransferUsd,
       console.log
     );

@@ -25,7 +25,10 @@ const holding = (over: Partial<Holding> = {}): Holding => ({
   ...over,
 });
 
-const inventory: Inventory = {addressBook: {repository: 'x', commit: 'y', tag: 'z'}, targets: []};
+const inventory: Inventory = {
+  addressBook: {repository: 'x', commit: 'y', tag: 'z'},
+  markets: [],
+};
 const inventoryText = canonicalJson(inventory);
 const run: RunManifest = {
   pinnedAt: '2026-09-01T00:00:00.000Z',

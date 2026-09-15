@@ -4,13 +4,15 @@ import {describe, expect, it} from 'vitest';
 import {canonicalJson, sha256} from './canonical';
 import {CHAINS, EXCLUSIONS} from './chains';
 import {ADDRESS_BOOK_DIR, ADDRESS_BOOK_PIN} from './addressBook';
-import {buildInventory, INVENTORY_PATH} from './inventory';
+import {buildInventory, discoverable, INVENTORY_PATH, poolOf} from './inventory';
 import {Inventory} from '../common/types';
 
 const ADDRESS = /^0x[0-9a-fA-F]{40}$/;
 
 describe('inventory', () => {
   const inventory: Inventory = buildInventory();
+  const v3 = inventory.markets.filter((m) => m.protocol === 'v3');
+  const v4 = inventory.markets.filter((m) => m.protocol === 'v4');
 
   it('is deterministic and matches the committed artifact', () => {
     const a = canonicalJson(buildInventory());
@@ -19,28 +21,31 @@ describe('inventory', () => {
     expect(fs.readFileSync(INVENTORY_PATH, 'utf8')).toBe(b);
   });
 
-  it('covers every in-scope chain with one DAO executor per chain', () => {
+  it('covers every in-scope chain with a V3 market and one DAO executor per chain', () => {
     for (const chain of CHAINS) {
-      const rows = inventory.targets.filter((t) => t.chainId === chain.chainId);
-      expect(rows.length, chain.alias).toBeGreaterThan(0);
-      const executors = new Set(rows.map((t) => t.executor));
+      const markets = v3.filter((m) => m.chainId === chain.chainId);
+      expect(markets.length, chain.alias).toBeGreaterThan(0);
+      const executors = new Set(markets.map((m) => m.authority!.executor));
       expect(executors.size, chain.alias).toBe(1);
       expect([...executors][0]).toMatch(ADDRESS);
     }
   });
 
-  it('marks every market whose ACL admin is not the DAO executor, and lists it as excluded', () => {
-    const notDao = new Set(inventory.targets.filter((t) => !t.governedByDao).map((t) => t.market));
-    expect([...notDao]).toEqual(['AaveV3InkWhitelabel']);
+  it('marks every market whose ACL admin is not the DAO executor, lists it as excluded, and never scans it', () => {
+    const notDao = v3.filter((m) => !m.authority!.governedByDao).map((m) => m.market);
+    expect(notDao).toEqual(['AaveV3InkWhitelabel']);
     for (const market of notDao) {
       expect(
         EXCLUSIONS.some((e) => e.scope.startsWith(market)),
         market
       ).toBe(true);
     }
-    for (const t of inventory.targets) {
-      expect(t.governedByDao, t.market).toBe(t.aclAdmin.toLowerCase() === t.executor.toLowerCase());
+    for (const m of v3) {
+      const {executor, aclAdmin, governedByDao} = m.authority!;
+      expect(governedByDao, m.market).toBe(aclAdmin.toLowerCase() === executor.toLowerCase());
+      expect(discoverable(m)).toBe(governedByDao);
     }
+    for (const m of v4) expect(discoverable(m)).toBe(true);
   });
 
   it('is built from address book v4.66.4 exactly', () => {
@@ -58,48 +63,79 @@ describe('inventory', () => {
     expect(git('describe', '--tags', '--exact-match')).toBe(inventory.addressBook.tag);
   });
 
-  it('gives every row an in-scope chain, ACL addresses, a source and a well-formed target', () => {
+  it('gives every holder and token a well-formed address, a source naming the market, and a priced-by token', () => {
     const inScope = new Set(CHAINS.map((c) => c.chainId));
-    for (const t of inventory.targets) {
-      expect(inScope.has(t.chainId)).toBe(true);
-      expect(t.target).toMatch(ADDRESS);
-      expect(t.aclAdmin).toMatch(ADDRESS);
-      expect(t.aclManager).toMatch(ADDRESS);
-      expect(t.oracle).toMatch(ADDRESS);
-      expect(t.source).toContain(t.market);
-      if (t.targetType === 'aToken') {
-        expect(t.underlying).toMatch(ADDRESS);
+    for (const m of inventory.markets) {
+      expect(inScope.has(m.chainId), m.market).toBe(true);
+      expect(m.oracle, m.market).toMatch(ADDRESS);
+      const tokens = new Set(m.tokens.map((t) => t.address.toLowerCase()));
+      for (const h of m.holders) {
+        expect(h.address).toMatch(ADDRESS);
+        expect(h.source).toContain(m.market);
+      }
+      for (const t of m.tokens) {
+        expect(t.address).toMatch(ADDRESS);
+        expect(t.source).toContain(m.market);
         expect(t.symbol).toBeTruthy();
         expect(Number.isInteger(t.decimals)).toBe(true);
-      } else {
-        expect(t.underlying).toBeUndefined();
+        expect(tokens.has(t.pricedBy.toLowerCase()), `${m.market} ${t.symbol}`).toBe(true);
       }
     }
   });
 
-  it('has exactly one pool per market and no duplicate targets within a chain', () => {
-    const markets = new Set(inventory.targets.map((t) => t.market));
-    for (const market of markets) {
+  it('gives each V3 market one Pool, and each aToken a virtual-balance floor on its own underlying', () => {
+    for (const m of v3) {
       expect(
-        inventory.targets.filter((t) => t.market === market && t.targetType === 'pool')
+        m.holders.filter((h) => h.role === 'pool'),
+        m.market
       ).toHaveLength(1);
-    }
-    const seen = new Set<string>();
-    for (const t of inventory.targets) {
-      const key = `${t.chainId}:${t.market}:${t.target.toLowerCase()}`;
-      expect(seen.has(key)).toBe(false);
-      seen.add(key);
+      expect(poolOf(inventory, m.chainId, m.market)).toBe(
+        m.holders.find((h) => h.role === 'pool')!.address
+      );
+      const underlyings = new Set<string>(
+        m.tokens.filter((t) => t.pricedBy === t.address).map((t) => t.address)
+      );
+      for (const h of m.holders.filter((h) => h.role === 'aToken')) {
+        expect(h.floor?.rule, h.name).toBe('virtualBalance');
+        const floor = h.floor as {pool: string; token: string};
+        expect(String(floor.pool)).toBe(poolOf(inventory, m.chainId, m.market));
+        expect(underlyings.has(floor.token), h.name).toBe(true);
+      }
+      expect(m.tokens).toHaveLength(2 * (m.holders.length - 1));
     }
   });
 
-  it('includes the two regression-fixture targets on Ethereum Core', () => {
-    const aEthUSDC = inventory.targets.find(
-      (t) => t.chainId === 1 && t.market === 'AaveV3Ethereum' && t.symbol === 'USDC'
-    );
-    expect(aEthUSDC?.target).toBe('0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c');
-    expect(aEthUSDC?.underlying).toBe('0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48');
-    expect(aEthUSDC?.decimals).toBe(6);
-    expect(aEthUSDC?.executor).toBe('0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A');
-    expect(aEthUSDC?.governedByDao).toBe(true);
+  it('gives each V4 market hubs with a liquidity floor, other holders without one, and the chain V3 oracle', () => {
+    expect(v4.map((m) => m.market)).toEqual(['AaveV4Ethereum', 'AaveV4Avalanche']);
+    for (const m of v4) {
+      expect(m.authority).toBeUndefined();
+      expect(m.holders.some((h) => h.role === 'hub')).toBe(true);
+      for (const h of m.holders) {
+        expect(h.floor, h.name).toEqual(h.role === 'hub' ? {rule: 'hubLiquidity'} : undefined);
+      }
+      const v3Oracle = v3.find((x) => x.chainId === m.chainId && discoverable(x))!.oracle;
+      expect(m.oracle).toBe(v3Oracle);
+    }
+  });
+
+  it('has no duplicate holder within a market', () => {
+    for (const m of inventory.markets) {
+      const seen = new Set(m.holders.map((h) => h.address.toLowerCase()));
+      expect(seen.size, m.market).toBe(m.holders.length);
+    }
+  });
+
+  it('includes the regression fixture on Ethereum Core', () => {
+    const core = inventory.markets.find((m) => m.chainId === 1 && m.market === 'AaveV3Ethereum')!;
+    const aEthUSDC = core.holders.find((h) => h.name === 'aUSDC')!;
+    expect(aEthUSDC.address).toBe('0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c');
+    expect(aEthUSDC.floor).toEqual({
+      rule: 'virtualBalance',
+      pool: poolOf(inventory, 1, 'AaveV3Ethereum'),
+      token: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+    });
+    expect(core.tokens.find((t) => t.symbol === 'USDC')?.decimals).toBe(6);
+    expect(core.authority?.executor).toBe('0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A');
+    expect(core.authority?.governedByDao).toBe(true);
   });
 });

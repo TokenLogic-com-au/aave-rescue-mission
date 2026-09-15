@@ -121,7 +121,6 @@ export const EXCLUSIONS: readonly {scope: string; reason: string}[] = [
   {scope: 'Aave V3 Fantom (250)', reason: 'deprecated market, no Governance V3 executor'},
   {scope: 'Aave V3 Harmony (1666600000)', reason: 'deprecated market, no Governance V3 executor'},
   {scope: 'Aave V1 and V2 markets', reason: 'wound down; Phase 4 targets V3 only'},
-  {scope: 'Aave V4 hubs', reason: 'not in the address book; separate initiative'},
   {
     scope: 'AaveV3InkWhitelabel (57073)',
     reason:

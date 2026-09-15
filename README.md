@@ -7,13 +7,14 @@ Phase 4 recovers tokens sent by mistake to Aave V3 Pools and aTokens on all prod
 ## Phase 4 scripts
 
 ```
-yarn phase4:inventory                    # js-scripts/phase4/data/inventory.json from the pinned address book
-yarn phase4:ranges [--refresh]              # js-scripts/phase4/data/run.json at PINNED_AT (policy.ts), needs ALCHEMY_API_KEY or RPC_* in .env
-yarn phase4:balances                     # js-scripts/phase4/data/balances.json, stuck balances at each chain's toBlock
-yarn phase4:filter                       # js-scripts/phase4/data/balances-filtered.json, holdings worth at least MIN_GROUP_USD (policy.ts)
-yarn phase4:surplus [--refresh]             # js-scripts/phase4/data/surplus-transfers.json, Dune query for underlying in its own aToken, needs DUNE_API_KEY; completed holdings reused unless --refresh
-yarn phase4:attribution [--min-transfer-usd 1]   # js-scripts/phase4/data/attribution.json, who sent what, all four kinds
-yarn test                                # vitest: determinism and invariants
+yarn phase4:inventory                              # js-scripts/phase4/data/inventory.json from the pinned address book
+yarn phase4:ranges [--refresh]                     # js-scripts/phase4/data/run.json at PINNED_AT (policy.ts), needs ALCHEMY_API_KEY or RPC_* in .env
+yarn phase4:balances                               # js-scripts/phase4/data/balances.json, stuck balances at each chain's toBlock
+yarn phase4:filter                                 # js-scripts/phase4/data/balances-filtered.json, holdings worth at least MIN_GROUP_USD (policy.ts)
+yarn phase4:surplus [--refresh]                    # js-scripts/phase4/data/surplus-transfers.json, Dune query for underlying in its own aToken, needs DUNE_API_KEY; completed holdings reused unless --refresh
+yarn phase4:attribution [--min-transfer-usd 1]     # js-scripts/phase4/data/attribution.json, who sent what, all four kinds
+yarn test                                          # vitest: determinism and invariants
+npx tsx scan-aave-balances.ts --all [--repin]      # balances-cache.json for docs/: the same discovery at the latest (or cached) block per chain, V3 and V4
 ```
 
 ### How the numbers are produced
@@ -33,9 +34,9 @@ flowchart TD
   RPC[(RPC per chain<br/>headers, receipts, logs,<br/>balances at the pinned block)]:::ext
   DUNE[(Dune<br/>raw SQL, time slices)]:::ext
 
-  INV[inventory.json<br/>V3 Pools and aTokens, executors,<br/>ACL admin, governedByDao]:::file
+  INV[inventory.json<br/>markets: holders with floors,<br/>tokens, oracle, V3 authority]:::file
   RUN[run.json<br/>per chain: fromBlock, toBlock,<br/>isPoolAdmin verified]:::file
-  BAL[balances.json<br/>every market token in every aToken and Pool;<br/>own underlying as surplus over the virtual balance;<br/>oracle USD at toBlock]:::file
+  BAL[balances.json<br/>every token in every holder;<br/>amount above the holder's floor<br/>&#40;virtual balance, hub liquidity&#41;;<br/>oracle USD at toBlock]:::file
   FIL[balances-filtered.json<br/>holdings worth at least MIN_GROUP_USD<br/>plus unpriced ones]:::file
   SUR[surplus-transfers.json<br/>Transfers of underlying into its aToken<br/>whose tx emitted no Pool log;<br/>execution ids, SQL hash]:::file
   ATT[attribution.json<br/>per group: transfers, wallets, outflows,<br/>reconciliation]:::file
@@ -54,6 +55,7 @@ flowchart TD
   SQL --> SUR
   DUNE --> SUR
   FIL -- atoken-in-itself,<br/>market-token-in-atoken,<br/>market-token-in-pool --> ATT
+  FIL -. V4 kinds: deferred .-> ATT
   SUR -- rows re-verified<br/>against receipts --> ATT
   RPC -- Transfer logs in and out,<br/>receipts --> ATT
 ```
@@ -79,11 +81,11 @@ flowchart LR
 
 ### The files
 
-`inventory.json` comes from the [aave-address-book](https://github.com/aave-dao/aave-address-book) Foundry submodule in `lib/`, pinned by commit and read through the TypeScript constants it ships next to the Solidity libraries, so contracts and scripts see one release. It lists every V3 Pool and aToken on the 21 production chains that have a Governance V3 executor: symbol, decimals, the chain's executor, the market's ACL admin and manager, and the address-book module each row came from. A `governedByDao` flag is true when the ACL admin is the executor. Whitelabel or otherwise permissioned instances have it false and appear under `exclusions`. The file is committed and regenerated only when the address-book pin moves.
+`inventory.json` comes from the [aave-address-book](https://github.com/aave-dao/aave-address-book) Foundry submodule in `lib/`, pinned by commit and read through the TypeScript constants it ships next to the Solidity libraries, so contracts and scripts see one release. It is a list of markets, V3 and V4 alike, on the 21 production chains that have a Governance V3 executor. Each market lists its holders (a V3 Pool and aTokens; a V4 hub, spokes, tokenization spokes and position managers), each holder's floor where it has one (an aToken holds its underlying up to the Pool's virtual balance, a hub holds each listed asset up to its liquidity), its tokens with the token that prices each, its oracle, and for V3 its authority: the chain's executor, the market's ACL admin and manager, and `governedByDao`. V4 markets have no authority yet, so they are discovery only. See `CONTEXT.md` for the terms. A `governedByDao` flag is true when the ACL admin is the executor. Whitelabel or otherwise permissioned instances have it false and appear under `exclusions`. The file is committed and regenerated only when the address-book pin moves.
 
 `run.json` pins the block window per chain. Scanning starts at the Phase 2 & 3 execution block on Ethereum, Polygon, Optimism and Avalanche, verified from the receipt, and elsewhere at the market's deployment block as recorded by the DAO-maintained [aave-permissions-book](https://github.com/aave-dao/aave-permissions-book) (`lib/aave-permissions-book`, pinned commit). It ends at the last block at or before `PINNED_AT` from `policy.ts`, which must already be in the past on every chain. The script reads block headers, receipts and one `isPoolAdmin` view call per market, so no archive node is needed. The RPC per chain is `RPC_<ALIAS>` when set, otherwise it is built from `ALCHEMY_API_KEY`. Every range is verified before it is written, whether fresh or reused from a previous `run.json` with the same `PINNED_AT`: the RPC's chain id, the end block against headers, the start block against its evidence, and for each DAO-governed market that the executor holds `POOL_ADMIN` on the ACL manager, which is the gate on `rescueTokens`. `--refresh` recomputes everything. A chain with no RPC, or one that fails verification, is recorded under `failures` rather than skipped, and `run.json` counts as final only when that list is empty.
 
-`balances.json` is the discovery step, read at each chain's pinned `toBlock` for DAO-governed markets only. For every market token (each reserve's underlying and its aToken) held by every aToken and by the Pool, batched through Multicall3, the script records what it finds. An aToken legitimately holds only its own underlying, and only up to `Pool.getVirtualUnderlyingBalance`, so for that pair the surplus over the virtual balance is reported, with a note when the virtual balance is zero or the surplus is negative. Anything else found in an aToken or a Pool is stuck. Amounts are base-unit integers with a formatted copy. Each holding also carries the market oracle's USD price at the same block and the resulting value when the oracle has one. Zero balances are omitted. The manifest records the hashes of the `run.json` and `inventory.json` it was built from.
+`balances.json` is the discovery step, read at each chain's pinned `toBlock` for every discoverable market. One rule for both protocols: every token of the market is read in every holder, batched through Multicall3; where the holder has a floor for that token, only the amount above the floor is reported, with a note when the floor is zero or the amount is negative; every other balance is stuck outright. The kind names the case: for V3 `underlying-in-own-atoken` (surplus over `Pool.getVirtualUnderlyingBalance`), `atoken-in-itself`, `market-token-in-atoken`, `market-token-in-pool`; for V4 `underlying-in-own-hub` (surplus over `getAssetLiquidity`; a sweep moves tokens to the reinvestment controller and reduces liquidity) and `market-token-in-v4-contract`. A hub's listed assets are read from the hub itself; one the address-book pin lacks is scanned as a chain-discovered token. V4 tokens are priced by the chain's first DAO-governed V3 oracle. Amounts are base-unit integers with a formatted copy. Each holding also carries the market oracle's USD price at the same block and the resulting value when the oracle has one. Zero balances are omitted. The manifest records the hashes of the `run.json` and `inventory.json` it was built from.
 
 #### Why the surplus in an aToken can be taken out
 
@@ -107,7 +109,7 @@ which is the state the Pool assumes anyway. When virtual accounting was switched
 
 `surplus-transfers.json` covers the one kind the RPC cannot scan. Underlying flows into its own aToken on every supply and repay, millions of transfers, so `phase4:surplus` runs `surplus.sql` on Dune as raw SQL: transfers of the underlying into the aToken whose transaction emitted no Pool log, read in one pass per time slice. The SQL is committed here and its hash travels with the results, together with every execution id.
 
-`attribution.json` answers who sent the tokens, in one format for all four kinds. Three kinds have no legitimate inbound flow, so every `Transfer` into the holder over the pinned window is a candidate and comes from RPC logs (`evidence.source: rpc-logs`): aTokens held by themselves, other market tokens in an aToken, anything in a Pool. For the fourth kind attribution takes the Dune rows and re-verifies each one against the transaction receipt (`evidence.source: dune-anti-join`). Any contradiction fails that chain. Without `surplus-transfers.json` those holdings are recorded as `deferred`; a surplus file with failures, or one that is missing a holding, fails the chain too.
+`attribution.json` answers who sent the tokens, in one format for all four kinds. Three kinds have no legitimate inbound flow, so every `Transfer` into the holder over the pinned window is a candidate and comes from RPC logs (`evidence.source: rpc-logs`): aTokens held by themselves, other market tokens in an aToken, anything in a Pool. For the fourth kind attribution takes the Dune rows and re-verifies each one against the transaction receipt (`evidence.source: dune-anti-join`). Any contradiction fails that chain. Without `surplus-transfers.json` those holdings are recorded as `deferred`; a surplus file with failures, or one that is missing a holding, fails the chain too. V4 holdings are always `deferred`: hubs and position managers see legitimate inflows, so neither attribution rule applies to them yet.
 
 Transfers worth less than `--min-transfer-usd` (default 1) at the holding's oracle price are recorded as `dust`. They stay in the totals but no receipt is read for them and they are not aggregated into wallets, which keeps address-poisoning noise off the RPC. Every other transfer keeps the ERC-20 `from`, which is the beneficiary, and the transaction signer separately. Mints, transfers from the market's own contracts, zero-value transfers and transfers whose sender is not the signer (a router, a Safe, a relayer) go to `manual_review`. Transfers are listed candidates first, then review, then dust, largest first within each. Candidates are summed per wallet with a proportional USD share as an annotation, and outflows from the holder are listed for the RPC kinds. A group is `reconciled` only when no transfer needs review, nothing left the holder in the window, the totals match the balance (for the surplus kind, the surplus over the virtual balance) and discovery raised no note. Otherwise it is `review`, with the likely cause noted.
 

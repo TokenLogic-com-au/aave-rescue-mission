@@ -1,16 +1,15 @@
 import {describe, expect, it} from 'vitest';
 import {encodeAbiParameters, pad, zeroAddress, type Hash} from 'viem';
 import {
-  adaptiveLogs,
   buildAttribution,
-  LogReader,
   RawTransfer,
-  Receipt,
   scanGroup,
   SurplusInput,
   verifySurplusGroup,
   TRANSFER_TOPIC,
 } from './attribution';
+import {adaptiveLogs, ChainReader, Receipt} from './chain';
+import {fakeChain} from './chain.fake';
 import {BalancesManifest, Holding} from './balances';
 import {canonicalJson, sha256} from './canonical';
 import {chainById, EXCLUSIONS} from './chains';
@@ -19,7 +18,7 @@ import {PipelineInputs} from './inputs';
 import {PERMISSIONS_BOOK_PIN} from './permissionsBook';
 import {RunManifest} from './ranges';
 import {SurplusHolding, SurplusManifest} from './surplus';
-import {Inventory, Target} from '../common/types';
+import {Inventory, Market} from '../common/types';
 import {transferCents} from './usd';
 
 const BASE = chainById(8453);
@@ -66,27 +65,33 @@ const transferLog = (l: Log) => ({
   logIndex: l.logIndex,
 });
 
-/** Filters like a node: by token address and by the indexed party. */
-function fakeReader(fake: Fake): LogReader {
+/** Filters like a node: by token address and by the indexed party. The receipt of a tx carries its fake logs, signed by tokenFrom. */
+function fakeReader(fake: Fake): ChainReader {
   const logs = (fake.logs ?? []).map((l) => ({token: AUSDC, ...l}));
-  return {
-    chainId: async () => fake.chainId ?? 8453,
-    transfers: async (token, side, party, from, to) =>
-      logs
-        .filter((l) => l.token === token && l[side] === party && l.block >= from && l.block <= to)
-        .map(({token: _t, ...l}) => l),
-    receipt: async (hash) => {
-      const mine = logs.filter((l) => l.txHash === hash);
-      if (!mine.length && !fake.receipts?.[hash]) throw new Error(`no receipt for ${hash}`);
-      return {
-        from: mine[0]?.from ?? ALICE,
-        to: AUSDC,
-        block: mine[0]?.block ?? 150n,
-        logs: mine.map(transferLog),
-        ...fake.receipts?.[hash],
-      };
-    },
-  };
+  const receipts: Record<string, Receipt> = {};
+  for (const l of logs) {
+    const mine = logs.filter((x) => x.txHash === l.txHash);
+    receipts[l.txHash] = {
+      from: mine[0].from,
+      to: AUSDC,
+      block: mine[0].block,
+      logs: mine.map(transferLog),
+      ...fake.receipts?.[l.txHash],
+    };
+  }
+  for (const [hash, over] of Object.entries(fake.receipts ?? {}))
+    if (!receipts[hash]) receipts[hash] = {from: ALICE, to: AUSDC, block: 150n, logs: [], ...over};
+  return fakeChain({
+    chainId: fake.chainId,
+    receipts,
+    logs: logs.map((l) => ({
+      address: l.token,
+      block: l.block,
+      txHash: l.txHash,
+      logIndex: l.logIndex,
+      args: {from: l.from, to: l.to, value: l.value},
+    })),
+  });
 }
 
 const raw = (n: number, from: `0x${string}`, value: bigint, over: Partial<Log> = {}): Log => ({
@@ -249,7 +254,7 @@ describe('dust floor', () => {
     const base = fakeReader({
       logs: [raw(1, ALICE, 2_000_000n), raw(2, BOB, 5n), raw(3, ROUTER, 999_999n)],
     });
-    const reader: LogReader = {...base, receipt: (h) => (receipts++, base.receipt(h))};
+    const reader: ChainReader = {...base, receipt: (h) => (receipts++, base.receipt(h))};
     const group = await scanGroup(BASE, reader, holding({amount: '3000004'}), range, PROTOCOL, 1);
     expect(receipts).toBe(1);
     expect(group.transfers.map((t) => [t.amount, t.outcome, t.txFrom])).toEqual([
@@ -270,7 +275,7 @@ describe('dust floor', () => {
   it('verifies everything when the holding has no oracle price', async () => {
     let receipts = 0;
     const base = fakeReader({logs: [raw(1, ALICE, 5n)]});
-    const reader: LogReader = {...base, receipt: (h) => (receipts++, base.receipt(h))};
+    const reader: ChainReader = {...base, receipt: (h) => (receipts++, base.receipt(h))};
     const group = await scanGroup(
       BASE,
       reader,
@@ -294,7 +299,7 @@ describe('dust floor', () => {
     const logs = [raw(1, ALICE, 2_000_000n, {token: USDC}), raw(2, BOB, 5n, {token: USDC})];
     let receipts = 0;
     const base = fakeReader({logs, receipts: {[TX(1)]: {to: USDC}, [TX(2)]: {to: USDC}}});
-    const reader: LogReader = {...base, receipt: (h) => (receipts++, base.receipt(h))};
+    const reader: ChainReader = {...base, receipt: (h) => (receipts++, base.receipt(h))};
     const entry = {
       chainId: 8453,
       chainAlias: 'base',
@@ -509,20 +514,49 @@ describe('adaptiveLogs', () => {
 });
 
 describe('buildAttribution', () => {
-  const targets: Target[] = (['pool', 'aToken'] as const).map((targetType) => ({
+  const market: Market = {
+    market: 'AaveV3Base',
+    protocol: 'v3',
     chainId: 8453,
     chainAlias: 'base',
-    market: 'AaveV3Base',
-    executor: '0x9390B1735def18560c509E2d0bc090E9d6BA257a',
-    aclAdmin: '0x9390B1735def18560c509E2d0bc090E9d6BA257a',
-    aclManager: '0x00000000000000000000000000000000000000ac',
     oracle: '0x00000000000000000000000000000000000000ac',
-    governedByDao: true,
-    targetType,
-    target: targetType === 'pool' ? POOL : AUSDC,
-    source: 'AaveV3Base',
-  }));
-  const inventory: Inventory = {addressBook: {repository: 'x', commit: 'y', tag: 'z'}, targets};
+    authority: {
+      executor: '0x9390B1735def18560c509E2d0bc090E9d6BA257a',
+      aclAdmin: '0x9390B1735def18560c509E2d0bc090E9d6BA257a',
+      aclManager: '0x00000000000000000000000000000000000000ac',
+      governedByDao: true,
+    },
+    holders: [
+      {name: 'Pool', address: POOL, role: 'pool', source: 'AaveV3Base.POOL'},
+      {
+        name: 'aUSDC',
+        address: AUSDC,
+        role: 'aToken',
+        floor: {rule: 'virtualBalance', pool: POOL, token: USDC},
+        source: 'AaveV3Base.ASSETS.USDC',
+      },
+    ],
+    tokens: [
+      {
+        address: USDC,
+        symbol: 'USDC',
+        decimals: 6,
+        pricedBy: USDC,
+        source: 'AaveV3Base.ASSETS.USDC',
+      },
+      {
+        address: AUSDC,
+        symbol: 'aUSDC',
+        decimals: 6,
+        pricedBy: USDC,
+        source: 'AaveV3Base.ASSETS.USDC',
+      },
+    ],
+  };
+  const inventory: Inventory = {
+    addressBook: {repository: 'x', commit: 'y', tag: 'z'},
+    markets: [market],
+  };
   const inventoryText = canonicalJson(inventory);
   const run: RunManifest = {
     pinnedAt: '2026-09-01T00:00:00.000Z',

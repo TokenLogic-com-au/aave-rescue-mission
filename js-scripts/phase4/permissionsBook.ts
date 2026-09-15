@@ -9,7 +9,7 @@ const METADATA_DIR = path.join(PERMISSIONS_BOOK_DIR, 'out/permissions/metadata')
 /** The exact permissions-book commit the deployment blocks are read from. Bump deliberately. */
 export const PERMISSIONS_BOOK_PIN = {
   repository: 'https://github.com/aave-dao/aave-permissions-book',
-  commit: 'a8104bb5dc425256ed8abf36406c4ae54af8483d',
+  commit: 'ce4675c5015b4fef7d585f1fc0f1c7b5693f3f74',
 } as const;
 
 export type DeploymentBlock = {

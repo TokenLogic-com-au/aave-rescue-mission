@@ -3,9 +3,10 @@ import {canonicalJson} from './canonical';
 import {redact} from './cli';
 import {chainById, PHASE_2_3_EXECUTION, rpcUrl} from './chains';
 import {DeploymentBlock, PERMISSIONS_BOOK_PIN} from './permissionsBook';
-import {Inventory, Target} from '../common/types';
+import {toEventSelector, type Address} from 'viem';
+import {fakeChain} from './chain.fake';
+import {Inventory, Market} from '../common/types';
 import {
-  BlockReader,
   blockAtOrBefore,
   buildRun,
   ChainRange,
@@ -24,25 +25,42 @@ type Fake = {
   admins?: Record<string, string[]>;
 };
 
+const DISTRIBUTION_ADDED = toEventSelector(
+  'DistributionAdded(address indexed token, bytes32 indexed merkleRoot, uint256 indexed distributionId)'
+);
+
 /** Fake chain: block n has timestamp 1000 + 12n; recorded transactions confirm unless overridden. */
-function fakeReader(latest: bigint, fake: Fake = {}): BlockReader {
-  const ts = (n: bigint) => 1000n + 12n * n;
-  return {
-    chainId: async () => fake.chainId ?? 8453,
-    latestBlock: async () => ({number: latest, timestamp: ts(latest)}),
-    blockTimestamp: async (n) => ts(n),
-    transactionBlock: async (hash) => {
-      if (fake.txs && hash in fake.txs) return fake.txs[hash];
-      const known = Object.values(PHASE_2_3_EXECUTION).find((e) => e.tx === hash);
-      if (!known) throw new Error(`unknown transaction ${hash}`);
-      return {block: BigInt(known.block), distributionAdded: true};
+function fakeReader(latest: bigint, fake: Fake = {}) {
+  const receipts: Record<string, ReturnType<typeof receiptOf>> = {};
+  const receiptOf = (block: bigint, distributor: Address, distributionAdded: boolean) => ({
+    from: POOL,
+    to: null,
+    block,
+    logs: distributionAdded
+      ? [{address: distributor, topics: [DISTRIBUTION_ADDED], data: '0x' as const, logIndex: 0}]
+      : [],
+  });
+  for (const e of Object.values(PHASE_2_3_EXECUTION)) {
+    const tx = fake.txs?.[e.tx];
+    receipts[e.tx] = tx
+      ? receiptOf(tx.block, e.distributor, tx.distributionAdded)
+      : receiptOf(BigInt(e.block), e.distributor, true);
+  }
+  return fakeChain({
+    chainId: fake.chainId,
+    latest,
+    receipts,
+    read: (call) => {
+      if (call.functionName !== 'isPoolAdmin') return undefined;
+      const [account] = call.args as [string];
+      return (
+        fake.admins === undefined ||
+        (fake.admins[call.address.toLowerCase()] ?? []).some(
+          (a) => a.toLowerCase() === account.toLowerCase()
+        )
+      );
     },
-    isPoolAdmin: async (aclManager, account) =>
-      fake.admins === undefined ||
-      (fake.admins[aclManager.toLowerCase()] ?? []).some(
-        (a) => a.toLowerCase() === account.toLowerCase()
-      ),
-  };
+  });
 }
 
 const POOL = '0x0000000000000000000000000000000000000001' as const;
@@ -51,18 +69,15 @@ const EXECUTOR = '0x9390B1735def18560c509E2d0bc090E9d6BA257a' as const;
 const BASE = chainById(8453);
 const BASE_DEPLOYMENT: DeploymentBlock = {block: 120, market: 'V3'};
 
-const baseTarget = (over: Partial<Target> = {}): Target => ({
+const baseMarket = (over: Partial<Market> = {}): Market => ({
+  market: 'AaveV3Base',
+  protocol: 'v3',
   chainId: 8453,
   chainAlias: 'base',
-  market: 'AaveV3Base',
-  executor: EXECUTOR,
-  aclAdmin: EXECUTOR,
-  aclManager: ACL,
   oracle: ACL,
-  governedByDao: true,
-  targetType: 'pool',
-  target: POOL,
-  source: 'AaveV3Base.POOL',
+  authority: {executor: EXECUTOR, aclAdmin: EXECUTOR, aclManager: ACL, governedByDao: true},
+  holders: [{name: 'Pool', address: POOL, role: 'pool', source: 'AaveV3Base.POOL'}],
+  tokens: [],
   ...over,
 });
 
@@ -164,24 +179,16 @@ describe('verifyRange', () => {
 
 describe('verifyAuthorities', () => {
   it('confirms POOL_ADMIN for every DAO-governed market and skips the others', async () => {
-    const targets = [
-      baseTarget(),
-      baseTarget({
-        targetType: 'aToken',
-        target: '0x0000000000000000000000000000000000000002',
-        symbol: 'X',
-        decimals: 18,
-        underlying: POOL,
-      }),
-      baseTarget({
+    const markets = [
+      baseMarket(),
+      baseMarket({
         market: 'AaveV3BaseOther',
-        aclAdmin: POOL,
-        governedByDao: false,
-        aclManager: POOL,
+        authority: {executor: EXECUTOR, aclAdmin: POOL, aclManager: POOL, governedByDao: false},
       }),
+      baseMarket({market: 'AaveV4Base', protocol: 'v4', authority: undefined}),
     ];
     const reader = fakeReader(1000n, {admins: {[ACL.toLowerCase()]: [EXECUTOR]}});
-    const authorities = await verifyAuthorities(BASE, reader, targets);
+    const authorities = await verifyAuthorities(BASE, reader, markets);
     expect(authorities).toEqual([
       {market: 'AaveV3Base', aclManager: ACL, executor: EXECUTOR, poolAdmin: true},
     ]);
@@ -189,7 +196,7 @@ describe('verifyAuthorities', () => {
 
   it('fails when the executor is not POOL_ADMIN on a DAO-governed market', async () => {
     const reader = fakeReader(1000n, {admins: {[ACL.toLowerCase()]: []}});
-    await expect(verifyAuthorities(BASE, reader, [baseTarget()])).rejects.toThrow('not POOL_ADMIN');
+    await expect(verifyAuthorities(BASE, reader, [baseMarket()])).rejects.toThrow('not POOL_ADMIN');
   });
 });
 
@@ -223,7 +230,7 @@ describe('parseInstant', () => {
 describe('buildRun', () => {
   const inventory: Inventory = {
     addressBook: {repository: 'x', commit: 'y', tag: 'z'},
-    targets: [baseTarget()],
+    markets: [baseMarket()],
   };
   const text = canonicalJson(inventory);
   const pinnedAt = new Date((1000 + 12 * 900) * 1000);
@@ -260,7 +267,6 @@ describe('buildRun', () => {
 
   it('lists the out-of-scope items, including the whitelabel market', async () => {
     const run = await buildRun(inventory, text, pinnedAt, readers, deployments);
-    expect(run.exclusions.map((e) => e.scope)).toContain('Aave V4 hubs');
     expect(run.exclusions.some((e) => e.scope.startsWith('AaveV3InkWhitelabel'))).toBe(true);
   });
 
@@ -272,9 +278,9 @@ describe('buildRun', () => {
       if (!r) return undefined;
       return {
         ...r,
-        blockTimestamp: async (n: bigint) => {
+        header: async (n: bigint) => {
           headerReads++;
-          return r.blockTimestamp(n);
+          return r.header(n);
         },
       };
     };

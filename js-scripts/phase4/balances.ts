@@ -1,37 +1,32 @@
 import fs from 'fs';
 import path from 'path';
-import {
-  createPublicClient,
-  erc20Abi,
-  formatUnits,
-  http,
-  parseAbi,
-  type Address,
-  type MulticallParameters,
-} from 'viem';
-import {assertChainId, CHAINS, ChainConfig, envReaders, rpcEnv} from './chains';
+import {erc20Abi, formatUnits, parseAbi, type Address} from 'viem';
+import {Call, ChainReader, ChainReaders, envChainReaders, strict} from './chain';
+import {assertChainId, CHAINS, ChainConfig, rpcEnv} from './chains';
 import {compareAddresses, compareStrings, sha256, writeCanonical} from './canonical';
 import {ChainFailure, chainFailure, runCli} from './cli';
-import {readVerifiedInventory} from './inventory';
+import {discoverable, readVerifiedInventory} from './inventory';
 import {PINNED_AT} from './policy';
 import {parseInstant, RUN_PATH, RunManifest} from './ranges';
 import {usdValue} from './usd';
-import {Inventory, Target} from '../common/types';
+import {Holder, Inventory, Market, Token} from '../common/types';
 
 /**
- * Balance-first discovery at each chain's pinned block, for DAO-governed markets only.
- * An aToken legitimately holds only its own underlying, and only up to the Pool's virtual
- * balance; a Pool legitimately holds nothing. So for every market token (each reserve's
- * underlying and aToken) held by every aToken and by the Pool, anything found is stuck, except
- * the own-underlying case, where only the surplus over the virtual balance is.
- * Amounts are base-unit integers; formatted amounts and USD values (market AaveOracle at the
- * same block) are annotations for readers and for the eligibility policy.
+ * Balance-first discovery at each chain's pinned block. Every token a market deals in is read
+ * in every holder the market has. A holder with a floor legitimately holds one or more tokens up
+ * to the protocol's own figure for it (an aToken its underlying up to the Pool's virtual balance,
+ * a hub each listed asset up to the hub's liquidity), so only the surplus over the floor is stuck;
+ * every other balance found is stuck outright. Amounts are base-unit integers; formatted amounts
+ * and USD values (the market's oracle at the same block) are annotations for readers and for the
+ * eligibility policy.
  */
 export type HoldingKind =
   | 'underlying-in-own-atoken'
   | 'atoken-in-itself'
   | 'market-token-in-atoken'
-  | 'market-token-in-pool';
+  | 'market-token-in-pool'
+  | 'underlying-in-own-hub'
+  | 'market-token-in-v4-contract';
 
 export type Holding = {
   chainId: number;
@@ -43,10 +38,10 @@ export type Holding = {
   token: Address;
   tokenSymbol: string;
   decimals: number;
-  /** Base units; negative only for a surplus below the virtual balance, which needs review. */
+  /** Base units; negative only for a surplus below the floor, which needs review. */
   amount: string;
   amountFormatted: string;
-  /** For underlying-in-own-atoken: the Pool's virtual balance the surplus was measured against. */
+  /** The floor the surplus was measured against: the Pool's virtual balance, or the hub's liquidity. */
   virtualBalance?: string;
   /** Oracle price in USD (formatted) and the resulting value; absent when the oracle had no price. */
   priceUsd?: string;
@@ -77,104 +72,161 @@ const ORACLE_ABI = parseAbi([
   'function BASE_CURRENCY_UNIT() view returns (uint256)',
   'function getAssetPrice(address asset) view returns (uint256)',
 ]);
+const HUB_ABI = parseAbi([
+  'function getAssetCount() view returns (uint256)',
+  'function getAssetUnderlyingAndDecimals(uint256 assetId) view returns (address, uint8)',
+  'function getAssetLiquidity(uint256 assetId) view returns (uint256)',
+  'function getAssetAccruedFees(uint256 assetId) view returns (uint256)',
+]);
 
-/** Multicall3 lives at the same address on every EVM chain in scope except zkSync. */
-const MULTICALL3: Record<number, Address> = {324: '0xF9cda624FBC7e059355ce98a31693d299FACd963'};
-const multicallAddress = (chainId: number): Address =>
-  MULTICALL3[chainId] ?? '0xcA11bde05977b3631167028862bE2a173976CA11';
-
-export type Pair = {token: Address; holder: Address};
-
-/** State reads at a pinned block. Needs historical state on the node. */
-export type BalanceReader = {
-  chainId(): Promise<number>;
-  balances(pairs: Pair[], block: bigint): Promise<bigint[]>;
-  virtualBalances(pool: Address, assets: Address[], block: bigint): Promise<bigint[]>;
-  /** Oracle base unit and one price per asset; a price is undefined when the oracle reverted for it. */
-  prices(
-    oracle: Address,
-    assets: Address[],
-    block: bigint
-  ): Promise<{unit: bigint; prices: (bigint | undefined)[]}>;
+/** One asset a hub lists, with the hub's own figures for it. */
+export type HubAsset = {
+  market: string;
+  hub: Address;
+  hubName: string;
+  assetId: number;
+  underlying: Address;
+  symbol: string;
+  decimals: number;
+  liquidity: bigint;
+  accruedFees: bigint;
 };
 
-const CHUNK = 300;
+/** What a market scan covered, for readers that report coverage as well as findings. */
+export type MarketScan = {
+  market: Market;
+  holdings: Holding[];
+  hubAssets: HubAsset[];
+  checks: number;
+};
 
-type Call = {address: Address; abi: readonly unknown[]; functionName: string; args: unknown[]};
+export type ChainScan = {holdings: Holding[]; markets: MarketScan[]};
 
-function viemBalanceReader(url: string, chainId: number): BalanceReader {
-  const client = createPublicClient({transport: http(url, {batch: false, timeout: 60_000})});
-  const multicall = async (calls: Call[], blockNumber: bigint): Promise<(bigint | undefined)[]> => {
-    const out: (bigint | undefined)[] = [];
-    for (let i = 0; i < calls.length; i += CHUNK) {
-      const results = await client.multicall({
-        contracts: calls.slice(i, i + CHUNK) as MulticallParameters['contracts'],
-        blockNumber,
-        multicallAddress: multicallAddress(chainId),
-        allowFailure: true,
-      });
-      for (const r of results) {
-        out.push(r.status === 'success' ? BigInt(r.result as bigint) : undefined);
-      }
-    }
-    return out;
-  };
-  const strict = (values: (bigint | undefined)[], what: string): bigint[] => {
-    const i = values.findIndex((v) => v === undefined);
-    if (i !== -1) throw new Error(`${what} call ${i} failed`);
-    return values as bigint[];
-  };
-  return {
-    chainId: () => client.getChainId(),
-    balances: async (pairs, block) =>
-      strict(
-        await multicall(
-          pairs.map((p) => ({
-            address: p.token,
-            abi: erc20Abi,
-            functionName: 'balanceOf',
-            args: [p.holder],
-          })),
-          block
-        ),
-        'balanceOf'
-      ),
-    virtualBalances: async (pool, assets, block) =>
-      strict(
-        await multicall(
-          assets.map((a) => ({
-            address: pool,
-            abi: POOL_ABI,
-            functionName: 'getVirtualUnderlyingBalance',
-            args: [a],
-          })),
-          block
-        ),
-        'getVirtualUnderlyingBalance'
-      ),
-    prices: async (oracle, assets, block) => {
-      const [unit, ...prices] = await multicall(
-        [
-          {address: oracle, abi: ORACLE_ABI, functionName: 'BASE_CURRENCY_UNIT', args: []},
-          ...assets.map((a) => ({
-            address: oracle,
-            abi: ORACLE_ABI,
-            functionName: 'getAssetPrice',
-            args: [a],
-          })),
-        ],
-        block
-      );
-      if (unit === undefined) throw new Error('oracle BASE_CURRENCY_UNIT failed');
-      return {unit, prices};
-    },
-  };
+const key = (holder: Address, token: Address) => `${holder}:${token}`.toLowerCase();
+
+function kindOf(market: Market, holder: Holder, token: Token, own: boolean): HoldingKind {
+  if (market.protocol === 'v4')
+    return own ? 'underlying-in-own-hub' : 'market-token-in-v4-contract';
+  if (own) return 'underlying-in-own-atoken';
+  if (holder.role === 'pool') return 'market-token-in-pool';
+  if (token.address === holder.address) return 'atoken-in-itself';
+  return 'market-token-in-atoken';
 }
 
-export type ReaderFactory = (chain: ChainConfig) => BalanceReader | undefined;
+async function hubAssets(
+  reader: ChainReader,
+  market: Market,
+  hub: Holder,
+  block: bigint
+): Promise<HubAsset[]> {
+  const [count] = strict<bigint>(
+    await reader.read([{address: hub.address, abi: HUB_ABI, functionName: 'getAssetCount'}], block),
+    'getAssetCount'
+  );
+  const ids = Array.from({length: Number(count)}, (_, i) => BigInt(i));
+  const calls = (functionName: string): Call[] =>
+    ids.map((id) => ({address: hub.address, abi: HUB_ABI, functionName, args: [id]}));
+  const [info, liquidity, fees] = await Promise.all([
+    reader
+      .read(calls('getAssetUnderlyingAndDecimals'), block)
+      .then((v) => strict<[Address, number]>(v, 'getAssetUnderlyingAndDecimals')),
+    reader
+      .read(calls('getAssetLiquidity'), block)
+      .then((v) => strict<bigint>(v, 'getAssetLiquidity')),
+    reader
+      .read(calls('getAssetAccruedFees'), block)
+      .then((v) => strict<bigint>(v, 'getAssetAccruedFees')),
+  ]);
+  // The hub's listing is the evidence; an asset listed after the address-book pin is named from chain.
+  const symbolOf = new Map(market.tokens.map((t) => [t.address.toLowerCase(), t.symbol]));
+  const unknown = info.map(([u]) => u).filter((u) => !symbolOf.has(u.toLowerCase()));
+  const symbols = await reader.read(
+    unknown.map((u) => ({address: u, abi: erc20Abi, functionName: 'symbol'})),
+    block
+  );
+  unknown.forEach((u, i) =>
+    symbolOf.set(u.toLowerCase(), (symbols[i] as string | undefined) ?? u.slice(0, 10))
+  );
+  return ids.map((id, i) => {
+    const [underlying, decimals] = info[i];
+    const symbol = symbolOf.get(underlying.toLowerCase())!;
+    return {
+      market: market.market,
+      hub: hub.address,
+      hubName: hub.name,
+      assetId: Number(id),
+      underlying,
+      symbol,
+      decimals: Number(decimals),
+      liquidity: liquidity[i],
+      accruedFees: fees[i],
+    };
+  });
+}
 
-export const envReaderFactory = (env: NodeJS.ProcessEnv = process.env): ReaderFactory =>
-  envReaders((url, chain) => viemBalanceReader(url, chain.chainId), env);
+/** Floors for one market: `${holder}:${token}` -> the amount the holder legitimately holds. */
+async function floors(
+  reader: ChainReader,
+  market: Market,
+  block: bigint
+): Promise<{floor: Map<string, bigint>; hubAssets: HubAsset[]}> {
+  const floor = new Map<string, bigint>();
+  const virtual = market.holders.filter((h) => h.floor?.rule === 'virtualBalance');
+  const values = strict<bigint>(
+    await reader.read(
+      virtual.map((h) => {
+        const f = h.floor as Extract<Holder['floor'], {rule: 'virtualBalance'}>;
+        return {
+          address: f.pool,
+          abi: POOL_ABI,
+          functionName: 'getVirtualUnderlyingBalance',
+          args: [f.token],
+        };
+      }),
+      block
+    ),
+    'getVirtualUnderlyingBalance'
+  );
+  virtual.forEach((h, i) =>
+    floor.set(key(h.address, (h.floor as {token: Address}).token), values[i])
+  );
+  const assets: HubAsset[] = [];
+  for (const hub of market.holders.filter((h) => h.floor?.rule === 'hubLiquidity')) {
+    for (const a of await hubAssets(reader, market, hub, block)) {
+      floor.set(key(hub.address, a.underlying), a.liquidity);
+      assets.push(a);
+    }
+  }
+  return {floor, hubAssets: assets};
+}
+
+async function prices(
+  reader: ChainReader,
+  market: Market,
+  block: bigint
+): Promise<{unit: bigint; priceOf: Map<string, bigint | undefined>}> {
+  const assets = [...new Set(market.tokens.map((t) => t.pricedBy.toLowerCase()))].map(
+    (a) => a as Address
+  );
+  if (!market.oracle) return {unit: 0n, priceOf: new Map()};
+  const [unit, ...values] = await reader.read(
+    [
+      {address: market.oracle, abi: ORACLE_ABI, functionName: 'BASE_CURRENCY_UNIT'},
+      ...assets.map((a) => ({
+        address: market.oracle!,
+        abi: ORACLE_ABI,
+        functionName: 'getAssetPrice',
+        args: [a],
+      })),
+    ],
+    block
+  );
+  if (unit === undefined) throw new Error('oracle BASE_CURRENCY_UNIT failed');
+  return {
+    unit: unit as bigint,
+    priceOf: new Map(assets.map((a, i) => [a.toLowerCase(), values[i] as bigint | undefined])),
+  };
+}
 
 function compareHoldings(a: Holding, b: Holding): number {
   return (
@@ -184,80 +236,69 @@ function compareHoldings(a: Holding, b: Holding): number {
   );
 }
 
-type MarketToken = {address: Address; symbol: string; decimals: number; underlying: Address};
-
-/** Holdings for one market at `block`. */
-async function marketHoldings(
+/** Every token in every holder of one market at `block`, net of the holder's floor where it has one. */
+export async function marketHoldings(
   chain: ChainConfig,
-  reader: BalanceReader,
-  market: string,
-  pool: Address,
-  oracle: Address,
-  aTokens: Target[],
+  reader: ChainReader,
+  market: Market,
   block: bigint
-): Promise<Holding[]> {
-  // Every market token: each reserve's underlying and aToken, both priced by the underlying.
-  const tokens: MarketToken[] = aTokens.flatMap((t) => [
-    {address: t.underlying!, symbol: t.symbol!, decimals: t.decimals!, underlying: t.underlying!},
-    {address: t.target, symbol: `a${t.symbol!}`, decimals: t.decimals!, underlying: t.underlying!},
+): Promise<MarketScan> {
+  const {floor, hubAssets} = await floors(reader, market, block);
+  // Every token the market deals in, plus any asset a hub lists that the address-book pin lacks.
+  const tokens: Token[] = [...market.tokens];
+  for (const a of hubAssets) {
+    if (tokens.some((t) => t.address.toLowerCase() === a.underlying.toLowerCase())) continue;
+    tokens.push({
+      address: a.underlying,
+      symbol: a.symbol,
+      decimals: a.decimals,
+      pricedBy: a.underlying,
+      source: `${a.hubName} listing, not in the address-book pin`,
+    });
+  }
+  const pairs = market.holders.flatMap((holder) => tokens.map((token) => ({holder, token})));
+  const [balances, {unit, priceOf}] = await Promise.all([
+    reader
+      .read(
+        pairs.map((p) => ({
+          address: p.token.address,
+          abi: erc20Abi,
+          functionName: 'balanceOf',
+          args: [p.holder.address],
+        })),
+        block
+      )
+      .then((v) => strict<bigint>(v, 'balanceOf')),
+    prices(reader, {...market, tokens}, block),
   ]);
-  const holders: {address: Address; symbol: string; own?: Address}[] = [
-    ...aTokens.map((t) => ({address: t.target, symbol: `a${t.symbol!}`, own: t.underlying!})),
-    {address: pool, symbol: 'Pool'},
-  ];
-  const underlyings = aTokens.map((t) => t.underlying!);
-  const pairs: Pair[] = holders.flatMap((h) =>
-    tokens.map((t) => ({token: t.address, holder: h.address}))
-  );
-  const [balances, virtuals, {unit, prices}] = await Promise.all([
-    reader.balances(pairs, block),
-    reader.virtualBalances(pool, underlyings, block),
-    reader.prices(oracle, underlyings, block),
-  ]);
-  const virtualOf = new Map(underlyings.map((u, i) => [u.toLowerCase(), virtuals[i]]));
-  const priceOf = new Map(underlyings.map((u, i) => [u.toLowerCase(), prices[i]]));
   const priceDecimals = unit.toString().length - 1;
-
-  const found: Holding[] = [];
-  pairs.forEach((_, i) => {
-    const token = tokens[i % tokens.length];
-    const holder = holders[Math.floor(i / tokens.length)];
-    let amount = balances[i];
-    let kind: HoldingKind;
-    let virtualBalance: string | undefined;
-    let note: string | undefined;
-    if (holder.own && token.address === holder.own) {
-      const virtual = virtualOf.get(token.address.toLowerCase())!;
-      amount -= virtual;
-      kind = 'underlying-in-own-atoken';
-      virtualBalance = virtual.toString();
-      if (virtual === 0n && amount !== 0n) {
-        note = 'virtual balance is zero: reserve may not use virtual accounting; review';
-      } else if (amount < 0n) {
-        note = 'balance below virtual balance; review';
-      }
-    } else if (!holder.own) {
-      kind = 'market-token-in-pool';
-    } else if (token.address === holder.address) {
-      kind = 'atoken-in-itself';
-    } else {
-      kind = 'market-token-in-atoken';
-    }
+  const holdings: Holding[] = [];
+  pairs.forEach(({holder, token}, i) => {
+    const own = floor.get(key(holder.address, token.address));
+    const amount = own === undefined ? balances[i] : balances[i] - own;
     if (amount === 0n) return;
-    const price = priceOf.get(token.underlying.toLowerCase());
-    found.push({
+    let note: string | undefined;
+    if (own !== undefined && holder.floor?.rule === 'virtualBalance') {
+      if (own === 0n)
+        note = 'virtual balance is zero: reserve may not use virtual accounting; review';
+      else if (amount < 0n) note = 'balance below virtual balance; review';
+    } else if (own !== undefined && amount < 0n) {
+      note = 'balance below hub liquidity; review';
+    }
+    const price = priceOf.get(token.pricedBy.toLowerCase());
+    holdings.push({
       chainId: chain.chainId,
       chainAlias: chain.alias,
-      market,
-      kind,
+      market: market.market,
+      kind: kindOf(market, holder, token, own !== undefined),
       holder: holder.address,
-      holderSymbol: holder.symbol,
+      holderSymbol: holder.name,
       token: token.address,
       tokenSymbol: token.symbol,
       decimals: token.decimals,
       amount: amount.toString(),
       amountFormatted: formatUnits(amount, token.decimals),
-      ...(virtualBalance !== undefined ? {virtualBalance} : {}),
+      ...(own !== undefined ? {virtualBalance: own.toString()} : {}),
       ...(price !== undefined
         ? {
             priceUsd: formatUnits(price, priceDecimals),
@@ -267,27 +308,22 @@ async function marketHoldings(
       ...(note ? {note} : {}),
     });
   });
-  return found;
+  return {market, holdings: holdings.sort(compareHoldings), hubAssets, checks: pairs.length};
 }
 
-/** Holdings for one chain at `block`, for its DAO-governed markets only. */
-export async function chainHoldings(
+/** Every discoverable market on the chain at `block`. */
+export async function chainScan(
   chain: ChainConfig,
-  reader: BalanceReader,
-  targets: Target[],
+  reader: ChainReader,
+  inventory: Inventory,
   block: bigint
-): Promise<Holding[]> {
-  const rows = targets.filter((t) => t.chainId === chain.chainId && t.governedByDao);
-  const markets = [...new Set(rows.map((t) => t.market))].sort(compareStrings);
-  const all: Holding[] = [];
-  for (const market of markets) {
-    const pool = rows.find((t) => t.market === market && t.targetType === 'pool')!;
-    const aTokens = rows.filter((t) => t.market === market && t.targetType === 'aToken');
-    all.push(
-      ...(await marketHoldings(chain, reader, market, pool.target, pool.oracle, aTokens, block))
-    );
-  }
-  return all.sort(compareHoldings);
+): Promise<ChainScan> {
+  const markets: MarketScan[] = [];
+  for (const market of inventory.markets.filter(
+    (m) => m.chainId === chain.chainId && discoverable(m)
+  ))
+    markets.push(await marketHoldings(chain, reader, market, block));
+  return {holdings: markets.flatMap((m) => m.holdings).sort(compareHoldings), markets};
 }
 
 export async function buildBalances(
@@ -295,7 +331,7 @@ export async function buildBalances(
   inventoryText: string,
   run: RunManifest,
   runText: string,
-  readers: ReaderFactory,
+  readers: ChainReaders,
   log: (line: string) => void = () => {}
 ): Promise<BalancesManifest> {
   if (run.failures.length) throw new Error('run.json is not final: it has failures');
@@ -317,7 +353,7 @@ export async function buildBalances(
       if (!reader) throw new Error(`missing ${rpcEnv(chain)} or ALCHEMY_API_KEY`);
       assertChainId(await reader.chainId(), chain);
       log(`${chain.alias} (${chain.chainId}): reading balances at block ${range.toBlock}...`);
-      const holdings = await chainHoldings(chain, reader, inventory.targets, BigInt(range.toBlock));
+      const {holdings} = await chainScan(chain, reader, inventory, BigInt(range.toBlock));
       manifest.chains.push({
         chainId: chain.chainId,
         alias: chain.alias,
@@ -343,7 +379,7 @@ if (require.main === module)
       inventoryText,
       JSON.parse(runText),
       runText,
-      envReaderFactory(),
+      envChainReaders(),
       console.log
     );
     const digest = writeCanonical(BALANCES_PATH, manifest);
