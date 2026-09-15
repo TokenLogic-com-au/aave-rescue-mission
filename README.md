@@ -139,13 +139,13 @@ The two Pool rows and the self-held aUSDC can be rescued with `rescueTokens` as 
 - Proposals: deploy `AaveMerkleDistributor` on chains without one (`make deploy-distributor`), then one payload per chain in `aave-proposals-v3` calling `addDistributions` and `rescueTokens`, with claim tests on a fork.
 - Claim UI and forum post.
 
+![rescue](ghost_rescue.jpeg)
+
 The Phase 2 & 3 documentation follows.
 
 ---
 
 # Aave Rescue Mission Phase 2 & 3 🚑 👻
-
-![rescue](https://github.com/bgd-labs/rescue-mission-phase-1/blob/master/ghost_rescue.jpg)
 
 Repository containing all the code needed for Phase 2 & 3 to rescue tokens sent directly to contracts of the Aave ecosystem.
 
