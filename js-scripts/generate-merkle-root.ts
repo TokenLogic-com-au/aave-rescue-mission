@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import {getAddress} from 'viem';
+import {getAddress, type Address} from 'viem';
 import {parseBalanceMap} from './parse-balance-map';
 import {
   CHAIN_ID,
@@ -16,6 +16,7 @@ import {
   AaveV3Ethereum,
   AaveV3Polygon,
 } from '../lib/aave-address-book/src/ts/AaveAddressBook';
+import {decisionsByTxHash} from './phase4/decisions';
 
 export type Phase4DistributionInput = {
   key: string;
@@ -159,11 +160,13 @@ export function readAttributionJson(filePath = ATTRIBUTION_PATH) {
 }
 
 export function buildRescueMapsFromAttribution(
-  attributionData = readAttributionJson()
+  attributionData = readAttributionJson(),
+  decisionsMap = decisionsByTxHash(),
+  distributions = PHASE4_DISTRIBUTIONS
 ): Record<string, RescueMap> {
   const result: Record<string, RescueMap> = {};
 
-  for (const config of PHASE4_DISTRIBUTIONS) {
+  for (const config of distributions) {
     const group = attributionData.groups.find(
       (g: any) =>
         g.chainAlias === config.chainAlias &&
@@ -185,14 +188,27 @@ export function buildRescueMapsFromAttribution(
 
     const map: RescueMap = {};
     for (const transfer of group.transfers) {
-      if (transfer.outcome !== 'candidate') continue;
-      const account = getAddress(transfer.tokenFrom);
-      if (!map[account]) {
-        map[account] = {amount: '0', txns: []};
+      let beneficiary: Address | undefined;
+
+      if (transfer.outcome === 'candidate') {
+        beneficiary = getAddress(transfer.tokenFrom);
+      } else if (transfer.outcome === 'manual_review') {
+        const decision = decisionsMap[transfer.txHash.toLowerCase()];
+        if (decision && decision.action === 'approve') {
+          beneficiary = getAddress(decision.beneficiary);
+        }
       }
-      map[account].amount = (BigInt(map[account].amount) + BigInt(transfer.amount)).toString();
-      if (!map[account].txns.includes(transfer.txHash)) {
-        map[account].txns.push(transfer.txHash);
+
+      if (!beneficiary) continue;
+
+      if (!map[beneficiary]) {
+        map[beneficiary] = {amount: '0', txns: []};
+      }
+      map[beneficiary].amount = (
+        BigInt(map[beneficiary].amount) + BigInt(transfer.amount)
+      ).toString();
+      if (!map[beneficiary].txns.includes(transfer.txHash)) {
+        map[beneficiary].txns.push(transfer.txHash);
       }
     }
 
