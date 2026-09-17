@@ -10,6 +10,7 @@ import {
   buildRescueMapsFromAttribution,
   readAttributionJson,
 } from '../generate-merkle-root';
+import {decisionsByTxHash} from '../phase4/decisions';
 
 const MAPS_DIR = path.resolve(__dirname, '../maps');
 
@@ -137,7 +138,16 @@ describe('Phase 4 Merkle trees generated from attribution.json', () => {
           totalWei += BigInt(entry.amount);
         }
 
-        expect(totalWei.toString()).toBe(group.reconciliation.candidates);
+        const approvedReviewWei = group.transfers
+          .filter((t: any) => {
+            if (t.outcome !== 'manual_review') return false;
+            const d = decisionsByTxHash()[t.txHash.toLowerCase()];
+            return d && d.action === 'approve';
+          })
+          .reduce((acc: bigint, t: any) => acc + BigInt(t.amount), 0n);
+
+        const expectedWei = BigInt(group.reconciliation.candidates) + approvedReviewWei;
+        expect(totalWei.toString()).toBe(expectedWei.toString());
       });
 
       it('generates valid Merkle tree with verifiable proofs for every claimant', () => {

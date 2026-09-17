@@ -7,7 +7,11 @@ import {
   type DecisionEntry,
 } from './decisions';
 import type {AttributionManifest, Group} from './attribution';
-import {buildRescueMapsFromAttribution, PHASE4_DISTRIBUTIONS} from '../generate-merkle-root';
+import {
+  assertDecisionsIntegrity,
+  buildRescueMapsFromAttribution,
+  PHASE4_DISTRIBUTIONS,
+} from '../generate-merkle-root';
 
 function makeGroup(overrides: Partial<Group> = {}): Group {
   return {
@@ -122,7 +126,7 @@ describe('decisions', () => {
     expect(d.notes).toBe('approved via Safe owner verification');
   });
 
-  it('buildRescueMapsFromAttribution credits approved decisions and ignores pending ones', () => {
+  it('buildRescueMapsFromAttribution strictly requires decisions and handles approve/reject', () => {
     const pendingDecision: DecisionEntry = {
       txHash: dummyTx1,
       chainAlias: 'mainnet',
@@ -141,18 +145,65 @@ describe('decisions', () => {
 
     const ethUsdtDist = [PHASE4_DISTRIBUTIONS.find((d) => d.key === 'ETH_USDT')!];
 
-    // When pending: dummyTx1 is excluded, only candidate dummyTx2 is credited
-    const pendingMaps = buildRescueMapsFromAttribution(
+    // 1. Missing decision -> throws error
+    expect(() =>
+      buildRescueMapsFromAttribution({groups: attribution.groups} as any, {}, ethUsdtDist)
+    ).toThrowError(/Missing decision/);
+
+    // 2. Pending decision -> throws error (never silent)
+    expect(() =>
+      buildRescueMapsFromAttribution(
+        {groups: attribution.groups} as any,
+        {[dummyTx1.toLowerCase()]: pendingDecision},
+        ethUsdtDist
+      )
+    ).toThrowError(/is still 'pending'/);
+
+    // 3. Amount mismatch -> throws error
+    expect(() =>
+      buildRescueMapsFromAttribution(
+        {groups: attribution.groups} as any,
+        {
+          [dummyTx1.toLowerCase()]: {
+            ...pendingDecision,
+            action: 'approve',
+            amount: '9999999',
+          },
+        },
+        ethUsdtDist
+      )
+    ).toThrowError(/Amount mismatch/);
+
+    // 4. Invalid beneficiary -> throws error
+    expect(() =>
+      buildRescueMapsFromAttribution(
+        {groups: attribution.groups} as any,
+        {
+          [dummyTx1.toLowerCase()]: {
+            ...pendingDecision,
+            action: 'approve',
+            beneficiary: '0x0000000000000000000000000000000000000000' as Address,
+          },
+        },
+        ethUsdtDist
+      )
+    ).toThrowError(/Invalid beneficiary/);
+
+    // 5. Rejected decision -> excluded from map with loud console warning (not silent)
+    const rejectedDecision: DecisionEntry = {
+      ...pendingDecision,
+      action: 'reject',
+      notes: 'Sender confirmed as arbitrary contract, not the victim',
+    };
+    const rejectedMaps = buildRescueMapsFromAttribution(
       {groups: attribution.groups} as any,
-      {
-        [dummyTx1.toLowerCase()]: pendingDecision,
-      },
+      {[dummyTx1.toLowerCase()]: rejectedDecision},
       ethUsdtDist
     );
-    expect(pendingMaps['ETH_USDT'][getAddress(sender1)]).toBeUndefined();
-    expect(pendingMaps['ETH_USDT'][getAddress(sender2)].amount).toBe('1000000');
+    expect(rejectedMaps['ETH_USDT'][getAddress(sender1)]).toBeUndefined();
+    expect(rejectedMaps['ETH_USDT'][getAddress(sender2)].amount).toBe('1000000');
 
-    // When approved: dummyTx1 is credited to beneficiary
+    // 6. Approved decision -> dummyTx1 is credited to beneficiary
     const approvedDecision: DecisionEntry = {
       ...pendingDecision,
       action: 'approve',
@@ -160,12 +211,25 @@ describe('decisions', () => {
     };
     const approvedMaps = buildRescueMapsFromAttribution(
       {groups: attribution.groups} as any,
-      {
-        [dummyTx1.toLowerCase()]: approvedDecision,
-      },
+      {[dummyTx1.toLowerCase()]: approvedDecision},
       ethUsdtDist
     );
     expect(approvedMaps['ETH_USDT'][getAddress(sender1)].amount).toBe('5000000');
     expect(approvedMaps['ETH_USDT'][getAddress(sender2)].amount).toBe('1000000');
+  });
+
+  it('assertDecisionsIntegrity strictly verifies presence and attributionSha256 hash match', () => {
+    // Missing manifest throws
+    expect(() => assertDecisionsIntegrity('sample text', null)).toThrowError(
+      /decisions.json not found/
+    );
+
+    // Stale hash throws
+    expect(() =>
+      assertDecisionsIntegrity('sample text', {
+        attributionSha256: 'stale-hash',
+        decisions: [],
+      })
+    ).toThrowError(/decisions.json is stale/);
   });
 });

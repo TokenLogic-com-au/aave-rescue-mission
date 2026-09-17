@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import {getAddress, type Address} from 'viem';
+import {getAddress, isAddress, type Address} from 'viem';
 import {parseBalanceMap} from './parse-balance-map';
 import {
   CHAIN_ID,
@@ -16,7 +16,13 @@ import {
   AaveV3Ethereum,
   AaveV3Polygon,
 } from '../lib/aave-address-book/src/ts/AaveAddressBook';
-import {decisionsByTxHash} from './phase4/decisions';
+import {
+  decisionsByTxHash,
+  readDecisions,
+  DECISIONS_PATH,
+  type DecisionsManifest,
+} from './phase4/decisions';
+import {sha256} from './phase4/canonical';
 
 export type Phase4DistributionInput = {
   key: string;
@@ -194,12 +200,51 @@ export function buildRescueMapsFromAttribution(
         beneficiary = getAddress(transfer.tokenFrom);
       } else if (transfer.outcome === 'manual_review') {
         const decision = decisionsMap[transfer.txHash.toLowerCase()];
-        if (decision && decision.action === 'approve') {
-          beneficiary = getAddress(decision.beneficiary);
+        if (!decision) {
+          throw new Error(
+            `[Strict] Missing decision for manual_review transfer ${transfer.txHash} in ${config.key} (${group.chainAlias} ${group.tokenSymbol}). Run 'npm run phase4:decisions' and review.`
+          );
         }
+        if (decision.amount !== transfer.amount) {
+          throw new Error(
+            `[Strict] Amount mismatch in decisions.json for ${transfer.txHash}: expected ${transfer.amount}, got ${decision.amount}`
+          );
+        }
+        if (decision.action === 'pending') {
+          throw new Error(
+            `[Strict] Decision is still 'pending' for transfer ${transfer.txHash} (${group.chainAlias} ${group.tokenSymbol}, ${decision.amountFormatted}). Cannot generate data without an explicit human decision ('approve' or 'reject').`
+          );
+        } else if (decision.action === 'approve') {
+          if (
+            !isAddress(decision.beneficiary) ||
+            decision.beneficiary.toLowerCase() === '0x0000000000000000000000000000000000000000'
+          ) {
+            throw new Error(
+              `[Strict] Invalid beneficiary address '${decision.beneficiary}' for approved transfer ${transfer.txHash}`
+            );
+          }
+          beneficiary = getAddress(decision.beneficiary);
+        } else if (decision.action === 'reject') {
+          console.warn(
+            `⚠️  [REJECTED] Excluded transfer ${transfer.txHash} (${group.chainAlias} ${group.tokenSymbol}, ${decision.amountFormatted}) - Notes: ${decision.notes || 'No notes provided'}`
+          );
+          continue;
+        } else {
+          throw new Error(
+            `[Strict] Unknown decision action '${(decision as any).action}' for transfer ${transfer.txHash}`
+          );
+        }
+      } else if (transfer.outcome === 'dust') {
+        continue;
+      } else {
+        throw new Error(
+          `[Strict] Unhandled transfer outcome '${(transfer as any).outcome}' for transfer ${transfer.txHash}`
+        );
       }
 
-      if (!beneficiary) continue;
+      if (!beneficiary) {
+        throw new Error(`[Strict] Beneficiary resolution failed for transfer ${transfer.txHash}`);
+      }
 
       if (!map[beneficiary]) {
         map[beneficiary] = {amount: '0', txns: []};
@@ -225,6 +270,25 @@ export function buildRescueMapsFromAttribution(
   }
 
   return result;
+}
+
+export function assertDecisionsIntegrity(
+  attributionText?: string,
+  decisionsManifest?: DecisionsManifest | null
+): void {
+  const text = attributionText ?? fs.readFileSync(ATTRIBUTION_PATH, 'utf8');
+  const manifest = decisionsManifest !== undefined ? decisionsManifest : readDecisions();
+  if (!manifest) {
+    throw new Error(
+      `[Strict] decisions.json not found at ${DECISIONS_PATH}. Run 'npm run phase4:decisions' first.`
+    );
+  }
+  const currentHash = sha256(text);
+  if (manifest.attributionSha256 !== currentHash) {
+    throw new Error(
+      `[Strict] decisions.json is stale! Attribution hash mismatch.\nExpected: ${currentHash}\nFound:    ${manifest.attributionSha256}\nPlease run 'npm run phase4:decisions' and review.`
+    );
+  }
 }
 
 export function writeRescueMaps(rescueMaps = buildRescueMapsFromAttribution()): void {
@@ -258,6 +322,8 @@ export async function generateMerkleRoot(
 }
 
 export async function generateAllMerkleRoots(): Promise<void> {
+  assertDecisionsIntegrity();
+
   const rescueMaps = buildRescueMapsFromAttribution();
   writeRescueMaps(rescueMaps);
 
