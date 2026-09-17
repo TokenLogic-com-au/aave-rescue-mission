@@ -212,9 +212,24 @@ describe('redact', () => {
 
 describe('rpcUrl', () => {
   it('prefers RPC_<ALIAS>, falls back to Alchemy, else undefined', () => {
-    expect(rpcUrl(BASE, {RPC_BASE: 'http://x', ALCHEMY_API_KEY: 'k'})).toBe('http://x');
-    expect(rpcUrl(BASE, {ALCHEMY_API_KEY: 'k'})).toBe('https://base-mainnet.g.alchemy.com/v2/k');
-    expect(rpcUrl(BASE, {})).toBeUndefined();
+    const origRpc = process.env.RPC_BASE;
+    const origKey = process.env.ALCHEMY_API_KEY;
+    try {
+      process.env.RPC_BASE = 'http://x';
+      process.env.ALCHEMY_API_KEY = 'k';
+      expect(rpcUrl(BASE)).toBe('http://x');
+
+      delete process.env.RPC_BASE;
+      expect(rpcUrl(BASE)).toBe('https://base-mainnet.g.alchemy.com/v2/k');
+
+      delete process.env.ALCHEMY_API_KEY;
+      expect(rpcUrl(BASE)).toBeUndefined();
+    } finally {
+      if (origRpc !== undefined) process.env.RPC_BASE = origRpc;
+      else delete process.env.RPC_BASE;
+      if (origKey !== undefined) process.env.ALCHEMY_API_KEY = origKey;
+      else delete process.env.ALCHEMY_API_KEY;
+    }
   });
 });
 

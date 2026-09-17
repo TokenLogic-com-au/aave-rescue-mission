@@ -1,9 +1,10 @@
 import MerkleTree from './merkle-tree';
-import {BigNumber, utils} from 'ethers';
+import {encodePacked, getAddress, keccak256, type Address, type Hex} from 'viem';
 
 export default class BalanceTree {
   private readonly tree: MerkleTree;
-  constructor(balances: {account: string; amount: BigNumber}[]) {
+
+  constructor(balances: {account: Address; amount: bigint}[]) {
     this.tree = new MerkleTree(
       balances.map(({account, amount}, index) => {
         return BalanceTree.toNode(index, account, amount);
@@ -12,36 +13,36 @@ export default class BalanceTree {
   }
 
   public static verifyProof(
-    index: number | BigNumber,
-    account: string,
-    amount: BigNumber,
-    proof: Buffer[],
-    root: Buffer
+    index: number | bigint,
+    account: Address,
+    amount: bigint,
+    proof: Hex[],
+    root: Hex
   ): boolean {
     let pair = BalanceTree.toNode(index, account, amount);
     for (const item of proof) {
       pair = MerkleTree.combinedHash(pair, item);
     }
 
-    return pair.equals(root);
+    return pair.toLowerCase() === root.toLowerCase();
   }
 
-  // keccak256(abi.encode(index, account, amount))
-  public static toNode(index: number | BigNumber, account: string, amount: BigNumber): Buffer {
-    return Buffer.from(
-      utils
-        .solidityKeccak256(['uint256', 'address', 'uint256'], [index, account, amount])
-        .substr(2),
-      'hex'
+  // keccak256(abi.encodePacked(index, account, amount))
+  public static toNode(index: number | bigint, account: Address, amount: bigint): Hex {
+    return keccak256(
+      encodePacked(
+        ['uint256', 'address', 'uint256'],
+        [BigInt(index), getAddress(account), BigInt(amount)]
+      )
     );
   }
 
-  public getHexRoot(): string {
+  public getHexRoot(): Hex {
     return this.tree.getHexRoot();
   }
 
   // returns the hex bytes32 values of the proof
-  public getProof(index: number | BigNumber, account: string, amount: BigNumber): string[] {
+  public getProof(index: number | bigint, account: Address, amount: bigint): Hex[] {
     return this.tree.getHexProof(BalanceTree.toNode(index, account, amount));
   }
 }

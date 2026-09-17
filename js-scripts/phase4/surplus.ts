@@ -265,8 +265,8 @@ export async function querySlice(
 /** Block timestamp for the time bounds; a header read only. */
 export type BlockTime = (chain: ChainConfig, block: number) => Promise<number>;
 
-function envBlockTime(env: NodeJS.ProcessEnv = process.env): BlockTime {
-  const readers = envChainReaders(env);
+function envBlockTime(): BlockTime {
+  const readers = envChainReaders();
   return async (chain, block) => {
     const reader = readers(chain);
     if (!reader) throw new Error(`missing ${rpcEnv(chain)} or ALCHEMY_API_KEY`);

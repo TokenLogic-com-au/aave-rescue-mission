@@ -15,7 +15,7 @@ import path from 'path';
 import {formatUnits, type Address} from 'viem';
 import {chainScan, Holding, HoldingKind, HubAsset, MarketScan} from './js-scripts/phase4/balances';
 import {ChainReader, envChainReaders} from './js-scripts/phase4/chain';
-import {assertChainId, CHAINS, ChainConfig} from './js-scripts/phase4/chains';
+import {assertChainId, chainByAlias, CHAINS, ChainConfig} from './js-scripts/phase4/chains';
 import {redact} from './js-scripts/phase4/cli';
 import {readVerifiedInventory} from './js-scripts/phase4/inventory';
 import {formatCents, parseCents} from './js-scripts/phase4/usd';
@@ -281,14 +281,7 @@ async function main(): Promise<void> {
 
   const repin = args.includes('--repin') || args.includes('--latest');
   const onlyV4 = args.includes('--v4');
-  const chains = args.includes('--all')
-    ? [...CHAINS]
-    : [
-        CHAINS.find((c) => c.alias === (opt('--chain') ?? 'mainnet')) ??
-          (() => {
-            throw new Error(`unknown chain ${opt('--chain')}`);
-          })(),
-      ];
+  const chains = args.includes('--all') ? [...CHAINS] : [chainByAlias(opt('--chain') ?? 'mainnet')];
   const {inventory} = readVerifiedInventory();
   const readers = envChainReaders();
   const save = () => fs.writeFileSync(cacheFile, JSON.stringify(cache, null, 2) + '\n');

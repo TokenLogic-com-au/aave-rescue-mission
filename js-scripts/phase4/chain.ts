@@ -167,5 +167,5 @@ export function viemChainReader(url: string, chainId: number): ChainReader {
   };
 }
 
-export const envChainReaders = (env: NodeJS.ProcessEnv = process.env): ChainReaders =>
-  envReaders((url, chain) => viemChainReader(url, chain.chainId), env);
+export const envChainReaders = (): ChainReaders =>
+  envReaders((url, chain) => viemChainReader(url, chain.chainId));

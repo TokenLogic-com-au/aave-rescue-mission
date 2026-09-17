@@ -1,35 +1,32 @@
-import {bufferToHex, keccak256} from 'ethereumjs-util';
+import {concat, keccak256, type Hex} from 'viem';
 
 export default class MerkleTree {
-  private readonly elements: Buffer[];
-  private readonly bufferElementPositionIndex: {[hexElement: string]: number};
-  private readonly layers: Buffer[][];
+  private readonly elements: Hex[];
+  private readonly elementIndex: Record<Hex, number>;
+  private readonly layers: Hex[][];
 
-  constructor(elements: Buffer[]) {
+  constructor(elements: Hex[]) {
     this.elements = [...elements];
-    // Sort elements
-    this.elements.sort(Buffer.compare);
+    // Sort elements lexicographically (matching Buffer.compare for equal-length hex strings)
+    this.elements.sort((a, b) => a.localeCompare(b));
     // Deduplicate elements
-    this.elements = MerkleTree.bufDedup(this.elements);
+    this.elements = this.elements.filter((el, idx) => idx === 0 || el !== this.elements[idx - 1]);
 
-    this.bufferElementPositionIndex = this.elements.reduce<{[hexElement: string]: number}>(
-      (memo, el, index) => {
-        memo[bufferToHex(el)] = index;
-        return memo;
-      },
-      {}
-    );
+    this.elementIndex = this.elements.reduce<Record<Hex, number>>((memo, el, index) => {
+      memo[el] = index;
+      return memo;
+    }, {});
 
     // Create layers
     this.layers = this.getLayers(this.elements);
   }
 
-  getLayers(elements: Buffer[]): Buffer[][] {
+  getLayers(elements: Hex[]): Hex[][] {
     if (elements.length === 0) {
       throw new Error('empty tree');
     }
 
-    const layers = [];
+    const layers: Hex[][] = [];
     layers.push(elements);
 
     // Get next layer until we reach the root
@@ -40,8 +37,8 @@ export default class MerkleTree {
     return layers;
   }
 
-  getNextLayer(elements: Buffer[]): Buffer[] {
-    return elements.reduce<Buffer[]>((layer, el, idx, arr) => {
+  getNextLayer(elements: Hex[]): Hex[] {
+    return elements.reduce<Hex[]>((layer, el, idx, arr) => {
       if (idx % 2 === 0) {
         // Hash the current element with its pair element
         layer.push(MerkleTree.combinedHash(el, arr[idx + 1]));
@@ -51,9 +48,9 @@ export default class MerkleTree {
     }, []);
   }
 
-  static combinedHash(first: Buffer, second: Buffer): Buffer {
+  static combinedHash(first?: Hex, second?: Hex): Hex {
     if (!first) {
-      return second;
+      return second!;
     }
     if (!second) {
       return first;
@@ -62,22 +59,30 @@ export default class MerkleTree {
     return keccak256(MerkleTree.sortAndConcat(first, second));
   }
 
-  getRoot(): Buffer {
+  static verify(proof: Hex[], root: Hex, leaf: Hex): boolean {
+    let computedHash = leaf;
+    for (const proofElement of proof) {
+      computedHash = MerkleTree.combinedHash(computedHash, proofElement);
+    }
+    return computedHash === root;
+  }
+
+  getRoot(): Hex {
     return this.layers[this.layers.length - 1][0];
   }
 
-  getHexRoot(): string {
-    return bufferToHex(this.getRoot());
+  getHexRoot(): Hex {
+    return this.getRoot();
   }
 
-  getProof(el: Buffer) {
-    let idx = this.bufferElementPositionIndex[bufferToHex(el)];
+  getProof(el: Hex): Hex[] {
+    let idx = this.elementIndex[el];
 
     if (typeof idx !== 'number') {
       throw new Error('Element does not exist in Merkle tree');
     }
 
-    return this.layers.reduce((proof, layer) => {
+    return this.layers.reduce<Hex[]>((proof, layer) => {
       const pairElement = MerkleTree.getPairElement(idx, layer);
 
       if (pairElement) {
@@ -90,13 +95,11 @@ export default class MerkleTree {
     }, []);
   }
 
-  getHexProof(el: Buffer): string[] {
-    const proof = this.getProof(el);
-
-    return MerkleTree.bufArrToHexArr(proof);
+  getHexProof(el: Hex): Hex[] {
+    return this.getProof(el);
   }
 
-  private static getPairElement(idx: number, layer: Buffer[]): Buffer | null {
+  private static getPairElement(idx: number, layer: Hex[]): Hex | null {
     const pairIdx = idx % 2 === 0 ? idx + 1 : idx - 1;
 
     if (pairIdx < layer.length) {
@@ -106,21 +109,7 @@ export default class MerkleTree {
     }
   }
 
-  private static bufDedup(elements: Buffer[]): Buffer[] {
-    return elements.filter((el, idx) => {
-      return idx === 0 || !elements[idx - 1].equals(el);
-    });
-  }
-
-  private static bufArrToHexArr(arr: Buffer[]): string[] {
-    if (arr.some((el) => !Buffer.isBuffer(el))) {
-      throw new Error('Array is not an array of buffers');
-    }
-
-    return arr.map((el) => '0x' + el.toString('hex'));
-  }
-
-  private static sortAndConcat(...args: Buffer[]): Buffer {
-    return Buffer.concat([...args].sort(Buffer.compare));
+  private static sortAndConcat(first: Hex, second: Hex): Hex {
+    return first.localeCompare(second) <= 0 ? concat([first, second]) : concat([second, first]);
   }
 }
