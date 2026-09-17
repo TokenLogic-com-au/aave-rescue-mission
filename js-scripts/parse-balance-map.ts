@@ -1,14 +1,11 @@
-import {BigNumber, utils} from 'ethers';
+import {formatUnits, getAddress, isAddress, type Address} from 'viem';
 import BalanceTree from './merkle-trees/balance-tree';
-import {normalize} from '@aave/math-utils';
-
-const {isAddress, getAddress} = utils;
 
 // This is the blob that gets distributed and pinned to IPFS.
 // It is completely sufficient for recreating the entire merkle tree.
-// Anyone can verify that all air drops are included in the tree,
+// Anyone can verify that all airdrops are included in the tree,
 // and the tree has no additional distributions.
-interface MerkleDistributorInfo {
+export interface MerkleDistributorInfo {
   merkleRoot: string;
   tokenTotal: string;
   tokenTotalInWei: string;
@@ -25,10 +22,10 @@ interface MerkleDistributorInfo {
   };
 }
 
-type OldFormat = {
-  [account: string]: {amount: string; label?: string; txns: string[]};
+export type OldFormat = {
+  [account: string]: {amount: string | bigint; label?: string; txns?: string[]};
 };
-type NewFormat = {address: string; earnings: string; reasons: string};
+export type NewFormat = {address: string; earnings: string | bigint; reasons?: string};
 
 export function parseBalanceMap(
   balances: OldFormat | NewFormat[],
@@ -40,23 +37,23 @@ export function parseBalanceMap(
     ? balances
     : Object.keys(balances).map((account): NewFormat => ({
         address: account,
-        earnings: balances[account].amount.toString(), //`0x${balances[account].toString(16)}`,
+        earnings: balances[account].amount.toString(),
         reasons: '',
       }));
 
   const dataByAddress = balancesInNewFormat.reduce<{
     [address: string]: {
-      amount: BigNumber;
+      amount: bigint;
       flags?: {[flag: string]: boolean};
     };
-  }>((memo, {address: account, earnings, reasons}) => {
+  }>((memo, {address: account, earnings, reasons = ''}) => {
     if (!isAddress(account)) {
       throw new Error(`Found invalid address: ${account}`);
     }
     const parsed = getAddress(account);
     if (memo[parsed]) throw new Error(`Duplicate address: ${parsed}`);
-    const parsedNum = BigNumber.from(earnings);
-    if (parsedNum.lte(0)) throw new Error(`Invalid amount for account: ${account}`);
+    const parsedNum = BigInt(earnings);
+    if (parsedNum <= 0n) throw new Error(`Invalid amount for account: ${account}`);
 
     const flags = {
       isSOCKS: reasons.includes('socks'),
@@ -73,7 +70,7 @@ export function parseBalanceMap(
   // construct a tree
   const tree = new BalanceTree(
     sortedAddresses.map((address) => ({
-      account: address,
+      account: address as Address,
       amount: dataByAddress[address].amount,
     }))
   );
@@ -92,21 +89,21 @@ export function parseBalanceMap(
     memo[address] = {
       index,
       amountInWei: amount.toString(),
-      amount: `${normalize(amount.toString(), decimals)} ${name}`,
-      proof: tree.getProof(index, address, amount),
+      amount: `${formatUnits(amount, decimals)} ${name}`,
+      proof: tree.getProof(index, address as Address, amount),
       ...(flags ? {flags} : {}),
     };
     return memo;
   }, {});
 
-  const tokenTotal: BigNumber = sortedAddresses.reduce<BigNumber>(
-    (memo, key) => memo.add(dataByAddress[key].amount),
-    BigNumber.from(0)
+  const tokenTotal = sortedAddresses.reduce<bigint>(
+    (memo, key) => memo + dataByAddress[key].amount,
+    0n
   );
 
   return {
     merkleRoot: tree.getHexRoot(),
-    tokenTotal: `${normalize(tokenTotal.toString(), decimals)} ${name}`,
+    tokenTotal: `${formatUnits(tokenTotal, decimals)} ${name}`,
     tokenTotalInWei: tokenTotal.toString(),
     claims,
   };

@@ -1,3 +1,5 @@
+import path from 'path';
+import dotenv from 'dotenv';
 import type {Address, Hash} from 'viem';
 import {
   MiscAvalanche,
@@ -5,6 +7,34 @@ import {
   MiscOptimism,
   MiscPolygon,
 } from '../../lib/aave-address-book/src/ts/AaveAddressBook';
+
+dotenv.config({path: path.resolve(__dirname, '../../.env')});
+
+export const CHAIN_ID = {
+  mainnet: 1,
+  optimism: 10,
+  bnb: 56,
+  gnosis: 100,
+  polygon: 137,
+  monad: 143,
+  sonic: 146,
+  xlayer: 196,
+  zksync: 324,
+  metis: 1088,
+  soneium: 1868,
+  megaeth: 4326,
+  mantle: 5000,
+  base: 8453,
+  plasma: 9745,
+  arbitrum: 42161,
+  celo: 42220,
+  avalanche: 43114,
+  ink: 57073,
+  linea: 59144,
+  scroll: 534352,
+} as const;
+
+export type SupportedChainId = (typeof CHAIN_ID)[keyof typeof CHAIN_ID];
 
 /**
  * Production chains in scope for Phase 4: every chain with an Aave V3 market and a
@@ -14,6 +44,8 @@ import {
 export type ChainConfig = {
   chainId: number;
   alias: string;
+  /** Human / maps folder name (e.g. 'ethereum' for mainnet, 'avalanche' for avalanche). */
+  networkName: string;
   /** Alchemy network slug, used when RPC_<ALIAS> is not set but ALCHEMY_API_KEY is. */
   alchemy: string;
   /** Dune schema holding the chain's raw `logs` table; absent when Dune does not index the chain. */
@@ -21,27 +53,63 @@ export type ChainConfig = {
 };
 
 export const CHAINS: readonly ChainConfig[] = [
-  {chainId: 1, alias: 'mainnet', alchemy: 'eth-mainnet', dune: 'ethereum'},
-  {chainId: 10, alias: 'optimism', alchemy: 'opt-mainnet', dune: 'optimism'},
-  {chainId: 56, alias: 'bnb', alchemy: 'bnb-mainnet', dune: 'bnb'},
-  {chainId: 100, alias: 'gnosis', alchemy: 'gnosis-mainnet', dune: 'gnosis'},
-  {chainId: 137, alias: 'polygon', alchemy: 'polygon-mainnet', dune: 'polygon'},
-  {chainId: 143, alias: 'monad', alchemy: 'monad-mainnet'},
-  {chainId: 146, alias: 'sonic', alchemy: 'sonic-mainnet', dune: 'sonic'},
-  {chainId: 196, alias: 'xlayer', alchemy: 'xlayer-mainnet'},
-  {chainId: 324, alias: 'zksync', alchemy: 'zksync-mainnet', dune: 'zksync'},
-  {chainId: 1088, alias: 'metis', alchemy: 'metis-mainnet'},
-  {chainId: 1868, alias: 'soneium', alchemy: 'soneium-mainnet'},
-  {chainId: 4326, alias: 'megaeth', alchemy: 'megaeth-mainnet'},
-  {chainId: 5000, alias: 'mantle', alchemy: 'mantle-mainnet', dune: 'mantle'},
-  {chainId: 8453, alias: 'base', alchemy: 'base-mainnet', dune: 'base'},
-  {chainId: 9745, alias: 'plasma', alchemy: 'plasma-mainnet'},
-  {chainId: 42161, alias: 'arbitrum', alchemy: 'arb-mainnet', dune: 'arbitrum'},
-  {chainId: 42220, alias: 'celo', alchemy: 'celo-mainnet', dune: 'celo'},
-  {chainId: 43114, alias: 'avalanche', alchemy: 'avax-mainnet', dune: 'avalanche_c'},
-  {chainId: 57073, alias: 'ink', alchemy: 'ink-mainnet'},
-  {chainId: 59144, alias: 'linea', alchemy: 'linea-mainnet', dune: 'linea'},
-  {chainId: 534352, alias: 'scroll', alchemy: 'scroll-mainnet', dune: 'scroll'},
+  {chainId: 1, alias: 'mainnet', networkName: 'ethereum', alchemy: 'eth-mainnet', dune: 'ethereum'},
+  {
+    chainId: 10,
+    alias: 'optimism',
+    networkName: 'optimism',
+    alchemy: 'opt-mainnet',
+    dune: 'optimism',
+  },
+  {chainId: 56, alias: 'bnb', networkName: 'bnb', alchemy: 'bnb-mainnet', dune: 'bnb'},
+  {chainId: 100, alias: 'gnosis', networkName: 'gnosis', alchemy: 'gnosis-mainnet', dune: 'gnosis'},
+  {
+    chainId: 137,
+    alias: 'polygon',
+    networkName: 'polygon',
+    alchemy: 'polygon-mainnet',
+    dune: 'polygon',
+  },
+  {chainId: 143, alias: 'monad', networkName: 'monad', alchemy: 'monad-mainnet'},
+  {chainId: 146, alias: 'sonic', networkName: 'sonic', alchemy: 'sonic-mainnet', dune: 'sonic'},
+  {chainId: 196, alias: 'xlayer', networkName: 'xlayer', alchemy: 'xlayer-mainnet'},
+  {chainId: 324, alias: 'zksync', networkName: 'zksync', alchemy: 'zksync-mainnet', dune: 'zksync'},
+  {chainId: 1088, alias: 'metis', networkName: 'metis', alchemy: 'metis-mainnet'},
+  {chainId: 1868, alias: 'soneium', networkName: 'soneium', alchemy: 'soneium-mainnet'},
+  {chainId: 4326, alias: 'megaeth', networkName: 'megaeth', alchemy: 'megaeth-mainnet'},
+  {
+    chainId: 5000,
+    alias: 'mantle',
+    networkName: 'mantle',
+    alchemy: 'mantle-mainnet',
+    dune: 'mantle',
+  },
+  {chainId: 8453, alias: 'base', networkName: 'base', alchemy: 'base-mainnet', dune: 'base'},
+  {chainId: 9745, alias: 'plasma', networkName: 'plasma', alchemy: 'plasma-mainnet'},
+  {
+    chainId: 42161,
+    alias: 'arbitrum',
+    networkName: 'arbitrum',
+    alchemy: 'arb-mainnet',
+    dune: 'arbitrum',
+  },
+  {chainId: 42220, alias: 'celo', networkName: 'celo', alchemy: 'celo-mainnet', dune: 'celo'},
+  {
+    chainId: 43114,
+    alias: 'avalanche',
+    networkName: 'avalanche',
+    alchemy: 'avax-mainnet',
+    dune: 'avalanche_c',
+  },
+  {chainId: 57073, alias: 'ink', networkName: 'ink', alchemy: 'ink-mainnet'},
+  {chainId: 59144, alias: 'linea', networkName: 'linea', alchemy: 'linea-mainnet', dune: 'linea'},
+  {
+    chainId: 534352,
+    alias: 'scroll',
+    networkName: 'scroll',
+    alchemy: 'scroll-mainnet',
+    dune: 'scroll',
+  },
 ];
 
 export const CHAIN_IDS: ReadonlySet<number> = new Set(CHAINS.map((c) => c.chainId));
@@ -50,23 +118,19 @@ export const CHAIN_IDS: ReadonlySet<number> = new Set(CHAINS.map((c) => c.chainI
 export const rpcEnv = (chain: ChainConfig): string => `RPC_${chain.alias.toUpperCase()}`;
 
 /** RPC_<ALIAS> if set, else the Alchemy endpoint built from ALCHEMY_API_KEY, else undefined. */
-export function rpcUrl(
-  chain: ChainConfig,
-  env: NodeJS.ProcessEnv = process.env
-): string | undefined {
-  const explicit = env[rpcEnv(chain)];
+export function rpcUrl(chain: ChainConfig): string | undefined {
+  const explicit = process.env[rpcEnv(chain)];
   if (explicit) return explicit;
-  const key = env.ALCHEMY_API_KEY;
+  const key = process.env.ALCHEMY_API_KEY;
   return key ? `https://${chain.alchemy}.g.alchemy.com/v2/${key}` : undefined;
 }
 
 /** One reader per chain from the environment's RPC URLs; undefined where no URL is configured. */
 export function envReaders<R>(
-  make: (url: string, chain: ChainConfig) => R,
-  env: NodeJS.ProcessEnv = process.env
+  make: (url: string, chain: ChainConfig) => R
 ): (chain: ChainConfig) => R | undefined {
   return (chain) => {
-    const url = rpcUrl(chain, env);
+    const url = rpcUrl(chain);
     return url ? make(url, chain) : undefined;
   };
 }
@@ -81,6 +145,20 @@ export function chainById(chainId: number): ChainConfig {
   const chain = CHAINS.find((c) => c.chainId === chainId);
   if (!chain) throw new Error(`chain ${chainId} is not in scope`);
   return chain;
+}
+
+export function chainByAlias(alias: string): ChainConfig {
+  const normalized = alias.toLowerCase();
+  const chain = CHAINS.find(
+    (c) => c.alias.toLowerCase() === normalized || c.networkName.toLowerCase() === normalized
+  );
+  if (!chain) throw new Error(`unknown chain alias or network '${alias}'`);
+  return chain;
+}
+
+export function getNetworkName(network: number | ChainConfig): string {
+  if (typeof network === 'object' && network !== null) return network.networkName;
+  return chainById(network).networkName;
 }
 
 /**
