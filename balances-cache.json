@@ -4,8 +4,8 @@
     "mainnet": {
       "chainId": 1,
       "alias": "mainnet",
-      "pinnedBlock": 26022216,
-      "pinnedAt": "2026-09-21T00:09:48.778Z",
+      "pinnedBlock": 26029361,
+      "pinnedAt": "2026-09-22T00:09:18.056Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0x40d16fc0246ad3160ccc09b8d0d3a2cd28ae6c2f": {
@@ -15,253 +15,253 @@
         },
         "0x6b175474e89094c44da98b954eedeac495271d0f": {
           "symbol": "DAI",
-          "priceRaw": "99988650",
-          "priceUsd": "0.9998865"
+          "priceRaw": "99993897",
+          "priceUsd": "0.99993897"
         },
         "0x59bc9fae5d62b19d4f8d07d758047acb9ee19d34": {
           "symbol": "PT_srUSDe_22OCT2026",
-          "priceRaw": "99656041",
-          "priceUsd": "0.99656041"
+          "priceRaw": "99685398",
+          "priceUsd": "0.99685398"
         },
         "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0": {
           "symbol": "wstETH",
-          "priceRaw": "329470513972",
-          "priceUsd": "3294.70513972"
+          "priceRaw": "345205592109",
+          "priceUsd": "3452.05592109"
         },
         "0x6c3ea9036406852006290770bedfcaba0e23a0e8": {
           "symbol": "PYUSD",
-          "priceRaw": "100002160",
-          "priceUsd": "1.0000216"
+          "priceRaw": "100010356",
+          "priceUsd": "1.00010356"
         },
         "0x18084fba666a33d37592fa2633fd49a74dd93a88": {
           "symbol": "tBTC",
-          "priceRaw": "8120722900000",
-          "priceUsd": "81207.229"
+          "priceRaw": "8648955965722",
+          "priceUsd": "86489.55965722"
         },
         "0x9bf45ab47747f4b4dd09b3c2c73953484b4eb375": {
           "symbol": "PT_srUSDe_2APR2026",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0xb0f70c0bd6fd87dbeb7c10dc692a2a6106817072": {
           "symbol": "BTCb",
-          "priceRaw": "8120722900000",
-          "priceUsd": "81207.229"
+          "priceRaw": "8648955965722",
+          "priceUsd": "86489.55965722"
         },
         "0xaf5191b0de278c7286d6c7cc6ab6bb8a73ba2cd6": {
           "symbol": "STG",
-          "priceRaw": "12395238",
-          "priceUsd": "0.12395238"
+          "priceRaw": "11903100",
+          "priceUsd": "0.119031"
         },
         "0xa35b1b31ce002fbf2058d22f30f95d405200a15b": {
           "symbol": "ETHx",
-          "priceRaw": "290610077921",
-          "priceUsd": "2906.10077921"
+          "priceRaw": "304488944814",
+          "priceUsd": "3044.88944814"
         },
         "0xdac17f958d2ee523a2206206994597c13d831ec7": {
           "symbol": "USDT",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0x356b8d89c1e1239cbbb9de4815c39a1474d5ba7d": {
           "symbol": "syrupUSDT",
-          "priceRaw": "114383863",
-          "priceUsd": "1.14383863"
+          "priceRaw": "114420733",
+          "priceUsd": "1.14420733"
         },
         "0xba100000625a3754423978a60c9317c58a424e3d": {
           "symbol": "BAL",
-          "priceRaw": "12005000",
-          "priceUsd": "0.12005"
+          "priceRaw": "12379000",
+          "priceUsd": "0.12379"
         },
         "0xe6a934089bbee34f832060ce98848359883749b3": {
           "symbol": "PT_sUSDE_27NOV2025",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0xa1290d69c65a6fe4df752f95823fae25cb99e5a7": {
           "symbol": "rsETH",
-          "priceRaw": "286036216705",
-          "priceUsd": "2860.36216705"
+          "priceRaw": "299719750216",
+          "priceUsd": "2997.19750216"
         },
         "0x14bdc3a3ae09f5518b923b69489cbcafb238e617": {
           "symbol": "PT_eUSDE_14AUG2025",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0x917459337caac939d41d7493b3999f571d20d667": {
           "symbol": "PT_USDe_31JUL2025",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0xdc035d45d973e3ec169d2276ddab16f1e407384f": {
           "symbol": "USDS",
-          "priceRaw": "99981897",
-          "priceUsd": "0.99981897"
+          "priceRaw": "99989833",
+          "priceUsd": "0.99989833"
         },
         "0xbc6736d346a5ebc0debc997397912cd9b8fae10a": {
           "symbol": "PT_USDe_25SEP2025",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0x62c6e813b9589c3631ba0cdb013acdb8544038b7": {
           "symbol": "PT_USDe_27NOV2025",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0x5f98805a4e8be255a32880fdec7f6728c6568ba0": {
           "symbol": "LUSD",
-          "priceRaw": "101032041",
-          "priceUsd": "1.01032041"
+          "priceRaw": "101033682",
+          "priceUsd": "1.01033682"
         },
         "0x9d39a5de30e57443bff2a8307a4256c8797a3497": {
           "symbol": "sUSDe",
-          "priceRaw": "124881973",
-          "priceUsd": "1.24881973"
+          "priceRaw": "124921462",
+          "priceUsd": "1.24921462"
         },
         "0xd11c452fc99cf405034ee446803b6f6c1f6d5ed8": {
           "symbol": "tETH",
-          "priceRaw": "331908872785",
-          "priceUsd": "3319.08872785"
+          "priceRaw": "347764393338",
+          "priceUsd": "3477.64393338"
         },
         "0x50d2c7992b802eef16c04feadab310f31866a545": {
           "symbol": "PT_eUSDE_29MAY2025",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0x83f20f44975d03b1b09e64809b757c47f942beea": {
           "symbol": "sDAI",
-          "priceRaw": "118063489",
-          "priceUsd": "1.18063489"
+          "priceRaw": "118074258",
+          "priceUsd": "1.18074258"
         },
         "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2": {
           "symbol": "WETH",
-          "priceRaw": "264745000000",
-          "priceUsd": "2647.45"
+          "priceRaw": "277372025527",
+          "priceUsd": "2773.72025527"
         },
         "0xbf5495efe5db9ce00f80364c8b423567e58d2110": {
           "symbol": "ezETH",
-          "priceRaw": "287572204471",
-          "priceUsd": "2875.72204471"
+          "priceRaw": "301292403402",
+          "priceUsd": "3012.92403402"
         },
         "0x4c9edd5852cd905f086c759e8383e09bff1e68b3": {
           "symbol": "USDe",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0xc18360217d8f7ab5e7c516566761ea12ce7f9d72": {
           "symbol": "ENS",
-          "priceRaw": "651270480",
-          "priceUsd": "6.5127048"
+          "priceRaw": "678042000",
+          "priceUsd": "6.78042"
         },
         "0xdefa4e8a7bcba345f687a2f1456f5edd9ce97202": {
           "symbol": "KNC",
-          "priceRaw": "14541809",
-          "priceUsd": "0.14541809"
+          "priceRaw": "14847535",
+          "priceUsd": "0.14847535"
         },
         "0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf": {
           "symbol": "cbBTC",
-          "priceRaw": "8120722900000",
-          "priceUsd": "81207.229"
+          "priceRaw": "8648955965722",
+          "priceUsd": "86489.55965722"
         },
         "0x514910771af9ca656af840dff83e8264ecf986ca": {
           "symbol": "LINK",
-          "priceRaw": "1256047249",
-          "priceUsd": "12.56047249"
+          "priceRaw": "1320001803",
+          "priceUsd": "13.20001803"
         },
         "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599": {
           "symbol": "WBTC",
-          "priceRaw": "8118124268672",
-          "priceUsd": "81181.24268672"
+          "priceRaw": "8645063849047",
+          "priceUsd": "86450.63849047"
         },
         "0x9f56094c450763769ba0ea9fe2876070c0fd5f77": {
           "symbol": "PT_sUSDE_25SEP2025",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0x90d2af7d622ca3141efa4d8f1f24d86e5974cc8f": {
           "symbol": "eUSDe",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0x657e8c867d8b37dcc18fa4caead9c45eb088c642": {
           "symbol": "eBTC",
-          "priceRaw": "8153240061050",
-          "priceUsd": "81532.4006105"
+          "priceRaw": "8683624959752",
+          "priceUsd": "86836.24959752"
         },
         "0x8236a87084f8b84306f72007f36f2618a5634494": {
           "symbol": "LBTC",
-          "priceRaw": "8158528297763",
-          "priceUsd": "81585.28297763"
+          "priceRaw": "8689934826957",
+          "priceUsd": "86899.34826957"
         },
         "0x111111111117dc0aa78b770fa6a738034120c302": {
           "symbol": "ONE_INCH",
-          "priceRaw": "9936051",
-          "priceUsd": "0.09936051"
+          "priceRaw": "10322000",
+          "priceUsd": "0.10322"
         },
         "0xd533a949740bb3306d119cc777fa900ba034cd52": {
           "symbol": "CRV",
-          "priceRaw": "35861992",
-          "priceUsd": "0.35861992"
+          "priceRaw": "36458412",
+          "priceUsd": "0.36458412"
         },
         "0xe343167631d89b6ffc58b88d6b7fb0228795491d": {
           "symbol": "USDG",
-          "priceRaw": "100002250",
-          "priceUsd": "1.0000225"
+          "priceRaw": "100006000",
+          "priceUsd": "1.00006"
         },
         "0x3de0ff76e8b528c092d47b9dac775931cef80f49": {
           "symbol": "PT_sUSDE_7MAY2026",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0x3432b6a60d23ca0dfca7761b7ab56459d9c964d0": {
           "symbol": "FXS",
-          "priceRaw": "27598000",
-          "priceUsd": "0.27598"
+          "priceRaw": "28768000",
+          "priceUsd": "0.28768"
         },
         "0x68749665ff8d2d112fa859aa293f07a622782f38": {
           "symbol": "XAUt",
-          "priceRaw": "437812494200",
-          "priceUsd": "4378.124942"
+          "priceRaw": "436607400000",
+          "priceUsd": "4366.074"
         },
         "0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2": {
           "symbol": "MKR",
-          "priceRaw": "162993688800",
-          "priceUsd": "1629.936888"
+          "priceRaw": "162776176800",
+          "priceUsd": "1627.761768"
         },
         "0xf1c9acdc66974dfb6decb12aa385b9cd01190e38": {
           "symbol": "osETH",
-          "priceRaw": "285776269889",
-          "priceUsd": "2857.76269889"
+          "priceRaw": "299423894628",
+          "priceUsd": "2994.23894628"
         },
         "0xbe9895146f7af43049ca1c1ae358b0541ea49704": {
           "symbol": "cbETH",
-          "priceRaw": "301784421000",
-          "priceUsd": "3017.84421"
+          "priceRaw": "316198441950",
+          "priceUsd": "3161.9844195"
         },
         "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": {
           "symbol": "USDC",
-          "priceRaw": "99989148",
-          "priceUsd": "0.99989148"
+          "priceRaw": "99995000",
+          "priceUsd": "0.99995"
         },
         "0x5a98fcbea516cf06857215779fd812ca3bef1b32": {
           "symbol": "LDO",
-          "priceRaw": "42745145",
-          "priceUsd": "0.42745145"
+          "priceRaw": "43872779",
+          "priceUsd": "0.43872779"
         },
         "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9": {
           "symbol": "AAVE",
-          "priceRaw": "13797661000",
-          "priceUsd": "137.97661"
+          "priceRaw": "14574684518",
+          "priceUsd": "145.74684518"
         },
         "0x619d75e3b790ebc21c289f2805bb7177a7d732e2": {
           "symbol": "PT_srUSDe_25JUN2026",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0x9db38d74a0d29380899ad354121dfb521adb0548": {
           "symbol": "PT_USDG_28MAY2026",
-          "priceRaw": "100002250",
-          "priceUsd": "1.0000225"
+          "priceRaw": "100006000",
+          "priceUsd": "1.00006"
         },
         "0xaca92e438df0b2401ff60da7e4337b687a2435da": {
           "symbol": "mUSD",
@@ -270,63 +270,63 @@
         },
         "0x1abaea1f7c830bd89acc67ec4af516284b1bc33c": {
           "symbol": "EURC",
-          "priceRaw": "114861045",
-          "priceUsd": "1.14861045"
+          "priceRaw": "114645744",
+          "priceUsd": "1.14645744"
         },
         "0xd33526068d116ce69f19a9ee46f0bd304f21a51f": {
           "symbol": "RPL",
-          "priceRaw": "182645792",
-          "priceUsd": "1.82645792"
+          "priceRaw": "195503909",
+          "priceUsd": "1.95503909"
         },
         "0xf939e0a03fb07f59a73314e73794be0e57ac1b4e": {
           "symbol": "crvUSD",
-          "priceRaw": "99946649",
-          "priceUsd": "0.99946649"
+          "priceRaw": "99963372",
+          "priceUsd": "0.99963372"
         },
         "0xcd5fe23c85820f7b72d0926fc9b05b43e359b7ee": {
           "symbol": "weETH",
-          "priceRaw": "292291142289",
-          "priceUsd": "2922.91142289"
+          "priceRaw": "306916813365",
+          "priceUsd": "3069.16813365"
         },
         "0xe8483517077afa11a9b07f849cee2552f040d7b2": {
           "symbol": "PT_sUSDE_5FEB2026",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0xc011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f": {
           "symbol": "SNX",
-          "priceRaw": "22796000",
-          "priceUsd": "0.22796"
+          "priceRaw": "23996178",
+          "priceUsd": "0.23996178"
         },
         "0xae78736cd615f374d3085123a210448e74fc6393": {
           "symbol": "rETH",
-          "priceRaw": "310314818755",
-          "priceUsd": "3103.14818755"
+          "priceRaw": "325133668584",
+          "priceUsd": "3251.33668584"
         },
         "0xc96de26018a54d51c097160568752c4e3bd6c364": {
           "symbol": "FBTC",
-          "priceRaw": "8120722900000",
-          "priceUsd": "81207.229"
+          "priceRaw": "8648955965722",
+          "priceUsd": "86489.55965722"
         },
         "0x853d955acef822db058eb8505911ed77f175b99e": {
           "symbol": "FRAX",
-          "priceRaw": "99174478",
-          "priceUsd": "0.99174478"
+          "priceRaw": "99216356",
+          "priceUsd": "0.99216356"
         },
         "0x3b3fb9c57858ef816833dc91565efcd85d96f634": {
           "symbol": "PT_sUSDE_31JUL2025",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0xaebf0bb9f57e89260d57f31af34eb58657d96ce0": {
           "symbol": "PT_USDe_7MAY2026",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0x1f84a51296691320478c98b8d77f2bbd17d34350": {
           "symbol": "PT_USDe_5FEB2026",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0xc139190f447e929f090edeb554d95abb8b18ac1c": {
           "symbol": "USDtb",
@@ -335,18 +335,18 @@
         },
         "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984": {
           "symbol": "UNI",
-          "priceRaw": "873853000",
-          "priceUsd": "8.73853"
+          "priceRaw": "902580000",
+          "priceUsd": "9.0258"
         },
         "0x8292bb45bf1ee4d140127049757c2e0ff06317ed": {
           "symbol": "RLUSD",
-          "priceRaw": "99995600",
-          "priceUsd": "0.999956"
+          "priceRaw": "99995791",
+          "priceUsd": "0.99995791"
         },
         "0x14d60e7fdc0d71d8611742720e4c50e7a974020c": {
           "symbol": "USCC",
-          "priceRaw": "1174877300",
-          "priceUsd": "11.748773"
+          "priceRaw": "1174290700",
+          "priceUsd": "11.742907"
         },
         "0x7433806912eae67919e66aea853d46fa0aef98a8": {
           "symbol": "mGLOBAL",
@@ -355,28 +355,28 @@
         },
         "0x43415eb6ff9db7e26a15b704e7a3edce97d31c4e": {
           "symbol": "USTB",
-          "priceRaw": "1121571400",
-          "priceUsd": "11.215714"
+          "priceRaw": "1121680800",
+          "priceUsd": "11.216808"
         },
         "0x8c213ee79581ff4984583c6a801e5263418c4b86": {
           "symbol": "JTRSY",
-          "priceRaw": "111627200",
-          "priceUsd": "1.116272"
+          "priceRaw": "111658900",
+          "priceUsd": "1.116589"
         },
         "0x5a0f93d040de44e78f251b03c43be9cf317dcf64": {
           "symbol": "JAAA",
-          "priceRaw": "104989400",
-          "priceUsd": "1.049894"
+          "priceRaw": "105040200",
+          "priceUsd": "1.050402"
         },
         "0x136471a34f6ef19fe571effc1ca711fdb8e49f2b": {
           "symbol": "USYC",
-          "priceRaw": "113752437",
-          "priceUsd": "1.13752437"
+          "priceRaw": "113783790",
+          "priceUsd": "1.1378379"
         },
         "0x17418038ecf73ba4026c4f428547bf099706f27b": {
           "symbol": "ACRED",
-          "priceRaw": "111180660000",
-          "priceUsd": "1111.8066"
+          "priceRaw": "111147785000",
+          "priceUsd": "1111.47785"
         },
         "0x2255718832bc9fd3be1caf75084f4803da14ff01": {
           "symbol": "VBILL",
@@ -389,23 +389,23 @@
         "tokensScanned": 75,
         "checksPerformed": 9596,
         "findingsCount": 51,
-        "surplusValueUsd": "86583.11",
+        "surplusValueUsd": "86710.45",
         "deficitValueUsd": "0.00",
-        "netValueUsd": "86583.11",
+        "netValueUsd": "86710.45",
         "byMarket": {
           "AaveV3Ethereum": {
             "findingsCount": 48,
-            "surplusValueUsd": "86582.39",
+            "surplusValueUsd": "86709.73",
             "deficitValueUsd": "0.00",
-            "netValueUsd": "86582.39",
+            "netValueUsd": "86709.73",
             "byKind": {
               "underlying-surplus": {
                 "count": 29,
-                "totalValueUsd": "34501.51"
+                "totalValueUsd": "34575.37"
               },
               "token-in-pool": {
                 "count": 10,
-                "totalValueUsd": "1486.21"
+                "totalValueUsd": "1529.65"
               },
               "foreign-token-in-atoken": {
                 "count": 5,
@@ -413,7 +413,7 @@
               },
               "atoken-in-itself": {
                 "count": 4,
-                "totalValueUsd": "50594.52"
+                "totalValueUsd": "50604.56"
               }
             }
           },
@@ -504,7 +504,7 @@
           "decimals": 6,
           "amount": "330",
           "amountFormatted": "0.00033",
-          "priceUsd": "1.14861045",
+          "priceUsd": "1.14645744",
           "valueUsd": "0.00"
         },
         {
@@ -517,10 +517,10 @@
           "token": "0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c",
           "tokenSymbol": "aUSDC",
           "decimals": 6,
-          "amount": "49933091580",
-          "amountFormatted": "49933.09158",
-          "priceUsd": "0.99989148",
-          "valueUsd": "49927.67"
+          "amount": "49938690694",
+          "amountFormatted": "49938.690694",
+          "priceUsd": "0.99995",
+          "valueUsd": "49936.19"
         },
         {
           "chainId": 1,
@@ -532,10 +532,10 @@
           "token": "0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a",
           "tokenSymbol": "aUSDT",
           "decimals": 6,
-          "amount": "639051659",
-          "amountFormatted": "639.051659",
-          "priceUsd": "0.99976088",
-          "valueUsd": "638.89"
+          "amount": "639120504",
+          "amountFormatted": "639.120504",
+          "priceUsd": "0.99995181",
+          "valueUsd": "639.08"
         },
         {
           "chainId": 1,
@@ -547,10 +547,10 @@
           "token": "0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8",
           "tokenSymbol": "aWETH",
           "decimals": 18,
-          "amount": "10561700076487574",
-          "amountFormatted": "0.010561700076487574",
-          "priceUsd": "2647.45",
-          "valueUsd": "27.96"
+          "amount": "10562119230757974",
+          "amountFormatted": "0.010562119230757974",
+          "priceUsd": "2773.72025527",
+          "valueUsd": "29.29"
         },
         {
           "chainId": 1,
@@ -562,9 +562,9 @@
           "token": "0x018008bfb33d285247A21d44E50697654f754e63",
           "tokenSymbol": "aDAI",
           "decimals": 18,
-          "amount": "41482802300563",
-          "amountFormatted": "0.000041482802300563",
-          "priceUsd": "0.9998865",
+          "amount": "41486378855832",
+          "amountFormatted": "0.000041486378855832",
+          "priceUsd": "0.99993897",
           "valueUsd": "0.00"
         },
         {
@@ -579,7 +579,7 @@
           "decimals": 6,
           "amount": "264",
           "amountFormatted": "0.000264",
-          "priceUsd": "0.99976088",
+          "priceUsd": "0.99995181",
           "valueUsd": "0.00"
         },
         {
@@ -609,7 +609,7 @@
           "decimals": 6,
           "amount": "2000",
           "amountFormatted": "0.002",
-          "priceUsd": "0.99976088",
+          "priceUsd": "0.99995181",
           "valueUsd": "0.00"
         },
         {
@@ -639,8 +639,8 @@
           "decimals": 18,
           "amount": "1000000000000000000",
           "amountFormatted": "1",
-          "priceUsd": "137.97661",
-          "valueUsd": "137.97"
+          "priceUsd": "145.74684518",
+          "valueUsd": "145.74"
         },
         {
           "chainId": 1,
@@ -652,9 +652,9 @@
           "token": "0x018008bfb33d285247A21d44E50697654f754e63",
           "tokenSymbol": "aDAI",
           "decimals": 18,
-          "amount": "207274936033210",
-          "amountFormatted": "0.00020727493603321",
-          "priceUsd": "0.9998865",
+          "amount": "207292806818780",
+          "amountFormatted": "0.00020729280681878",
+          "priceUsd": "0.99993897",
           "valueUsd": "0.00"
         },
         {
@@ -667,9 +667,9 @@
           "token": "0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c",
           "tokenSymbol": "aUSDC",
           "decimals": 6,
-          "amount": "10716148",
-          "amountFormatted": "10.716148",
-          "priceUsd": "0.99989148",
+          "amount": "10717350",
+          "amountFormatted": "10.71735",
+          "priceUsd": "0.99995",
           "valueUsd": "10.71"
         },
         {
@@ -682,10 +682,10 @@
           "token": "0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a",
           "tokenSymbol": "aUSDT",
           "decimals": 6,
-          "amount": "203984327",
-          "amountFormatted": "203.984327",
-          "priceUsd": "0.99976088",
-          "valueUsd": "203.93"
+          "amount": "204006302",
+          "amountFormatted": "204.006302",
+          "priceUsd": "0.99995181",
+          "valueUsd": "203.99"
         },
         {
           "chainId": 1,
@@ -699,8 +699,8 @@
           "decimals": 18,
           "amount": "3199060000000000",
           "amountFormatted": "0.00319906",
-          "priceUsd": "3017.84421",
-          "valueUsd": "9.65"
+          "priceUsd": "3161.9844195",
+          "valueUsd": "10.11"
         },
         {
           "chainId": 1,
@@ -714,7 +714,7 @@
           "decimals": 18,
           "amount": "1001984000000000000",
           "amountFormatted": "1.001984",
-          "priceUsd": "0.9998865",
+          "priceUsd": "0.99993897",
           "valueUsd": "1.00"
         },
         {
@@ -729,8 +729,8 @@
           "decimals": 6,
           "amount": "214507772",
           "amountFormatted": "214.507772",
-          "priceUsd": "0.99989148",
-          "valueUsd": "214.48"
+          "priceUsd": "0.99995",
+          "valueUsd": "214.49"
         },
         {
           "chainId": 1,
@@ -744,8 +744,8 @@
           "decimals": 6,
           "amount": "173356416",
           "amountFormatted": "173.356416",
-          "priceUsd": "0.99976088",
-          "valueUsd": "173.31"
+          "priceUsd": "0.99995181",
+          "valueUsd": "173.34"
         },
         {
           "chainId": 1,
@@ -759,8 +759,8 @@
           "decimals": 18,
           "amount": "2035180702480125",
           "amountFormatted": "0.002035180702480125",
-          "priceUsd": "2647.45",
-          "valueUsd": "5.38"
+          "priceUsd": "2773.72025527",
+          "valueUsd": "5.64"
         },
         {
           "chainId": 1,
@@ -774,8 +774,8 @@
           "decimals": 18,
           "amount": "221501091950370734",
           "amountFormatted": "0.221501091950370734",
-          "priceUsd": "3294.70513972",
-          "valueUsd": "729.78"
+          "priceUsd": "3452.05592109",
+          "valueUsd": "764.63"
         },
         {
           "chainId": 1,
@@ -789,8 +789,8 @@
           "decimals": 18,
           "amount": "16788170000000",
           "amountFormatted": "0.00001678817",
-          "virtualBalance": "822155314878820553012099",
-          "priceUsd": "137.97661",
+          "virtualBalance": "829698456922752092640228",
+          "priceUsd": "145.74684518",
           "valueUsd": "0.00"
         },
         {
@@ -805,9 +805,9 @@
           "decimals": 18,
           "amount": "5809643093762972911",
           "amountFormatted": "5.809643093762972911",
-          "virtualBalance": "119957744474260136356501",
-          "priceUsd": "0.12005",
-          "valueUsd": "0.69"
+          "virtualBalance": "119643509751316967746197",
+          "priceUsd": "0.12379",
+          "valueUsd": "0.71"
         },
         {
           "chainId": 1,
@@ -821,9 +821,9 @@
           "decimals": 18,
           "amount": "214219676583312",
           "amountFormatted": "0.000214219676583312",
-          "virtualBalance": "5740776051083003231554",
-          "priceUsd": "3017.84421",
-          "valueUsd": "0.64"
+          "virtualBalance": "5740589971587196035475",
+          "priceUsd": "3161.9844195",
+          "valueUsd": "0.67"
         },
         {
           "chainId": 1,
@@ -837,8 +837,8 @@
           "decimals": 18,
           "amount": "6200132794808111770",
           "amountFormatted": "6.20013279480811177",
-          "virtualBalance": "108621785242039011088217",
-          "priceUsd": "0.99946649",
+          "virtualBalance": "108623418562366206088217",
+          "priceUsd": "0.99963372",
           "valueUsd": "6.19"
         },
         {
@@ -853,8 +853,8 @@
           "decimals": 18,
           "amount": "41449289465960199160",
           "amountFormatted": "41.44928946596019916",
-          "virtualBalance": "16770289977365073595581181",
-          "priceUsd": "0.9998865",
+          "virtualBalance": "10418829810702900909627247",
+          "priceUsd": "0.99993897",
           "valueUsd": "41.44"
         },
         {
@@ -869,8 +869,8 @@
           "decimals": 18,
           "amount": "797649897607596",
           "amountFormatted": "0.000797649897607596",
-          "virtualBalance": "14896631342010459925628",
-          "priceUsd": "6.5127048",
+          "virtualBalance": "14345015879408061538111",
+          "priceUsd": "6.78042",
           "valueUsd": "0.00"
         },
         {
@@ -886,7 +886,7 @@
           "amount": "1199612734310",
           "amountFormatted": "0.00000119961273431",
           "virtualBalance": "70721594588660107736",
-          "priceUsd": "2906.10077921",
+          "priceUsd": "3044.88944814",
           "valueUsd": "0.00"
         },
         {
@@ -901,9 +901,9 @@
           "decimals": 18,
           "amount": "67180739016974",
           "amountFormatted": "0.000067180739016974",
-          "virtualBalance": "57019041103412461363",
-          "priceUsd": "2875.72204471",
-          "valueUsd": "0.19"
+          "virtualBalance": "53003647764851126239",
+          "priceUsd": "3012.92403402",
+          "valueUsd": "0.20"
         },
         {
           "chainId": 1,
@@ -918,7 +918,7 @@
           "amount": "6454623920172074733",
           "amountFormatted": "6.454623920172074733",
           "virtualBalance": "124463686735166209175",
-          "priceUsd": "0.99174478",
+          "priceUsd": "0.99216356",
           "valueUsd": "6.40"
         },
         {
@@ -934,7 +934,7 @@
           "amount": "269952145785699",
           "amountFormatted": "0.000269952145785699",
           "virtualBalance": "460925927171624778954",
-          "priceUsd": "0.27598",
+          "priceUsd": "0.28768",
           "valueUsd": "0.00"
         },
         {
@@ -950,8 +950,8 @@
           "amount": "6730715146536217787",
           "amountFormatted": "6.730715146536217787",
           "virtualBalance": "47311910009678425321537",
-          "priceUsd": "0.14541809",
-          "valueUsd": "0.97"
+          "priceUsd": "0.14847535",
+          "valueUsd": "0.99"
         },
         {
           "chainId": 1,
@@ -966,7 +966,7 @@
           "amount": "211718663041612922",
           "amountFormatted": "0.211718663041612922",
           "virtualBalance": "633546773723931239929521",
-          "priceUsd": "0.42745145",
+          "priceUsd": "0.43872779",
           "valueUsd": "0.09"
         },
         {
@@ -981,9 +981,9 @@
           "decimals": 18,
           "amount": "1002862411532962988",
           "amountFormatted": "1.002862411532962988",
-          "virtualBalance": "7984306821787338564302908",
-          "priceUsd": "12.56047249",
-          "valueUsd": "12.59"
+          "virtualBalance": "7704934234241355553755609",
+          "priceUsd": "13.20001803",
+          "valueUsd": "13.23"
         },
         {
           "chainId": 1,
@@ -998,7 +998,7 @@
           "amount": "289739238577332",
           "amountFormatted": "0.000289739238577332",
           "virtualBalance": "124265459787606310156",
-          "priceUsd": "1629.936888",
+          "priceUsd": "1627.761768",
           "valueUsd": "0.47"
         },
         {
@@ -1014,7 +1014,7 @@
           "amount": "424921279522799129",
           "amountFormatted": "0.424921279522799129",
           "virtualBalance": "1637414493830961060984180",
-          "priceUsd": "0.09936051",
+          "priceUsd": "0.10322",
           "valueUsd": "0.04"
         },
         {
@@ -1029,8 +1029,8 @@
           "decimals": 18,
           "amount": "5555968924336",
           "amountFormatted": "0.000005555968924336",
-          "virtualBalance": "119123107263188873367129",
-          "priceUsd": "2857.76269889",
+          "virtualBalance": "119123109200768625867450",
+          "priceUsd": "2994.23894628",
           "valueUsd": "0.01"
         },
         {
@@ -1045,9 +1045,9 @@
           "decimals": 6,
           "amount": "22067930",
           "amountFormatted": "22.06793",
-          "virtualBalance": "1022971438838",
-          "priceUsd": "1.0000216",
-          "valueUsd": "22.06"
+          "virtualBalance": "1076843034782",
+          "priceUsd": "1.00010356",
+          "valueUsd": "22.07"
         },
         {
           "chainId": 1,
@@ -1061,9 +1061,9 @@
           "decimals": 18,
           "amount": "201680929881618",
           "amountFormatted": "0.000201680929881618",
-          "virtualBalance": "35481638251119088548506",
-          "priceUsd": "3103.14818755",
-          "valueUsd": "0.62"
+          "virtualBalance": "35297746244327829881378",
+          "priceUsd": "3251.33668584",
+          "valueUsd": "0.65"
         },
         {
           "chainId": 1,
@@ -1077,9 +1077,9 @@
           "decimals": 18,
           "amount": "396438469846866621",
           "amountFormatted": "0.396438469846866621",
-          "virtualBalance": "217781490141046927933594",
-          "priceUsd": "1.82645792",
-          "valueUsd": "0.72"
+          "virtualBalance": "280668745877204586733077",
+          "priceUsd": "1.95503909",
+          "valueUsd": "0.77"
         },
         {
           "chainId": 1,
@@ -1094,7 +1094,7 @@
           "amount": "6",
           "amountFormatted": "0.000000000000000006",
           "virtualBalance": "42820492279354715144637",
-          "priceUsd": "1.18063489",
+          "priceUsd": "1.18074258",
           "valueUsd": "0.00"
         },
         {
@@ -1110,8 +1110,8 @@
           "amount": "1112887765538591360",
           "amountFormatted": "1.11288776553859136",
           "virtualBalance": "186103629401379830008395",
-          "priceUsd": "0.22796",
-          "valueUsd": "0.25"
+          "priceUsd": "0.23996178",
+          "valueUsd": "0.26"
         },
         {
           "chainId": 1,
@@ -1126,7 +1126,7 @@
           "amount": "3284566934913377",
           "amountFormatted": "0.003284566934913377",
           "virtualBalance": "467787578123221116239",
-          "priceUsd": "0.12395238",
+          "priceUsd": "0.119031",
           "valueUsd": "0.00"
         },
         {
@@ -1141,8 +1141,8 @@
           "decimals": 18,
           "amount": "14322956384961362",
           "amountFormatted": "0.014322956384961362",
-          "virtualBalance": "416312173392336261122302",
-          "priceUsd": "8.73853",
+          "virtualBalance": "415499107191056365958405",
+          "priceUsd": "9.0258",
           "valueUsd": "0.12"
         },
         {
@@ -1155,11 +1155,11 @@
           "token": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
           "tokenSymbol": "USDC",
           "decimals": 6,
-          "amount": "31732659225",
-          "amountFormatted": "31732.659225",
-          "virtualBalance": "1179805801954",
-          "priceUsd": "0.99989148",
-          "valueUsd": "31729.21"
+          "amount": "31732969548",
+          "amountFormatted": "31732.969548",
+          "virtualBalance": "86101960743",
+          "priceUsd": "0.99995",
+          "valueUsd": "31731.38"
         },
         {
           "chainId": 1,
@@ -1173,8 +1173,8 @@
           "decimals": 18,
           "amount": "6485544387496809033",
           "amountFormatted": "6.485544387496809033",
-          "virtualBalance": "523281744579615220367768245",
-          "priceUsd": "0.99976088",
+          "virtualBalance": "543360607129808644590053777",
+          "priceUsd": "0.99995181",
           "valueUsd": "6.48"
         },
         {
@@ -1189,9 +1189,9 @@
           "decimals": 6,
           "amount": "1472524832",
           "amountFormatted": "1472.524832",
-          "virtualBalance": "196942812252410",
-          "priceUsd": "0.99976088",
-          "valueUsd": "1472.17"
+          "virtualBalance": "196175672623494",
+          "priceUsd": "0.99995181",
+          "valueUsd": "1472.45"
         },
         {
           "chainId": 1,
@@ -1205,9 +1205,9 @@
           "decimals": 8,
           "amount": "955582",
           "amountFormatted": "0.00955582",
-          "virtualBalance": "3362030364413",
-          "priceUsd": "81181.24268672",
-          "valueUsd": "775.75"
+          "virtualBalance": "3370400114179",
+          "priceUsd": "86450.63849047",
+          "valueUsd": "826.10"
         },
         {
           "chainId": 1,
@@ -1221,9 +1221,9 @@
           "decimals": 18,
           "amount": "160294770384029591",
           "amountFormatted": "0.160294770384029591",
-          "virtualBalance": "294459672759510917964359",
-          "priceUsd": "2647.45",
-          "valueUsd": "424.37"
+          "virtualBalance": "295337878291316705953553",
+          "priceUsd": "2773.72025527",
+          "valueUsd": "444.61"
         },
         {
           "chainId": 1,
@@ -1237,8 +1237,8 @@
           "decimals": 18,
           "amount": "12689398131362",
           "amountFormatted": "0.000012689398131362",
-          "virtualBalance": "858293024499076806096319",
-          "priceUsd": "3294.70513972",
+          "virtualBalance": "824899277587325981658831",
+          "priceUsd": "3452.05592109",
           "valueUsd": "0.04"
         },
         {
@@ -1254,7 +1254,7 @@
           "amount": "7000",
           "amountFormatted": "0.007",
           "virtualBalance": "6105157628",
-          "priceUsd": "0.99984488",
+          "priceUsd": "0.99986113",
           "valueUsd": "0.00"
         },
         {
@@ -1269,8 +1269,8 @@
           "decimals": 6,
           "amount": "598338",
           "amountFormatted": "0.598338",
-          "virtualBalance": "528956618796",
-          "priceUsd": "0.99984488",
+          "virtualBalance": "466183175533",
+          "priceUsd": "0.99986113",
           "valueUsd": "0.59"
         },
         {
@@ -1285,8 +1285,8 @@
           "decimals": 6,
           "amount": "133560",
           "amountFormatted": "0.13356",
-          "virtualBalance": "1154482459316",
-          "priceUsd": "0.99989148",
+          "virtualBalance": "1251017659784",
+          "priceUsd": "0.99995",
           "valueUsd": "0.13"
         }
       ]
@@ -1294,79 +1294,79 @@
     "optimism": {
       "chainId": 10,
       "alias": "optimism",
-      "pinnedBlock": 157175306,
-      "pinnedAt": "2026-09-21T00:09:50.646Z",
+      "pinnedBlock": 157218491,
+      "pinnedAt": "2026-09-22T00:09:20.537Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0x68f180fcce6836688e9084f035309e29bf0a2095": {
           "symbol": "WBTC",
-          "priceRaw": "8146721049129",
-          "priceUsd": "81467.21049129"
+          "priceRaw": "8636804647523",
+          "priceUsd": "86368.04647523"
         },
         "0x350a791bfc2c21f9ed5d10980dad2e2638ffa7f6": {
           "symbol": "LINK",
-          "priceRaw": "1262243000",
-          "priceUsd": "12.62243"
+          "priceRaw": "1317371000",
+          "priceUsd": "13.17371"
         },
         "0x0b2c639c533813f4aa9d7837caf62653d097ff85": {
           "symbol": "USDCn",
-          "priceRaw": "99997670",
-          "priceUsd": "0.9999767"
+          "priceRaw": "99994000",
+          "priceUsd": "0.99994"
         },
         "0x4200000000000000000000000000000000000042": {
           "symbol": "OP",
-          "priceRaw": "12560458",
-          "priceUsd": "0.12560458"
+          "priceRaw": "12667719",
+          "priceUsd": "0.12667719"
         },
         "0x7f5c764cbc14f9669b88837ca1490cca17c31607": {
           "symbol": "USDC",
-          "priceRaw": "99997670",
-          "priceUsd": "0.9999767"
+          "priceRaw": "99994000",
+          "priceUsd": "0.99994"
         },
         "0x94b008aa00579c1307b0ef2c499ad98a8ce58e58": {
           "symbol": "USDT",
-          "priceRaw": "99969333",
-          "priceUsd": "0.99969333"
+          "priceRaw": "99993504",
+          "priceUsd": "0.99993504"
         },
         "0x8c6f28f2f1a3c87f0f938b96d27520d9751ec8d9": {
           "symbol": "sUSD",
-          "priceRaw": "32447500",
-          "priceUsd": "0.324475"
+          "priceRaw": "34520300",
+          "priceUsd": "0.345203"
         },
         "0x9bcef72be871e61ed4fbbc7630889bee758eb81d": {
           "symbol": "rETH",
-          "priceRaw": "311072410281",
-          "priceUsd": "3110.72410281"
+          "priceRaw": "324483947289",
+          "priceUsd": "3244.83947289"
         },
         "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1": {
           "symbol": "DAI",
-          "priceRaw": "99998031",
-          "priceUsd": "0.99998031"
+          "priceRaw": "99985425",
+          "priceUsd": "0.99985425"
         },
         "0xc40f949f8a4e094d1b49a23ea9241d289b7b2819": {
           "symbol": "LUSD",
-          "priceRaw": "101002924",
-          "priceUsd": "1.01002924"
+          "priceRaw": "100840479",
+          "priceUsd": "1.00840479"
         },
         "0xdfa46478f9e5ea86d57387849598dbfb2e964b02": {
           "symbol": "MAI",
-          "priceRaw": "94788600",
-          "priceUsd": "0.947886"
+          "priceRaw": "94162266",
+          "priceUsd": "0.94162266"
         },
         "0x1f32b1c2345538c0c6f582fcb022739c4a194ebb": {
           "symbol": "wstETH",
-          "priceRaw": "330274871529",
-          "priceUsd": "3302.74871529"
+          "priceRaw": "344515760678",
+          "priceUsd": "3445.15760678"
         },
         "0x4200000000000000000000000000000000000006": {
           "symbol": "WETH",
-          "priceRaw": "265391338996",
-          "priceUsd": "2653.91338996"
+          "priceRaw": "276817747306",
+          "priceUsd": "2768.17747306"
         },
         "0x76fb31fb4af56892a25e32cfc43de717950c9278": {
           "symbol": "AAVE",
-          "priceRaw": "13793993000",
-          "priceUsd": "137.93993"
+          "priceRaw": "14594398479",
+          "priceUsd": "145.94398479"
         }
       },
       "stats": {
@@ -1374,23 +1374,23 @@
         "tokensScanned": 14,
         "checksPerformed": 420,
         "findingsCount": 22,
-        "surplusValueUsd": "285.61",
-        "deficitValueUsd": "16603.44",
-        "netValueUsd": "-16317.83",
+        "surplusValueUsd": "285.68",
+        "deficitValueUsd": "17664.10",
+        "netValueUsd": "-17378.42",
         "byMarket": {
           "AaveV3Optimism": {
             "findingsCount": 22,
-            "surplusValueUsd": "285.61",
-            "deficitValueUsd": "16603.44",
-            "netValueUsd": "-16317.83",
+            "surplusValueUsd": "285.68",
+            "deficitValueUsd": "17664.10",
+            "netValueUsd": "-17378.42",
             "byKind": {
               "underlying-surplus": {
                 "count": 10,
-                "totalValueUsd": "-16415.37"
+                "totalValueUsd": "-17476.02"
               },
               "token-in-pool": {
                 "count": 5,
-                "totalValueUsd": "15.06"
+                "totalValueUsd": "15.10"
               },
               "foreign-token-in-atoken": {
                 "count": 3,
@@ -1398,7 +1398,7 @@
               },
               "atoken-in-itself": {
                 "count": 4,
-                "totalValueUsd": "81.49"
+                "totalValueUsd": "81.51"
               }
             }
           }
@@ -1415,10 +1415,10 @@
           "token": "0x6d80113e533a2C0fe82EaBD35f1875DcEA89Ea97",
           "tokenSymbol": "asUSD",
           "decimals": 18,
-          "amount": "1066194942147462582",
-          "amountFormatted": "1.066194942147462582",
-          "priceUsd": "0.324475",
-          "valueUsd": "0.34"
+          "amount": "1066228231613154479",
+          "amountFormatted": "1.066228231613154479",
+          "priceUsd": "0.345203",
+          "valueUsd": "0.36"
         },
         {
           "chainId": 10,
@@ -1430,9 +1430,9 @@
           "token": "0x38d693cE1dF5AaDF7bC62595A37D667aD57922e5",
           "tokenSymbol": "aUSDCn",
           "decimals": 6,
-          "amount": "80257811",
-          "amountFormatted": "80.257811",
-          "priceUsd": "0.9999767",
+          "amount": "80263948",
+          "amountFormatted": "80.263948",
+          "priceUsd": "0.99994",
           "valueUsd": "80.25"
         },
         {
@@ -1445,9 +1445,9 @@
           "token": "0x6ab707Aca953eDAeFBc4fD23bA73294241490620",
           "tokenSymbol": "aUSDT",
           "decimals": 6,
-          "amount": "904698",
-          "amountFormatted": "0.904698",
-          "priceUsd": "0.99969333",
+          "amount": "904774",
+          "amountFormatted": "0.904774",
+          "priceUsd": "0.99993504",
           "valueUsd": "0.90"
         },
         {
@@ -1460,9 +1460,9 @@
           "token": "0xe50fA9b3c56FfB159cB0FCA61F5c9D750e8128c8",
           "tokenSymbol": "aWETH",
           "decimals": 18,
-          "amount": "216663782",
-          "amountFormatted": "0.000000000216663782",
-          "priceUsd": "2653.91338996",
+          "amount": "216669849",
+          "amountFormatted": "0.000000000216669849",
+          "priceUsd": "2768.17747306",
           "valueUsd": "0.00"
         },
         {
@@ -1477,7 +1477,7 @@
           "decimals": 18,
           "amount": "6000000000000",
           "amountFormatted": "0.000006",
-          "priceUsd": "0.12560458",
+          "priceUsd": "0.12667719",
           "valueUsd": "0.00"
         },
         {
@@ -1492,7 +1492,7 @@
           "decimals": 6,
           "amount": "1000000",
           "amountFormatted": "1",
-          "priceUsd": "0.9999767",
+          "priceUsd": "0.99994",
           "valueUsd": "0.99"
         },
         {
@@ -1507,7 +1507,7 @@
           "decimals": 6,
           "amount": "1",
           "amountFormatted": "0.000001",
-          "priceUsd": "0.9999767",
+          "priceUsd": "0.99994",
           "valueUsd": "0.00"
         },
         {
@@ -1520,10 +1520,10 @@
           "token": "0xe50fA9b3c56FfB159cB0FCA61F5c9D750e8128c8",
           "tokenSymbol": "aWETH",
           "decimals": 18,
-          "amount": "323906469618060",
-          "amountFormatted": "0.00032390646961806",
-          "priceUsd": "2653.91338996",
-          "valueUsd": "0.85"
+          "amount": "323915538993109",
+          "amountFormatted": "0.000323915538993109",
+          "priceUsd": "2768.17747306",
+          "valueUsd": "0.89"
         },
         {
           "chainId": 10,
@@ -1537,7 +1537,7 @@
           "decimals": 18,
           "amount": "2000000000000000001",
           "amountFormatted": "2.000000000000000001",
-          "priceUsd": "0.12560458",
+          "priceUsd": "0.12667719",
           "valueUsd": "0.25"
         },
         {
@@ -1552,7 +1552,7 @@
           "decimals": 6,
           "amount": "6122",
           "amountFormatted": "0.006122",
-          "priceUsd": "0.9999767",
+          "priceUsd": "0.99994",
           "valueUsd": "0.00"
         },
         {
@@ -1567,7 +1567,7 @@
           "decimals": 6,
           "amount": "11000000",
           "amountFormatted": "11",
-          "priceUsd": "0.9999767",
+          "priceUsd": "0.99994",
           "valueUsd": "10.99"
         },
         {
@@ -1582,7 +1582,7 @@
           "decimals": 6,
           "amount": "2973000",
           "amountFormatted": "2.973",
-          "priceUsd": "0.99969333",
+          "priceUsd": "0.99993504",
           "valueUsd": "2.97"
         },
         {
@@ -1597,9 +1597,9 @@
           "decimals": 18,
           "amount": "50456329109544503908",
           "amountFormatted": "50.456329109544503908",
-          "virtualBalance": "76148864289908292074493",
-          "priceUsd": "0.99998031",
-          "valueUsd": "50.45"
+          "virtualBalance": "97693400170300306181598",
+          "priceUsd": "0.99985425",
+          "valueUsd": "50.44"
         },
         {
           "chainId": 10,
@@ -1613,8 +1613,8 @@
           "decimals": 18,
           "amount": "1869159010079525",
           "amountFormatted": "0.001869159010079525",
-          "virtualBalance": "38543744283934114665115",
-          "priceUsd": "12.62243",
+          "virtualBalance": "38286297193558548009483",
+          "priceUsd": "13.17371",
           "valueUsd": "0.02"
         },
         {
@@ -1629,8 +1629,8 @@
           "decimals": 18,
           "amount": "59926640481033925",
           "amountFormatted": "0.059926640481033925",
-          "virtualBalance": "3457609109166816452841252",
-          "priceUsd": "0.12560458",
+          "virtualBalance": "3445499511375227348459462",
+          "priceUsd": "0.12667719",
           "valueUsd": "0.00"
         },
         {
@@ -1645,8 +1645,8 @@
           "decimals": 18,
           "amount": "142163335338",
           "amountFormatted": "0.000000142163335338",
-          "virtualBalance": "233153138235060714137",
-          "priceUsd": "3110.72410281",
+          "virtualBalance": "233136636079975027247",
+          "priceUsd": "3244.83947289",
           "valueUsd": "0.00"
         },
         {
@@ -1662,8 +1662,8 @@
           "amount": "-51170197645455330284707",
           "amountFormatted": "-51170.197645455330284707",
           "virtualBalance": "51170197645455330284707",
-          "priceUsd": "0.324475",
-          "valueUsd": "-16603.44",
+          "priceUsd": "0.345203",
+          "valueUsd": "-17664.10",
           "note": "balance below virtual balance (deficit)"
         },
         {
@@ -1678,8 +1678,8 @@
           "decimals": 6,
           "amount": "77046862",
           "amountFormatted": "77.046862",
-          "virtualBalance": "916269666050",
-          "priceUsd": "0.9999767",
+          "virtualBalance": "916154720665",
+          "priceUsd": "0.99994",
           "valueUsd": "77.04"
         },
         {
@@ -1694,8 +1694,8 @@
           "decimals": 6,
           "amount": "1335849",
           "amountFormatted": "1.335849",
-          "virtualBalance": "1957683604783",
-          "priceUsd": "0.9999767",
+          "virtualBalance": "1773191048236",
+          "priceUsd": "0.99994",
           "valueUsd": "1.33"
         },
         {
@@ -1710,9 +1710,9 @@
           "decimals": 6,
           "amount": "59254400",
           "amountFormatted": "59.2544",
-          "virtualBalance": "772347626122",
-          "priceUsd": "0.99969333",
-          "valueUsd": "59.23"
+          "virtualBalance": "652589728078",
+          "priceUsd": "0.99993504",
+          "valueUsd": "59.25"
         },
         {
           "chainId": 10,
@@ -1726,8 +1726,8 @@
           "decimals": 18,
           "amount": "1592679000000",
           "amountFormatted": "0.000001592679",
-          "virtualBalance": "2517003728436905970815",
-          "priceUsd": "2653.91338996",
+          "virtualBalance": "2562406479848609623436",
+          "priceUsd": "2768.17747306",
           "valueUsd": "0.00"
         },
         {
@@ -1742,8 +1742,8 @@
           "decimals": 18,
           "amount": "2086967672395",
           "amountFormatted": "0.000002086967672395",
-          "virtualBalance": "8297300817845110318405",
-          "priceUsd": "3302.74871529",
+          "virtualBalance": "8270402559005850770933",
+          "priceUsd": "3445.15760678",
           "valueUsd": "0.00"
         }
       ]
@@ -1751,49 +1751,49 @@
     "bnb": {
       "chainId": 56,
       "alias": "bnb",
-      "pinnedBlock": 123082767,
-      "pinnedAt": "2026-09-21T00:09:50.785Z",
+      "pinnedBlock": 123274625,
+      "pinnedAt": "2026-09-22T00:09:20.969Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d": {
           "symbol": "USDC",
-          "priceRaw": "99986523",
-          "priceUsd": "0.99986523"
+          "priceRaw": "99992518",
+          "priceUsd": "0.99992518"
         },
         "0x2170ed0880ac9a755fd29b2688956bd959f933f8": {
           "symbol": "ETH",
-          "priceRaw": "265579899880",
-          "priceUsd": "2655.7989988"
+          "priceRaw": "276922180000",
+          "priceUsd": "2769.2218"
         },
         "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82": {
           "symbol": "Cake",
-          "priceRaw": "255694500",
-          "priceUsd": "2.556945"
+          "priceRaw": "254297576",
+          "priceUsd": "2.54297576"
         },
         "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c": {
           "symbol": "BTCB",
-          "priceRaw": "8155259759715",
-          "priceUsd": "81552.59759715"
+          "priceRaw": "8631864674927",
+          "priceUsd": "86318.64674927"
         },
         "0xc5f0f7b66764f6ec8c8dff7ba683102295e16409": {
           "symbol": "FDUSD",
-          "priceRaw": "99864000",
-          "priceUsd": "0.99864"
+          "priceRaw": "99933000",
+          "priceUsd": "0.99933"
         },
         "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c": {
           "symbol": "WBNB",
-          "priceRaw": "77622789000",
-          "priceUsd": "776.22789"
+          "priceRaw": "79769451315",
+          "priceUsd": "797.69451315"
         },
         "0x55d398326f99059ff775485246999027b3197955": {
           "symbol": "USDT",
-          "priceRaw": "99974773",
-          "priceUsd": "0.99974773"
+          "priceRaw": "99973000",
+          "priceUsd": "0.99973"
         },
         "0x26c5e01524d2e6280a48f2c50ff6de7e52e9611c": {
           "symbol": "wstETH",
-          "priceRaw": "330509532245",
-          "priceUsd": "3305.09532245"
+          "priceRaw": "344645733229",
+          "priceUsd": "3446.45733229"
         }
       },
       "stats": {
@@ -1801,23 +1801,23 @@
         "tokensScanned": 8,
         "checksPerformed": 144,
         "findingsCount": 15,
-        "surplusValueUsd": "4560.67",
+        "surplusValueUsd": "4567.19",
         "deficitValueUsd": "0.00",
-        "netValueUsd": "4560.67",
+        "netValueUsd": "4567.19",
         "byMarket": {
           "AaveV3BNB": {
             "findingsCount": 15,
-            "surplusValueUsd": "4560.67",
+            "surplusValueUsd": "4567.19",
             "deficitValueUsd": "0.00",
-            "netValueUsd": "4560.67",
+            "netValueUsd": "4567.19",
             "byKind": {
               "underlying-surplus": {
                 "count": 7,
-                "totalValueUsd": "3278.35"
+                "totalValueUsd": "3284.79"
               },
               "token-in-pool": {
                 "count": 2,
-                "totalValueUsd": "500.37"
+                "totalValueUsd": "500.36"
               },
               "foreign-token-in-atoken": {
                 "count": 4,
@@ -1825,7 +1825,7 @@
               },
               "atoken-in-itself": {
                 "count": 2,
-                "totalValueUsd": "637.25"
+                "totalValueUsd": "637.34"
               }
             }
           }
@@ -1842,10 +1842,10 @@
           "token": "0xa9251ca9DE909CB71783723713B21E4233fbf1B1",
           "tokenSymbol": "aUSDT",
           "decimals": 18,
-          "amount": "635230975142735299847",
-          "amountFormatted": "635.230975142735299847",
-          "priceUsd": "0.99974773",
-          "valueUsd": "635.07"
+          "amount": "635279927449409827312",
+          "amountFormatted": "635.279927449409827312",
+          "priceUsd": "0.99973",
+          "valueUsd": "635.10"
         },
         {
           "chainId": 56,
@@ -1857,10 +1857,10 @@
           "token": "0x9B00a09492a626678E5A3009982191586C444Df9",
           "tokenSymbol": "aWBNB",
           "decimals": 18,
-          "amount": "2816031977593194",
-          "amountFormatted": "0.002816031977593194",
-          "priceUsd": "776.22789",
-          "valueUsd": "2.18"
+          "amount": "2816032777934723",
+          "amountFormatted": "0.002816032777934723",
+          "priceUsd": "797.69451315",
+          "valueUsd": "2.24"
         },
         {
           "chainId": 56,
@@ -1874,7 +1874,7 @@
           "decimals": 18,
           "amount": "100074701023685625948",
           "amountFormatted": "100.074701023685625948",
-          "priceUsd": "0.99986523",
+          "priceUsd": "0.99992518",
           "valueUsd": "100.06"
         },
         {
@@ -1889,7 +1889,7 @@
           "decimals": 18,
           "amount": "44639645485536160848",
           "amountFormatted": "44.639645485536160848",
-          "priceUsd": "0.99974773",
+          "priceUsd": "0.99973",
           "valueUsd": "44.62"
         },
         {
@@ -1904,7 +1904,7 @@
           "decimals": 18,
           "amount": "20100000000000000",
           "amountFormatted": "0.0201",
-          "priceUsd": "0.99974773",
+          "priceUsd": "0.99973",
           "valueUsd": "0.02"
         },
         {
@@ -1919,7 +1919,7 @@
           "decimals": 18,
           "amount": "2000000000000000",
           "amountFormatted": "0.002",
-          "priceUsd": "0.99974773",
+          "priceUsd": "0.99973",
           "valueUsd": "0.00"
         },
         {
@@ -1934,7 +1934,7 @@
           "decimals": 18,
           "amount": "500000000000",
           "amountFormatted": "0.0000005",
-          "priceUsd": "2655.7989988",
+          "priceUsd": "2769.2218",
           "valueUsd": "0.00"
         },
         {
@@ -1949,8 +1949,8 @@
           "decimals": 18,
           "amount": "500500250000000000000",
           "amountFormatted": "500.50025",
-          "priceUsd": "0.99974773",
-          "valueUsd": "500.37"
+          "priceUsd": "0.99973",
+          "valueUsd": "500.36"
         },
         {
           "chainId": 56,
@@ -1964,9 +1964,9 @@
           "decimals": 18,
           "amount": "1336278123690312",
           "amountFormatted": "0.001336278123690312",
-          "virtualBalance": "984421955356096310423",
-          "priceUsd": "81552.59759715",
-          "valueUsd": "108.97"
+          "virtualBalance": "990300332211331981053",
+          "priceUsd": "86318.64674927",
+          "valueUsd": "115.34"
         },
         {
           "chainId": 56,
@@ -1980,8 +1980,8 @@
           "decimals": 18,
           "amount": "17816355726143907",
           "amountFormatted": "0.017816355726143907",
-          "virtualBalance": "443574630982728606483959",
-          "priceUsd": "2.556945",
+          "virtualBalance": "410215989486174658621503",
+          "priceUsd": "2.54297576",
           "valueUsd": "0.04"
         },
         {
@@ -1996,8 +1996,8 @@
           "decimals": 18,
           "amount": "5793232656521",
           "amountFormatted": "0.000005793232656521",
-          "virtualBalance": "4476102041935026592206",
-          "priceUsd": "2655.7989988",
+          "virtualBalance": "4655866530975813526208",
+          "priceUsd": "2769.2218",
           "valueUsd": "0.01"
         },
         {
@@ -2012,8 +2012,8 @@
           "decimals": 18,
           "amount": "2971556414948312216",
           "amountFormatted": "2.971556414948312216",
-          "virtualBalance": "55345774447608921689010",
-          "priceUsd": "0.99864",
+          "virtualBalance": "48999515853132759413118",
+          "priceUsd": "0.99933",
           "valueUsd": "2.96"
         },
         {
@@ -2028,9 +2028,9 @@
           "decimals": 18,
           "amount": "1273679166769906265313",
           "amountFormatted": "1273.679166769906265313",
-          "virtualBalance": "1835206626906575214660582",
-          "priceUsd": "0.99986523",
-          "valueUsd": "1273.50"
+          "virtualBalance": "2599248544539879320044111",
+          "priceUsd": "0.99992518",
+          "valueUsd": "1273.58"
         },
         {
           "chainId": 56,
@@ -2044,9 +2044,9 @@
           "decimals": 18,
           "amount": "1892187682879200175586",
           "amountFormatted": "1892.187682879200175586",
-          "virtualBalance": "13507262123929887073628506",
-          "priceUsd": "0.99974773",
-          "valueUsd": "1891.71"
+          "virtualBalance": "11337876869706210771903797",
+          "priceUsd": "0.99973",
+          "valueUsd": "1891.67"
         },
         {
           "chainId": 56,
@@ -2060,23 +2060,23 @@
           "decimals": 18,
           "amount": "1498000182216961",
           "amountFormatted": "0.001498000182216961",
-          "virtualBalance": "116602211032703955512141",
-          "priceUsd": "776.22789",
-          "valueUsd": "1.16"
+          "virtualBalance": "116939596164987452453455",
+          "priceUsd": "797.69451315",
+          "valueUsd": "1.19"
         }
       ]
     },
     "gnosis": {
       "chainId": 100,
       "alias": "gnosis",
-      "pinnedBlock": 48355549,
-      "pinnedAt": "2026-09-21T00:09:51.000Z",
+      "pinnedBlock": 48372483,
+      "pinnedAt": "2026-09-22T00:09:21.591Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0x6c76971f98945ae98dd7d4dfca8711ebea946ea6": {
           "symbol": "wstETH",
-          "priceRaw": "330194344358",
-          "priceUsd": "3301.94344358"
+          "priceRaw": "345020493354",
+          "priceUsd": "3450.20493354"
         },
         "0xfc421ad3c883bf9e7c4f42de845c4e4405799e73": {
           "symbol": "GHO",
@@ -2085,38 +2085,38 @@
         },
         "0xaf204776c7245bf4147c2612bf6e5972ee483701": {
           "symbol": "sDAI",
-          "priceRaw": "125791852",
-          "priceUsd": "1.25791852"
+          "priceRaw": "125819150",
+          "priceUsd": "1.2581915"
         },
         "0x9c58bacc331c9aa871afd802db6379a98e80cedb": {
           "symbol": "GNO",
-          "priceRaw": "11771800000",
-          "priceUsd": "117.718"
+          "priceRaw": "11711000000",
+          "priceUsd": "117.11"
         },
         "0x6a023ccd1ff6f2045c3309768ead9e68f978f6e1": {
           "symbol": "WETH",
-          "priceRaw": "265326631640",
-          "priceUsd": "2653.2663164"
+          "priceRaw": "277223299035",
+          "priceUsd": "2772.23299035"
         },
         "0x2a22f9c3b484c3629090feed35f17ff8f88f76f0": {
           "symbol": "USDCe",
-          "priceRaw": "99989363",
-          "priceUsd": "0.99989363"
+          "priceRaw": "99995679",
+          "priceUsd": "0.99995679"
         },
         "0xddafbb505ad214d7b80b1f830fccc89b60fb7a83": {
           "symbol": "USDC",
-          "priceRaw": "99989363",
-          "priceUsd": "0.99989363"
+          "priceRaw": "99995679",
+          "priceUsd": "0.99995679"
         },
         "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d": {
           "symbol": "WXDAI",
-          "priceRaw": "99985540",
-          "priceUsd": "0.9998554"
+          "priceRaw": "99994428",
+          "priceUsd": "0.99994428"
         },
         "0xcb444e90d8198415266c6a2724b7900fb12fc56e": {
           "symbol": "EURe",
-          "priceRaw": "114850500",
-          "priceUsd": "1.148505"
+          "priceRaw": "114729000",
+          "priceUsd": "1.14729"
         }
       },
       "stats": {
@@ -2136,7 +2136,7 @@
             "byKind": {
               "underlying-surplus": {
                 "count": 6,
-                "totalValueUsd": "4.24"
+                "totalValueUsd": "4.25"
               },
               "token-in-pool": {
                 "count": 2,
@@ -2144,7 +2144,7 @@
               },
               "foreign-token-in-atoken": {
                 "count": 2,
-                "totalValueUsd": "2.55"
+                "totalValueUsd": "2.54"
               },
               "atoken-in-itself": {
                 "count": 0,
@@ -2167,8 +2167,8 @@
           "decimals": 18,
           "amount": "10712980307042514",
           "amountFormatted": "0.010712980307042514",
-          "priceUsd": "117.718",
-          "valueUsd": "1.26"
+          "priceUsd": "117.11",
+          "valueUsd": "1.25"
         },
         {
           "chainId": 100,
@@ -2182,7 +2182,7 @@
           "decimals": 18,
           "amount": "1300000001759734823",
           "amountFormatted": "1.300000001759734823",
-          "priceUsd": "0.9998554",
+          "priceUsd": "0.99994428",
           "valueUsd": "1.29"
         },
         {
@@ -2195,9 +2195,9 @@
           "token": "0xa818F1B57c201E092C4A2017A91815034326Efd1",
           "tokenSymbol": "aWETH",
           "decimals": 18,
-          "amount": "101963002044",
-          "amountFormatted": "0.000000101963002044",
-          "priceUsd": "2653.2663164",
+          "amount": "101964354619",
+          "amountFormatted": "0.000000101964354619",
+          "priceUsd": "2772.23299035",
           "valueUsd": "0.00"
         },
         {
@@ -2212,7 +2212,7 @@
           "decimals": 18,
           "amount": "1000000000000000000",
           "amountFormatted": "1",
-          "priceUsd": "1.148505",
+          "priceUsd": "1.14729",
           "valueUsd": "1.14"
         },
         {
@@ -2227,8 +2227,8 @@
           "decimals": 18,
           "amount": "324095127006122163",
           "amountFormatted": "0.324095127006122163",
-          "virtualBalance": "5612136972911226606733467",
-          "priceUsd": "1.148505",
+          "virtualBalance": "4985634951901453302281149",
+          "priceUsd": "1.14729",
           "valueUsd": "0.37"
         },
         {
@@ -2243,8 +2243,8 @@
           "decimals": 18,
           "amount": "19182670757368",
           "amountFormatted": "0.000019182670757368",
-          "virtualBalance": "61475976261921148789201",
-          "priceUsd": "117.718",
+          "virtualBalance": "61476144088365281899812",
+          "priceUsd": "117.11",
           "valueUsd": "0.00"
         },
         {
@@ -2260,7 +2260,7 @@
           "amount": "3023004",
           "amountFormatted": "3.023004",
           "virtualBalance": "124968046931",
-          "priceUsd": "0.99989363",
+          "priceUsd": "0.99995679",
           "valueUsd": "3.02"
         },
         {
@@ -2275,9 +2275,9 @@
           "decimals": 18,
           "amount": "56263750049644",
           "amountFormatted": "0.000056263750049644",
-          "virtualBalance": "478423900728770083338",
-          "priceUsd": "2653.2663164",
-          "valueUsd": "0.14"
+          "virtualBalance": "465456257251897527249",
+          "priceUsd": "2772.23299035",
+          "valueUsd": "0.15"
         },
         {
           "chainId": 100,
@@ -2291,8 +2291,8 @@
           "decimals": 18,
           "amount": "268288416464",
           "amountFormatted": "0.000000268288416464",
-          "virtualBalance": "11929105354812122044613",
-          "priceUsd": "3301.94344358",
+          "virtualBalance": "11889176754815817988289",
+          "priceUsd": "3450.20493354",
           "valueUsd": "0.00"
         },
         {
@@ -2307,8 +2307,8 @@
           "decimals": 18,
           "amount": "710266006837084622",
           "amountFormatted": "0.710266006837084622",
-          "virtualBalance": "334770660172752739447834",
-          "priceUsd": "0.9998554",
+          "virtualBalance": "354902822538516801481320",
+          "priceUsd": "0.99994428",
           "valueUsd": "0.71"
         }
       ]
@@ -2316,49 +2316,49 @@
     "polygon": {
       "chainId": 137,
       "alias": "polygon",
-      "pinnedBlock": 94162879,
-      "pinnedAt": "2026-09-21T00:09:51.155Z",
+      "pinnedBlock": 94220448,
+      "pinnedAt": "2026-09-22T00:09:22.650Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6": {
           "symbol": "WBTC",
-          "priceRaw": "8147553255012",
-          "priceUsd": "81475.53255012"
+          "priceRaw": "8633572464426",
+          "priceUsd": "86335.72464426"
         },
         "0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39": {
           "symbol": "LINK",
-          "priceRaw": "1259711700",
-          "priceUsd": "12.597117"
+          "priceRaw": "1316180318",
+          "priceUsd": "13.16180318"
         },
         "0xe111178a87a3bff0c8d18decba5798827539ae99": {
           "symbol": "EURS",
-          "priceRaw": "114786500",
-          "priceUsd": "1.147865"
+          "priceRaw": "114678000",
+          "priceUsd": "1.14678"
         },
         "0x172370d5cd63279efa6d502dab29171933a610af": {
           "symbol": "CRV",
-          "priceRaw": "35814123",
-          "priceUsd": "0.35814123"
+          "priceRaw": "36484105",
+          "priceUsd": "0.36484105"
         },
         "0x2791bca1f2de4661ed88a30c99a7a9449aa84174": {
           "symbol": "USDC",
-          "priceRaw": "99988120",
-          "priceUsd": "0.9998812"
+          "priceRaw": "99989767",
+          "priceUsd": "0.99989767"
         },
         "0x4e3decbb3645551b8a19f0ea1678079fcb33fb4c": {
           "symbol": "jEUR",
-          "priceRaw": "114786500",
-          "priceUsd": "1.147865"
+          "priceRaw": "114678000",
+          "priceUsd": "1.14678"
         },
         "0xc2132d05d31c914a87c6611c10748aeb04b58e8f": {
           "symbol": "USDT0",
-          "priceRaw": "99976000",
-          "priceUsd": "0.99976"
+          "priceRaw": "99979082",
+          "priceUsd": "0.99979082"
         },
         "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270": {
           "symbol": "WPOL",
-          "priceRaw": "10876190",
-          "priceUsd": "0.1087619"
+          "priceRaw": "11184433",
+          "priceUsd": "0.11184433"
         },
         "0x85955046df4668e1dd369d2de9f3aeb98dd2a369": {
           "symbol": "DPI",
@@ -2367,63 +2367,63 @@
         },
         "0xfa68fb4628dff1028cfec22b4162fccd0d45efb6": {
           "symbol": "MaticX",
-          "priceRaw": "13015797",
-          "priceUsd": "0.13015797"
+          "priceRaw": "13384679",
+          "priceUsd": "0.13384679"
         },
         "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063": {
           "symbol": "DAI",
-          "priceRaw": "99993806",
-          "priceUsd": "0.99993806"
+          "priceRaw": "99968667",
+          "priceUsd": "0.99968667"
         },
         "0xe0b52e49357fd4daf2c15e02058dce6bc0057db4": {
           "symbol": "EURA",
-          "priceRaw": "114786500",
-          "priceUsd": "1.147865"
+          "priceRaw": "114678000",
+          "priceUsd": "1.14678"
         },
         "0x385eeac5cb85a38a9a07a70c73e0a3271cfb54a7": {
           "symbol": "GHST",
-          "priceRaw": "6545183",
-          "priceUsd": "0.06545183"
+          "priceRaw": "6508020",
+          "priceUsd": "0.0650802"
         },
         "0x9a71012b13ca4d3d0cdc72a177df3ef03b0e76a3": {
           "symbol": "BAL",
-          "priceRaw": "11915000",
-          "priceUsd": "0.11915"
+          "priceRaw": "12438449",
+          "priceUsd": "0.12438449"
         },
         "0x3c499c542cef5e3811e1192ce70d8cc03d5c3359": {
           "symbol": "USDCn",
-          "priceRaw": "99988120",
-          "priceUsd": "0.9998812"
+          "priceRaw": "99989767",
+          "priceUsd": "0.99989767"
         },
         "0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a": {
           "symbol": "SUSHI",
-          "priceRaw": "25444317",
-          "priceUsd": "0.25444317"
+          "priceRaw": "25589786",
+          "priceUsd": "0.25589786"
         },
         "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619": {
           "symbol": "WETH",
-          "priceRaw": "265424698911",
-          "priceUsd": "2654.24698911"
+          "priceRaw": "277033476678",
+          "priceUsd": "2770.33476678"
         },
         "0x3a58a54c066fdc0f2d55fc9c89f0415c92ebf3c4": {
           "symbol": "stMATIC",
-          "priceRaw": "12521573",
-          "priceUsd": "0.12521573"
+          "priceRaw": "12876448",
+          "priceUsd": "0.12876448"
         },
         "0xa3fa99a148fa48d14ed51d610c367c61876997f1": {
           "symbol": "miMATIC",
-          "priceRaw": "94788000",
-          "priceUsd": "0.94788"
+          "priceRaw": "94162145",
+          "priceUsd": "0.94162145"
         },
         "0xd6df932a45c0f255f85145f286ea0b292b21c90b": {
           "symbol": "AAVE",
-          "priceRaw": "13789646380",
-          "priceUsd": "137.8964638"
+          "priceRaw": "14595252030",
+          "priceUsd": "145.9525203"
         },
         "0x03b54a6e9a984069379fae1a4fc4dbae93b3bccd": {
           "symbol": "wstETH",
-          "priceRaw": "330316387358",
-          "priceUsd": "3303.16387358"
+          "priceRaw": "344784248408",
+          "priceUsd": "3447.84248408"
         }
       },
       "stats": {
@@ -2431,31 +2431,31 @@
         "tokensScanned": 21,
         "checksPerformed": 924,
         "findingsCount": 51,
-        "surplusValueUsd": "3537.78",
+        "surplusValueUsd": "3559.62",
         "deficitValueUsd": "0.00",
-        "netValueUsd": "3537.78",
+        "netValueUsd": "3559.62",
         "byMarket": {
           "AaveV3Polygon": {
             "findingsCount": 51,
-            "surplusValueUsd": "3537.78",
+            "surplusValueUsd": "3559.62",
             "deficitValueUsd": "0.00",
-            "netValueUsd": "3537.78",
+            "netValueUsd": "3559.62",
             "byKind": {
               "underlying-surplus": {
                 "count": 16,
-                "totalValueUsd": "2007.82"
+                "totalValueUsd": "2014.60"
               },
               "token-in-pool": {
                 "count": 11,
-                "totalValueUsd": "1255.70"
+                "totalValueUsd": "1267.80"
               },
               "foreign-token-in-atoken": {
                 "count": 17,
-                "totalValueUsd": "205.54"
+                "totalValueUsd": "205.55"
               },
               "atoken-in-itself": {
                 "count": 7,
-                "totalValueUsd": "68.72"
+                "totalValueUsd": "71.67"
               }
             }
           }
@@ -2474,7 +2474,7 @@
           "decimals": 18,
           "amount": "7319220531675",
           "amountFormatted": "0.000007319220531675",
-          "priceUsd": "137.8964638",
+          "priceUsd": "145.9525203",
           "valueUsd": "0.00"
         },
         {
@@ -2487,9 +2487,9 @@
           "token": "0x82E64f49Ed5EC1bC6e43DAD4FC8Af9bb3A2312EE",
           "tokenSymbol": "aDAI",
           "decimals": 18,
-          "amount": "111128468740322386",
-          "amountFormatted": "0.111128468740322386",
-          "priceUsd": "0.99993806",
+          "amount": "111142127868766948",
+          "amountFormatted": "0.111142127868766948",
+          "priceUsd": "0.99968667",
           "valueUsd": "0.11"
         },
         {
@@ -2502,9 +2502,9 @@
           "token": "0x80cA0d8C38d2e2BcbaB66aA1648Bd1C7160500FE",
           "tokenSymbol": "aMaticX",
           "decimals": 18,
-          "amount": "4353419495916030",
-          "amountFormatted": "0.00435341949591603",
-          "priceUsd": "0.13015797",
+          "amount": "4353419642067328",
+          "amountFormatted": "0.004353419642067328",
+          "priceUsd": "0.13384679",
           "valueUsd": "0.00"
         },
         {
@@ -2517,9 +2517,9 @@
           "token": "0x625E7708f30cA75bfd92586e17077590C60eb4cD",
           "tokenSymbol": "aUSDC",
           "decimals": 6,
-          "amount": "1167750",
-          "amountFormatted": "1.16775",
-          "priceUsd": "0.9998812",
+          "amount": "1167787",
+          "amountFormatted": "1.167787",
+          "priceUsd": "0.99989767",
           "valueUsd": "1.16"
         },
         {
@@ -2534,7 +2534,7 @@
           "decimals": 6,
           "amount": "11",
           "amountFormatted": "0.000011",
-          "priceUsd": "0.99976",
+          "priceUsd": "0.99979082",
           "valueUsd": "0.00"
         },
         {
@@ -2547,10 +2547,10 @@
           "token": "0xe50fA9b3c56FfB159cB0FCA61F5c9D750e8128c8",
           "tokenSymbol": "aWETH",
           "decimals": 18,
-          "amount": "25413190807800858",
-          "amountFormatted": "0.025413190807800858",
-          "priceUsd": "2654.24698911",
-          "valueUsd": "67.45"
+          "amount": "25413402419535591",
+          "amountFormatted": "0.025413402419535591",
+          "priceUsd": "2770.33476678",
+          "valueUsd": "70.40"
         },
         {
           "chainId": 137,
@@ -2562,9 +2562,9 @@
           "token": "0x6d80113e533a2C0fe82EaBD35f1875DcEA89Ea97",
           "tokenSymbol": "aWPOL",
           "decimals": 18,
-          "amount": "21424680790188062",
-          "amountFormatted": "0.021424680790188062",
-          "priceUsd": "0.1087619",
+          "amount": "21424892515093900",
+          "amountFormatted": "0.0214248925150939",
+          "priceUsd": "0.11184433",
           "valueUsd": "0.00"
         },
         {
@@ -2579,7 +2579,7 @@
           "decimals": 6,
           "amount": "30000000",
           "amountFormatted": "30",
-          "priceUsd": "0.9998812",
+          "priceUsd": "0.99989767",
           "valueUsd": "29.99"
         },
         {
@@ -2594,7 +2594,7 @@
           "decimals": 6,
           "amount": "15000",
           "amountFormatted": "0.015",
-          "priceUsd": "0.9998812",
+          "priceUsd": "0.99989767",
           "valueUsd": "0.01"
         },
         {
@@ -2609,7 +2609,7 @@
           "decimals": 6,
           "amount": "34894678",
           "amountFormatted": "34.894678",
-          "priceUsd": "0.9998812",
+          "priceUsd": "0.99989767",
           "valueUsd": "34.89"
         },
         {
@@ -2624,7 +2624,7 @@
           "decimals": 6,
           "amount": "999844",
           "amountFormatted": "0.999844",
-          "priceUsd": "0.9998812",
+          "priceUsd": "0.99989767",
           "valueUsd": "0.99"
         },
         {
@@ -2639,7 +2639,7 @@
           "decimals": 6,
           "amount": "5000",
           "amountFormatted": "0.005",
-          "priceUsd": "0.99976",
+          "priceUsd": "0.99979082",
           "valueUsd": "0.00"
         },
         {
@@ -2654,8 +2654,8 @@
           "decimals": 6,
           "amount": "139700115",
           "amountFormatted": "139.700115",
-          "priceUsd": "0.99976",
-          "valueUsd": "139.66"
+          "priceUsd": "0.99979082",
+          "valueUsd": "139.67"
         },
         {
           "chainId": 137,
@@ -2669,7 +2669,7 @@
           "decimals": 18,
           "amount": "1",
           "amountFormatted": "0.000000000000000001",
-          "priceUsd": "0.1087619",
+          "priceUsd": "0.11184433",
           "valueUsd": "0.00"
         },
         {
@@ -2684,7 +2684,7 @@
           "decimals": 18,
           "amount": "1",
           "amountFormatted": "0.000000000000000001",
-          "priceUsd": "0.1087619",
+          "priceUsd": "0.11184433",
           "valueUsd": "0.00"
         },
         {
@@ -2699,7 +2699,7 @@
           "decimals": 18,
           "amount": "1",
           "amountFormatted": "0.000000000000000001",
-          "priceUsd": "0.1087619",
+          "priceUsd": "0.11184433",
           "valueUsd": "0.00"
         },
         {
@@ -2714,7 +2714,7 @@
           "decimals": 18,
           "amount": "1",
           "amountFormatted": "0.000000000000000001",
-          "priceUsd": "0.1087619",
+          "priceUsd": "0.11184433",
           "valueUsd": "0.00"
         },
         {
@@ -2729,7 +2729,7 @@
           "decimals": 18,
           "amount": "1",
           "amountFormatted": "0.000000000000000001",
-          "priceUsd": "0.1087619",
+          "priceUsd": "0.11184433",
           "valueUsd": "0.00"
         },
         {
@@ -2744,7 +2744,7 @@
           "decimals": 18,
           "amount": "2",
           "amountFormatted": "0.000000000000000002",
-          "priceUsd": "0.1087619",
+          "priceUsd": "0.11184433",
           "valueUsd": "0.00"
         },
         {
@@ -2759,7 +2759,7 @@
           "decimals": 18,
           "amount": "1",
           "amountFormatted": "0.000000000000000001",
-          "priceUsd": "0.1087619",
+          "priceUsd": "0.11184433",
           "valueUsd": "0.00"
         },
         {
@@ -2774,7 +2774,7 @@
           "decimals": 18,
           "amount": "1",
           "amountFormatted": "0.000000000000000001",
-          "priceUsd": "0.1087619",
+          "priceUsd": "0.11184433",
           "valueUsd": "0.00"
         },
         {
@@ -2789,7 +2789,7 @@
           "decimals": 18,
           "amount": "1",
           "amountFormatted": "0.000000000000000001",
-          "priceUsd": "0.1087619",
+          "priceUsd": "0.11184433",
           "valueUsd": "0.00"
         },
         {
@@ -2804,7 +2804,7 @@
           "decimals": 18,
           "amount": "1",
           "amountFormatted": "0.000000000000000001",
-          "priceUsd": "0.1087619",
+          "priceUsd": "0.11184433",
           "valueUsd": "0.00"
         },
         {
@@ -2819,7 +2819,7 @@
           "decimals": 18,
           "amount": "1",
           "amountFormatted": "0.000000000000000001",
-          "priceUsd": "0.1087619",
+          "priceUsd": "0.11184433",
           "valueUsd": "0.00"
         },
         {
@@ -2834,7 +2834,7 @@
           "decimals": 18,
           "amount": "6200000000000",
           "amountFormatted": "0.0000062",
-          "priceUsd": "137.8964638",
+          "priceUsd": "145.9525203",
           "valueUsd": "0.00"
         },
         {
@@ -2847,9 +2847,9 @@
           "token": "0x6ab707Aca953eDAeFBc4fD23bA73294241490620",
           "tokenSymbol": "aUSDT0",
           "decimals": 6,
-          "amount": "1146698",
-          "amountFormatted": "1.146698",
-          "priceUsd": "0.99976",
+          "amount": "1146794",
+          "amountFormatted": "1.146794",
+          "priceUsd": "0.99979082",
           "valueUsd": "1.14"
         },
         {
@@ -2862,9 +2862,9 @@
           "token": "0x6d80113e533a2C0fe82EaBD35f1875DcEA89Ea97",
           "tokenSymbol": "aWPOL",
           "decimals": 18,
-          "amount": "1005505275",
-          "amountFormatted": "0.000000001005505275",
-          "priceUsd": "0.1087619",
+          "amount": "1005515211",
+          "amountFormatted": "0.000000001005515211",
+          "priceUsd": "0.11184433",
           "valueUsd": "0.00"
         },
         {
@@ -2879,7 +2879,7 @@
           "decimals": 18,
           "amount": "3340122709118236600",
           "amountFormatted": "3.3401227091182366",
-          "priceUsd": "0.99993806",
+          "priceUsd": "0.99968667",
           "valueUsd": "3.33"
         },
         {
@@ -2894,8 +2894,8 @@
           "decimals": 18,
           "amount": "10000000000000000",
           "amountFormatted": "0.01",
-          "priceUsd": "12.597117",
-          "valueUsd": "0.12"
+          "priceUsd": "13.16180318",
+          "valueUsd": "0.13"
         },
         {
           "chainId": 137,
@@ -2909,8 +2909,8 @@
           "decimals": 18,
           "amount": "275000434738995946033",
           "amountFormatted": "275.000434738995946033",
-          "priceUsd": "0.12521573",
-          "valueUsd": "34.43"
+          "priceUsd": "0.12876448",
+          "valueUsd": "35.41"
         },
         {
           "chainId": 137,
@@ -2924,7 +2924,7 @@
           "decimals": 6,
           "amount": "2008502",
           "amountFormatted": "2.008502",
-          "priceUsd": "0.9998812",
+          "priceUsd": "0.99989767",
           "valueUsd": "2.00"
         },
         {
@@ -2939,8 +2939,8 @@
           "decimals": 6,
           "amount": "1070908383",
           "amountFormatted": "1070.908383",
-          "priceUsd": "0.9998812",
-          "valueUsd": "1070.78"
+          "priceUsd": "0.99989767",
+          "valueUsd": "1070.79"
         },
         {
           "chainId": 137,
@@ -2952,10 +2952,10 @@
           "token": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
           "tokenSymbol": "USDT0",
           "decimals": 6,
-          "amount": "141564912",
-          "amountFormatted": "141.564912",
-          "priceUsd": "0.99976",
-          "valueUsd": "141.53"
+          "amount": "152564912",
+          "amountFormatted": "152.564912",
+          "priceUsd": "0.99979082",
+          "valueUsd": "152.53"
         },
         {
           "chainId": 137,
@@ -2969,8 +2969,8 @@
           "decimals": 18,
           "amount": "748349285878161",
           "amountFormatted": "0.000748349285878161",
-          "priceUsd": "2654.24698911",
-          "valueUsd": "1.98"
+          "priceUsd": "2770.33476678",
+          "valueUsd": "2.07"
         },
         {
           "chainId": 137,
@@ -2984,8 +2984,8 @@
           "decimals": 18,
           "amount": "3634256433837060634",
           "amountFormatted": "3.634256433837060634",
-          "priceUsd": "0.1087619",
-          "valueUsd": "0.39"
+          "priceUsd": "0.11184433",
+          "valueUsd": "0.40"
         },
         {
           "chainId": 137,
@@ -2999,8 +2999,8 @@
           "decimals": 18,
           "amount": "3000000000000",
           "amountFormatted": "0.000003",
-          "virtualBalance": "19147205934048478228153",
-          "priceUsd": "137.8964638",
+          "virtualBalance": "19174532744115490954782",
+          "priceUsd": "145.9525203",
           "valueUsd": "0.00"
         },
         {
@@ -3016,7 +3016,7 @@
           "amount": "633934506995264151",
           "amountFormatted": "0.633934506995264151",
           "virtualBalance": "8039214422099891047591",
-          "priceUsd": "0.11915",
+          "priceUsd": "0.12438449",
           "valueUsd": "0.07"
         },
         {
@@ -3032,7 +3032,7 @@
           "amount": "407584139369115300",
           "amountFormatted": "0.4075841393691153",
           "virtualBalance": "42453431883500826974892",
-          "priceUsd": "0.35814123",
+          "priceUsd": "0.36484105",
           "valueUsd": "0.14"
         },
         {
@@ -3047,9 +3047,9 @@
           "decimals": 18,
           "amount": "161471497502956314456",
           "amountFormatted": "161.471497502956314456",
-          "virtualBalance": "806411558224854177216117",
-          "priceUsd": "0.99993806",
-          "valueUsd": "161.46"
+          "virtualBalance": "760653742300307702333398",
+          "priceUsd": "0.99968667",
+          "valueUsd": "161.42"
         },
         {
           "chainId": 137,
@@ -3064,7 +3064,7 @@
           "amount": "2793970138515671003",
           "amountFormatted": "2.793970138515671003",
           "virtualBalance": "4448584843675325116444",
-          "priceUsd": "1.147865",
+          "priceUsd": "1.14678",
           "valueUsd": "3.20"
         },
         {
@@ -3079,9 +3079,9 @@
           "decimals": 2,
           "amount": "1591",
           "amountFormatted": "15.91",
-          "virtualBalance": "141005363",
-          "priceUsd": "1.147865",
-          "valueUsd": "18.26"
+          "virtualBalance": "141232568",
+          "priceUsd": "1.14678",
+          "valueUsd": "18.24"
         },
         {
           "chainId": 137,
@@ -3096,7 +3096,7 @@
           "amount": "2080019430553103556",
           "amountFormatted": "2.080019430553103556",
           "virtualBalance": "447863274352893026814",
-          "priceUsd": "1.147865",
+          "priceUsd": "1.14678",
           "valueUsd": "2.38"
         },
         {
@@ -3111,8 +3111,8 @@
           "decimals": 18,
           "amount": "6521843648935119",
           "amountFormatted": "0.006521843648935119",
-          "virtualBalance": "154230620938019892625000",
-          "priceUsd": "12.597117",
+          "virtualBalance": "154409877411596031089659",
+          "priceUsd": "13.16180318",
           "valueUsd": "0.08"
         },
         {
@@ -3127,8 +3127,8 @@
           "decimals": 18,
           "amount": "233096335060949",
           "amountFormatted": "0.000233096335060949",
-          "virtualBalance": "7127369471962553207553052",
-          "priceUsd": "0.13015797",
+          "virtualBalance": "7102478473765079960146303",
+          "priceUsd": "0.13384679",
           "valueUsd": "0.00"
         },
         {
@@ -3144,7 +3144,7 @@
           "amount": "4686393880408610204",
           "amountFormatted": "4.686393880408610204",
           "virtualBalance": "51028540477689787009777",
-          "priceUsd": "0.25444317",
+          "priceUsd": "0.25589786",
           "valueUsd": "1.19"
         },
         {
@@ -3159,9 +3159,9 @@
           "decimals": 6,
           "amount": "178228526",
           "amountFormatted": "178.228526",
-          "virtualBalance": "627807551036",
-          "priceUsd": "0.9998812",
-          "valueUsd": "178.20"
+          "virtualBalance": "591865605195",
+          "priceUsd": "0.99989767",
+          "valueUsd": "178.21"
         },
         {
           "chainId": 137,
@@ -3175,8 +3175,8 @@
           "decimals": 6,
           "amount": "231693542",
           "amountFormatted": "231.693542",
-          "virtualBalance": "10276028351841",
-          "priceUsd": "0.9998812",
+          "virtualBalance": "10305446049375",
+          "priceUsd": "0.99989767",
           "valueUsd": "231.66"
         },
         {
@@ -3191,9 +3191,9 @@
           "decimals": 6,
           "amount": "1295932065",
           "amountFormatted": "1295.932065",
-          "virtualBalance": "11503701955180",
-          "priceUsd": "0.99976",
-          "valueUsd": "1295.62"
+          "virtualBalance": "11614646970501",
+          "priceUsd": "0.99979082",
+          "valueUsd": "1295.66"
         },
         {
           "chainId": 137,
@@ -3207,9 +3207,9 @@
           "decimals": 8,
           "amount": "137844",
           "amountFormatted": "0.00137844",
-          "virtualBalance": "82739236279",
-          "priceUsd": "81475.53255012",
-          "valueUsd": "112.30"
+          "virtualBalance": "82751806282",
+          "priceUsd": "86335.72464426",
+          "valueUsd": "119.00"
         },
         {
           "chainId": 137,
@@ -3223,9 +3223,9 @@
           "decimals": 18,
           "amount": "30000477030437467220",
           "amountFormatted": "30.00047703043746722",
-          "virtualBalance": "55954430620602576780208808",
-          "priceUsd": "0.1087619",
-          "valueUsd": "3.26"
+          "virtualBalance": "54670393661005570450440227",
+          "priceUsd": "0.11184433",
+          "valueUsd": "3.35"
         },
         {
           "chainId": 137,
@@ -3239,8 +3239,8 @@
           "decimals": 18,
           "amount": "2733610073831",
           "amountFormatted": "0.000002733610073831",
-          "virtualBalance": "3436814101570903786616",
-          "priceUsd": "3303.16387358",
+          "virtualBalance": "3436843177299057867458",
+          "priceUsd": "3447.84248408",
           "valueUsd": "0.00"
         }
       ]
@@ -3248,29 +3248,29 @@
     "monad": {
       "chainId": 143,
       "alias": "monad",
-      "pinnedBlock": 106602592,
-      "pinnedAt": "2026-09-21T00:09:51.450Z",
+      "pinnedBlock": 106888407,
+      "pinnedAt": "2026-09-22T00:09:23.278Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0xd18b7ec58cdf4876f6afebd3ed1730e4ce10414b": {
           "symbol": "cbBTC",
-          "priceRaw": "8153808866282",
-          "priceUsd": "81538.08866282"
+          "priceRaw": "8630391105119",
+          "priceUsd": "86303.91105119"
         },
         "0x754704bc059f8c67012fed69bc8a327a5aafb603": {
           "symbol": "USDC",
-          "priceRaw": "99985050",
-          "priceUsd": "0.9998505"
+          "priceRaw": "99990585",
+          "priceUsd": "0.99990585"
         },
         "0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34": {
           "symbol": "USDe",
-          "priceRaw": "99982446",
-          "priceUsd": "0.99982446"
+          "priceRaw": "99980035",
+          "priceUsd": "0.99980035"
         },
         "0xee8c0e9f1bffb4eb878d8f15f368a02a35481242": {
           "symbol": "WETH",
-          "priceRaw": "265842000000",
-          "priceUsd": "2658.42"
+          "priceRaw": "277020230000",
+          "priceUsd": "2770.2023"
         },
         "0xfc421ad3c883bf9e7c4f42de845c4e4405799e73": {
           "symbol": "GHO",
@@ -3279,33 +3279,33 @@
         },
         "0xa3d68b74bf0528fdd07263c60d6488749044914b": {
           "symbol": "weETH",
-          "priceRaw": "293512303809",
-          "priceUsd": "2935.12303809"
+          "priceRaw": "305871107214",
+          "priceUsd": "3058.71107214"
         },
         "0xe7cd86e13ac4309349f30b3435a9d337750fc82d": {
           "symbol": "USDT0",
-          "priceRaw": "99982446",
-          "priceUsd": "0.99982446"
+          "priceRaw": "99980035",
+          "priceUsd": "0.99980035"
         },
         "0x9fc74f8ed616b5baf52a170caa97d6d3898602d1": {
           "symbol": "PT_AUSD_8OCT2026",
-          "priceRaw": "99675179",
-          "priceUsd": "0.99675179"
+          "priceRaw": "99692940",
+          "priceUsd": "0.9969294"
         },
         "0xab6e5a0c3799d020c790d34f7b2c02639e238af7": {
           "symbol": "syrupUSDC",
-          "priceRaw": "118389660",
-          "priceUsd": "1.1838966"
+          "priceRaw": "118413966",
+          "priceUsd": "1.18413966"
         },
         "0x10aeaf63194db8d453d4d85a06e5efe1dd0b5417": {
           "symbol": "wstETH",
-          "priceRaw": "330835711252",
-          "priceUsd": "3308.35711252"
+          "priceRaw": "344767762148",
+          "priceUsd": "3447.67762148"
         },
         "0x211cc4dd073734da055fbf44a2b4667d5e5fe5d2": {
           "symbol": "sUSDe",
-          "priceRaw": "124888947",
-          "priceUsd": "1.24888947"
+          "priceRaw": "124901579",
+          "priceUsd": "1.24901579"
         },
         "0xaca92e438df0b2401ff60da7e4337b687a2435da": {
           "symbol": "mUSD",
@@ -3314,8 +3314,8 @@
         },
         "0x00000000efe302beaa2b3e6e1b18d08d69a9012a": {
           "symbol": "AUSD",
-          "priceRaw": "99985247",
-          "priceUsd": "0.99985247"
+          "priceRaw": "99984766",
+          "priceUsd": "0.99984766"
         }
       },
       "stats": {
@@ -3358,29 +3358,29 @@
     "sonic": {
       "chainId": 146,
       "alias": "sonic",
-      "pinnedBlock": 79590000,
-      "pinnedAt": "2026-09-21T00:09:51.634Z",
+      "pinnedBlock": 79661884,
+      "pinnedAt": "2026-09-22T00:09:24.299Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0x29219dd400f2bf60e5a23d13be72b486d4038894": {
           "symbol": "USDC",
-          "priceRaw": "99990340",
-          "priceUsd": "0.9999034"
+          "priceRaw": "99997000",
+          "priceUsd": "0.99997"
         },
         "0x039e2fb66102314ce7b64ce5ce3e5183bc94ad38": {
           "symbol": "wS",
-          "priceRaw": "3932804",
-          "priceUsd": "0.03932804"
+          "priceRaw": "3948700",
+          "priceUsd": "0.039487"
         },
         "0x50c42deacd8fc9773493ed674b675be577f2634b": {
           "symbol": "WETH",
-          "priceRaw": "265204540000",
-          "priceUsd": "2652.0454"
+          "priceRaw": "277915905380",
+          "priceUsd": "2779.1590538"
         },
         "0xe5da20f15420ad15de0fa650600afc998bbe3955": {
           "symbol": "stS",
-          "priceRaw": "4254526",
-          "priceUsd": "0.04254526"
+          "priceRaw": "4272239",
+          "priceUsd": "0.04272239"
         }
       },
       "stats": {
@@ -3431,7 +3431,7 @@
           "decimals": 6,
           "amount": "350000",
           "amountFormatted": "0.35",
-          "priceUsd": "0.9999034",
+          "priceUsd": "0.99997",
           "valueUsd": "0.34"
         }
       ]
@@ -3439,34 +3439,34 @@
     "xlayer": {
       "chainId": 196,
       "alias": "xlayer",
-      "pinnedBlock": 71180354,
-      "pinnedAt": "2026-09-21T00:09:51.726Z",
+      "pinnedBlock": 71266725,
+      "pinnedAt": "2026-09-22T00:09:25.177Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8": {
           "symbol": "USDG",
-          "priceRaw": "100003837",
-          "priceUsd": "1.00003837"
+          "priceRaw": "99998822",
+          "priceUsd": "0.99998822"
         },
         "0x14a686103854dab7b8801e31979caa595835b25d": {
           "symbol": "xOKSOL",
-          "priceRaw": "11545993544",
-          "priceUsd": "115.45993544"
+          "priceRaw": "12302555022",
+          "priceUsd": "123.02555022"
         },
         "0xe538905cf8410324e03a5a23c1c177a474d59b2b": {
           "symbol": "WOKB",
-          "priceRaw": "11801917000",
-          "priceUsd": "118.01917"
+          "priceRaw": "12284102890",
+          "priceUsd": "122.8410289"
         },
         "0x505000008de8748dbd4422ff4687a4fc9beba15b": {
           "symbol": "xSOL",
-          "priceRaw": "11152876000",
-          "priceUsd": "111.52876"
+          "priceRaw": "11881591388",
+          "priceUsd": "118.81591388"
         },
         "0x9a09a9e491db3dd8ada5b1b889991ac9ad5fd362": {
           "symbol": "PT_USDG_29OCT2026",
-          "priceRaw": "99680518",
-          "priceUsd": "0.99680518"
+          "priceRaw": "99684026",
+          "priceUsd": "0.99684026"
         },
         "0xde6539018b095353a40753dc54c91c68c9487d4e": {
           "symbol": "GHO",
@@ -3475,23 +3475,23 @@
         },
         "0xe7b000003a45145decf8a28fc755ad5ec5ea025a": {
           "symbol": "xETH",
-          "priceRaw": "265293817068",
-          "priceUsd": "2652.93817068"
+          "priceRaw": "277169550000",
+          "priceUsd": "2771.6955"
         },
         "0xafeab3b85b6a56cf5f02317f0f7a23340eb983d7": {
           "symbol": "xBETH",
-          "priceRaw": "269249549953",
-          "priceUsd": "2692.49549953"
+          "priceRaw": "281318493433",
+          "priceUsd": "2813.18493433"
         },
         "0x779ded0c9e1022225f8e0630b35a9b54be713736": {
           "symbol": "USDT",
-          "priceRaw": "99964000",
-          "priceUsd": "0.99964"
+          "priceRaw": "100002976",
+          "priceUsd": "1.00002976"
         },
         "0xb7c00000bcdeef966b20b3d884b98e64d2b06b4f": {
           "symbol": "xBTC",
-          "priceRaw": "8155554000000",
-          "priceUsd": "81555.54"
+          "priceRaw": "8636272155531",
+          "priceUsd": "86362.72155531"
         }
       },
       "stats": {
@@ -3499,19 +3499,19 @@
         "tokensScanned": 10,
         "checksPerformed": 220,
         "findingsCount": 1,
-        "surplusValueUsd": "1.99",
+        "surplusValueUsd": "2.00",
         "deficitValueUsd": "0.00",
-        "netValueUsd": "1.99",
+        "netValueUsd": "2.00",
         "byMarket": {
           "AaveV3XLayer": {
             "findingsCount": 1,
-            "surplusValueUsd": "1.99",
+            "surplusValueUsd": "2.00",
             "deficitValueUsd": "0.00",
-            "netValueUsd": "1.99",
+            "netValueUsd": "2.00",
             "byKind": {
               "underlying-surplus": {
                 "count": 1,
-                "totalValueUsd": "1.99"
+                "totalValueUsd": "2.00"
               },
               "token-in-pool": {
                 "count": 0,
@@ -3542,58 +3542,58 @@
           "decimals": 6,
           "amount": "2000000",
           "amountFormatted": "2",
-          "virtualBalance": "14969777927086",
-          "priceUsd": "0.99964",
-          "valueUsd": "1.99"
+          "virtualBalance": "15104835485844",
+          "priceUsd": "1.00002976",
+          "valueUsd": "2.00"
         }
       ]
     },
     "zksync": {
       "chainId": 324,
       "alias": "zksync",
-      "pinnedBlock": 72123788,
-      "pinnedAt": "2026-09-21T00:09:51.838Z",
+      "pinnedBlock": 72153082,
+      "pinnedAt": "2026-09-22T00:09:26.135Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0xd4169e045bcf9a86cc00101225d9ed61d2f51af2": {
           "symbol": "wrsETH",
-          "priceRaw": "286039760487",
-          "priceUsd": "2860.39760487"
+          "priceRaw": "299011009421",
+          "priceUsd": "2990.11009421"
         },
         "0x5aea5775959fbc2557cc8789bc1bf90a239d9a91": {
           "symbol": "WETH",
-          "priceRaw": "264748280000",
-          "priceUsd": "2647.4828"
+          "priceRaw": "276716129912",
+          "priceUsd": "2767.16129912"
         },
         "0x493257fd37edb34451f62edf8d2a0c418852ba4c": {
           "symbol": "USDT",
-          "priceRaw": "99965045",
-          "priceUsd": "0.99965045"
+          "priceRaw": "99961794",
+          "priceUsd": "0.99961794"
         },
         "0x703b52f2b28febcb60e1372858af5b18849fe867": {
           "symbol": "wstETH",
-          "priceRaw": "329474595875",
-          "priceUsd": "3294.74595875"
+          "priceRaw": "344389291930",
+          "priceUsd": "3443.8929193"
         },
         "0x5a7d6b2f92c77fad6ccabd7ee0624e64907eaf3e": {
           "symbol": "ZK",
-          "priceRaw": "1176074",
-          "priceUsd": "0.01176074"
+          "priceRaw": "1177776",
+          "priceUsd": "0.01177776"
         },
         "0xc1fa6e2e8667d9be0ca938a54c7e0285e9df924a": {
           "symbol": "weETH",
-          "priceRaw": "292301464193",
-          "priceUsd": "2923.01464193"
+          "priceRaw": "305531947119",
+          "priceUsd": "3055.31947119"
         },
         "0x1d17cbcf0d6d143135ae902365d2e5e2a16538d4": {
           "symbol": "USDC",
-          "priceRaw": "99991353",
-          "priceUsd": "0.99991353"
+          "priceRaw": "99986315",
+          "priceUsd": "0.99986315"
         },
         "0xad17da2f6ac76746ef261e835c50b2651ce36da8": {
           "symbol": "sUSDe",
-          "priceRaw": "124861334",
-          "priceUsd": "1.24861334"
+          "priceRaw": "124872893",
+          "priceUsd": "1.24872893"
         }
       },
       "stats": {
@@ -3636,34 +3636,34 @@
     "metis": {
       "chainId": 1088,
       "alias": "metis",
-      "pinnedBlock": 23176284,
-      "pinnedAt": "2026-09-21T00:09:51.997Z",
+      "pinnedBlock": 23181194,
+      "pinnedAt": "2026-09-22T00:09:26.937Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000": {
           "symbol": "Metis",
-          "priceRaw": "329386113",
-          "priceUsd": "3.29386113"
+          "priceRaw": "356607477",
+          "priceUsd": "3.56607477"
         },
         "0x4c078361fc9bbb78df910800a991c7c3dd2f6ce0": {
           "symbol": "mDAI",
-          "priceRaw": "100008962",
-          "priceUsd": "1.00008962"
+          "priceRaw": "99972479",
+          "priceUsd": "0.99972479"
         },
         "0xea32a96608495e54156ae48931a7c20f0dcc1a21": {
           "symbol": "mUSDC",
-          "priceRaw": "100005580",
-          "priceUsd": "1.0000558"
+          "priceRaw": "99993436",
+          "priceUsd": "0.99993436"
         },
         "0x420000000000000000000000000000000000000a": {
           "symbol": "WETH",
-          "priceRaw": "265031411169",
-          "priceUsd": "2650.31411169"
+          "priceRaw": "277027253558",
+          "priceUsd": "2770.27253558"
         },
         "0xbb06dca3ae6887fabf931640f67cab3e3a16f4dc": {
           "symbol": "mUSDT",
-          "priceRaw": "99978000",
-          "priceUsd": "0.99978"
+          "priceRaw": "100005000",
+          "priceUsd": "1.00005"
         }
       },
       "stats": {
@@ -3671,19 +3671,19 @@
         "tokensScanned": 5,
         "checksPerformed": 60,
         "findingsCount": 5,
-        "surplusValueUsd": "13.11",
+        "surplusValueUsd": "13.12",
         "deficitValueUsd": "0.00",
-        "netValueUsd": "13.11",
+        "netValueUsd": "13.12",
         "byMarket": {
           "AaveV3Metis": {
             "findingsCount": 5,
-            "surplusValueUsd": "13.11",
+            "surplusValueUsd": "13.12",
             "deficitValueUsd": "0.00",
-            "netValueUsd": "13.11",
+            "netValueUsd": "13.12",
             "byKind": {
               "underlying-surplus": {
                 "count": 5,
-                "totalValueUsd": "13.11"
+                "totalValueUsd": "13.12"
               },
               "token-in-pool": {
                 "count": 0,
@@ -3715,7 +3715,7 @@
           "amount": "1132610977875256914",
           "amountFormatted": "1.132610977875256914",
           "virtualBalance": "20976367265440086164645",
-          "priceUsd": "1.00008962",
+          "priceUsd": "0.99972479",
           "valueUsd": "1.13"
         },
         {
@@ -3730,8 +3730,8 @@
           "decimals": 18,
           "amount": "29009100276254",
           "amountFormatted": "0.000029009100276254",
-          "virtualBalance": "26480583339989388138265",
-          "priceUsd": "3.29386113",
+          "virtualBalance": "26476230111265563800970",
+          "priceUsd": "3.56607477",
           "valueUsd": "0.00"
         },
         {
@@ -3747,7 +3747,7 @@
           "amount": "1613087",
           "amountFormatted": "1.613087",
           "virtualBalance": "53304832134",
-          "priceUsd": "1.0000558",
+          "priceUsd": "0.99993436",
           "valueUsd": "1.61"
         },
         {
@@ -3763,8 +3763,8 @@
           "amount": "10210239",
           "amountFormatted": "10.210239",
           "virtualBalance": "80305679881",
-          "priceUsd": "0.99978",
-          "valueUsd": "10.20"
+          "priceUsd": "1.00005",
+          "valueUsd": "10.21"
         },
         {
           "chainId": 1088,
@@ -3779,7 +3779,7 @@
           "amount": "64146216920717",
           "amountFormatted": "0.000064146216920717",
           "virtualBalance": "15116530256624758053",
-          "priceUsd": "2650.31411169",
+          "priceUsd": "2770.27253558",
           "valueUsd": "0.17"
         }
       ]
@@ -3787,24 +3787,24 @@
     "soneium": {
       "chainId": 1868,
       "alias": "soneium",
-      "pinnedBlock": 28407320,
-      "pinnedAt": "2026-09-21T00:09:52.083Z",
+      "pinnedBlock": 28450508,
+      "pinnedAt": "2026-09-22T00:09:27.584Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0x4200000000000000000000000000000000000006": {
           "symbol": "WETH",
-          "priceRaw": "265284938181",
-          "priceUsd": "2652.84938181"
+          "priceRaw": "277134745281",
+          "priceUsd": "2771.34745281"
         },
         "0xba9986d2381edf1da03b0b9c1f8b00dc4aacc369": {
           "symbol": "USDCe",
-          "priceRaw": "99990674",
-          "priceUsd": "0.99990674"
+          "priceRaw": "99999811",
+          "priceUsd": "0.99999811"
         },
         "0x3a337a6ada9d885b6ad95ec48f9b75f197b5ae35": {
           "symbol": "USDT",
-          "priceRaw": "99972828",
-          "priceUsd": "0.99972828"
+          "priceRaw": "100002000",
+          "priceUsd": "1.00002"
         }
       },
       "stats": {
@@ -3847,19 +3847,19 @@
     "megaeth": {
       "chainId": 4326,
       "alias": "megaeth",
-      "pinnedBlock": 27152381,
-      "pinnedAt": "2026-09-21T00:09:52.181Z",
+      "pinnedBlock": 27238756,
+      "pinnedAt": "2026-09-22T00:09:28.114Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0x09601a65e7de7bc8a19813d263dd9e98bfdc3c57": {
           "symbol": "ezETH",
-          "priceRaw": "288053319339",
-          "priceUsd": "2880.53319339"
+          "priceRaw": "301944906469",
+          "priceUsd": "3019.44906469"
         },
         "0xb0f70c0bd6fd87dbeb7c10dc692a2a6106817072": {
           "symbol": "BTCb",
-          "priceRaw": "8115874059823",
-          "priceUsd": "81158.74059823"
+          "priceRaw": "8646534712116",
+          "priceUsd": "86465.34712116"
         },
         "0xfafddbb3fc7688494971a79cc65dca3ef82079e7": {
           "symbol": "USDm",
@@ -3868,33 +3868,33 @@
         },
         "0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34": {
           "symbol": "USDe",
-          "priceRaw": "99965119",
-          "priceUsd": "0.99965119"
+          "priceRaw": "99981909",
+          "priceUsd": "0.99981909"
         },
         "0x4200000000000000000000000000000000000006": {
           "symbol": "WETH",
-          "priceRaw": "265192094774",
-          "priceUsd": "2651.92094774"
+          "priceRaw": "277974080967",
+          "priceUsd": "2779.74080967"
         },
         "0x601ac63637933d88285a025c685ac4e9a92a98da": {
           "symbol": "wstETH",
-          "priceRaw": "330026915585",
-          "priceUsd": "3300.26915585"
+          "priceRaw": "345954885064",
+          "priceUsd": "3459.54885064"
         },
         "0x88887be419578051ff9f4eb6c858a951921d8888": {
           "symbol": "stcUSD",
-          "priceRaw": "108102925",
-          "priceUsd": "1.08102925"
+          "priceRaw": "108120393",
+          "priceUsd": "1.08120393"
         },
         "0x4fc44be15e9b6e30c1e774e2c87a21d3e8b5403f": {
           "symbol": "wrsETH",
-          "priceRaw": "286519267556",
-          "priceUsd": "2865.19267556"
+          "priceRaw": "300370312960",
+          "priceUsd": "3003.7031296"
         },
         "0xb8ce59fc3717ada4c02eadf9682a9e934f625ebb": {
           "symbol": "USDT0",
-          "priceRaw": "99965119",
-          "priceUsd": "0.99965119"
+          "priceRaw": "99981909",
+          "priceUsd": "0.99981909"
         }
       },
       "stats": {
@@ -3937,24 +3937,24 @@
     "mantle": {
       "chainId": 5000,
       "alias": "mantle",
-      "pinnedBlock": 100909540,
-      "pinnedAt": "2026-09-21T00:09:52.300Z",
+      "pinnedBlock": 100952728,
+      "pinnedAt": "2026-09-22T00:09:28.835Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0x93e855643e940d025be2e529272e4dbd15a2cf74": {
           "symbol": "wrsETH",
-          "priceRaw": "287061876050",
-          "priceUsd": "2870.6187605"
+          "priceRaw": "299667162838",
+          "priceUsd": "2996.67162838"
         },
         "0x779ded0c9e1022225f8e0630b35a9b54be713736": {
           "symbol": "USDT0",
-          "priceRaw": "99970361",
-          "priceUsd": "0.99970361"
+          "priceRaw": "99985539",
+          "priceUsd": "0.99985539"
         },
         "0x78c1b0c915c4faa5fffa6cabf0219da63d7f4cb8": {
           "symbol": "WMNT",
-          "priceRaw": "60923239",
-          "priceUsd": "0.60923239"
+          "priceRaw": "65093304",
+          "priceUsd": "0.65093304"
         },
         "0xfc421ad3c883bf9e7c4f42de845c4e4405799e73": {
           "symbol": "GHO",
@@ -3963,33 +3963,33 @@
         },
         "0x211cc4dd073734da055fbf44a2b4667d5e5fe5d2": {
           "symbol": "sUSDe",
-          "priceRaw": "124870397",
-          "priceUsd": "1.24870397"
+          "priceRaw": "124904986",
+          "priceUsd": "1.24904986"
         },
         "0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34": {
           "symbol": "USDe",
-          "priceRaw": "99970361",
-          "priceUsd": "0.99970361"
+          "priceRaw": "99985539",
+          "priceUsd": "0.99985539"
         },
         "0x09bc4e0d864854c6afb6eb9a9cdf58ac190d0df9": {
           "symbol": "USDC",
-          "priceRaw": "99989816",
-          "priceUsd": "0.99989816"
+          "priceRaw": "99995433",
+          "priceUsd": "0.99995433"
         },
         "0xdeaddeaddeaddeaddeaddeaddeaddeaddead1111": {
           "symbol": "WETH",
-          "priceRaw": "265694313994",
-          "priceUsd": "2656.94313994"
+          "priceRaw": "277323359173",
+          "priceUsd": "2773.23359173"
         },
         "0x051665f2455116e929b9972c36d23070f5054ce0": {
           "symbol": "syrupUSDT",
-          "priceRaw": "114372695",
-          "priceUsd": "1.14372695"
+          "priceRaw": "114405546",
+          "priceUsd": "1.14405546"
         },
         "0xc96de26018a54d51c097160568752c4e3bd6c364": {
           "symbol": "FBTC",
-          "priceRaw": "8153012668237",
-          "priceUsd": "81530.12668237"
+          "priceRaw": "8630969012402",
+          "priceUsd": "86309.69012402"
         }
       },
       "stats": {
@@ -3997,15 +3997,15 @@
         "tokensScanned": 10,
         "checksPerformed": 220,
         "findingsCount": 2,
-        "surplusValueUsd": "150.04",
+        "surplusValueUsd": "150.05",
         "deficitValueUsd": "0.00",
-        "netValueUsd": "150.04",
+        "netValueUsd": "150.05",
         "byMarket": {
           "AaveV3Mantle": {
             "findingsCount": 2,
-            "surplusValueUsd": "150.04",
+            "surplusValueUsd": "150.05",
             "deficitValueUsd": "0.00",
-            "netValueUsd": "150.04",
+            "netValueUsd": "150.05",
             "byKind": {
               "underlying-surplus": {
                 "count": 0,
@@ -4013,7 +4013,7 @@
               },
               "token-in-pool": {
                 "count": 2,
-                "totalValueUsd": "150.04"
+                "totalValueUsd": "150.05"
               },
               "foreign-token-in-atoken": {
                 "count": 0,
@@ -4040,8 +4040,8 @@
           "decimals": 6,
           "amount": "150000000",
           "amountFormatted": "150",
-          "priceUsd": "0.99989816",
-          "valueUsd": "149.98"
+          "priceUsd": "0.99995433",
+          "valueUsd": "149.99"
         },
         {
           "chainId": 5000,
@@ -4055,7 +4055,7 @@
           "decimals": 18,
           "amount": "100000000000000000",
           "amountFormatted": "0.1",
-          "priceUsd": "0.60923239",
+          "priceUsd": "0.65093304",
           "valueUsd": "0.06"
         }
       ]
@@ -4063,8 +4063,8 @@
     "base": {
       "chainId": 8453,
       "alias": "base",
-      "pinnedBlock": 51580022,
-      "pinnedAt": "2026-09-21T00:09:52.447Z",
+      "pinnedBlock": 51623211,
+      "pinnedAt": "2026-09-22T00:09:29.641Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0x6bb7a212910682dcfdbd5bcbb3e28fb4e8da10ee": {
@@ -4074,73 +4074,73 @@
         },
         "0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca": {
           "symbol": "USDbC",
-          "priceRaw": "99991628",
-          "priceUsd": "0.99991628"
+          "priceRaw": "99989212",
+          "priceUsd": "0.99989212"
         },
         "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913": {
           "symbol": "USDC",
-          "priceRaw": "99991628",
-          "priceUsd": "0.99991628"
+          "priceRaw": "99989212",
+          "priceUsd": "0.99989212"
         },
         "0x63706e401c06ac8513145b7687a14804d17f814b": {
           "symbol": "AAVE",
-          "priceRaw": "13754341273",
-          "priceUsd": "137.54341273"
+          "priceRaw": "14539399235",
+          "priceUsd": "145.39399235"
         },
         "0x04c0599ae5a44757c0af6f9ec3b93da8976c150a": {
           "symbol": "weETH",
-          "priceRaw": "293387260569",
-          "priceUsd": "2933.87260569"
+          "priceRaw": "305650116052",
+          "priceUsd": "3056.50116052"
         },
         "0xedfa23602d0ec14714057867a78d01e94176bea0": {
           "symbol": "wrsETH",
-          "priceRaw": "287099076019",
-          "priceUsd": "2870.99076019"
+          "priceRaw": "299120006561",
+          "priceUsd": "2991.20006561"
         },
         "0xecac9c5f704e954931349da37f60e39f515c11c1": {
           "symbol": "LBTC",
-          "priceRaw": "8193956968917",
-          "priceUsd": "81939.56968917"
+          "priceRaw": "8677980350752",
+          "priceUsd": "86779.80350752"
         },
         "0x60a3e35cc302bfa44cb288bc5a4f316fdb1adb42": {
           "symbol": "EURC",
-          "priceRaw": "114851193",
-          "priceUsd": "1.14851193"
+          "priceRaw": "114652735",
+          "priceUsd": "1.14652735"
         },
         "0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452": {
           "symbol": "wstETH",
-          "priceRaw": "330694767350",
-          "priceUsd": "3306.9476735"
+          "priceRaw": "344514830612",
+          "priceUsd": "3445.14830612"
         },
         "0x236aa50979d5f3de3bd1eeb40e81137f22ab794b": {
           "symbol": "tBTC",
-          "priceRaw": "8155987400000",
-          "priceUsd": "81559.874"
+          "priceRaw": "8637057862877",
+          "priceUsd": "86370.57862877"
         },
         "0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf": {
           "symbol": "cbBTC",
-          "priceRaw": "8155987400000",
-          "priceUsd": "81559.874"
+          "priceRaw": "8637057862877",
+          "priceUsd": "86370.57862877"
         },
         "0x2ae3f1ec7f1f5012cfeab0185bfc7aa3cf0dec22": {
           "symbol": "cbETH",
-          "priceRaw": "302886265510",
-          "priceUsd": "3028.8626551"
+          "priceRaw": "315545366552",
+          "priceUsd": "3155.45366552"
         },
         "0x4200000000000000000000000000000000000006": {
           "symbol": "WETH",
-          "priceRaw": "265728744969",
-          "priceUsd": "2657.28744969"
+          "priceRaw": "276817000000",
+          "priceUsd": "2768.17"
         },
         "0x660975730059246a68521a3e2fbd4740173100f5": {
           "symbol": "syrupUSDC",
-          "priceRaw": "118394480",
-          "priceUsd": "1.1839448"
+          "priceRaw": "118408358",
+          "priceUsd": "1.18408358"
         },
         "0x2416092f143378750bb29b79ed961ab195cceea5": {
           "symbol": "ezETH",
-          "priceRaw": "288636232152",
-          "priceUsd": "2886.36232152"
+          "priceRaw": "300688045746",
+          "priceUsd": "3006.88045746"
         }
       },
       "stats": {
@@ -4148,31 +4148,31 @@
         "tokensScanned": 15,
         "checksPerformed": 480,
         "findingsCount": 25,
-        "surplusValueUsd": "887.73",
+        "surplusValueUsd": "916.41",
         "deficitValueUsd": "0.00",
-        "netValueUsd": "887.73",
+        "netValueUsd": "916.41",
         "byMarket": {
           "AaveV3Base": {
             "findingsCount": 25,
-            "surplusValueUsd": "887.73",
+            "surplusValueUsd": "916.41",
             "deficitValueUsd": "0.00",
-            "netValueUsd": "887.73",
+            "netValueUsd": "916.41",
             "byKind": {
               "underlying-surplus": {
                 "count": 6,
-                "totalValueUsd": "724.66"
+                "totalValueUsd": "750.80"
               },
               "token-in-pool": {
                 "count": 5,
-                "totalValueUsd": "120.86"
+                "totalValueUsd": "120.91"
               },
               "foreign-token-in-atoken": {
                 "count": 11,
-                "totalValueUsd": "1.18"
+                "totalValueUsd": "1.25"
               },
               "atoken-in-itself": {
                 "count": 3,
-                "totalValueUsd": "41.03"
+                "totalValueUsd": "43.45"
               }
             }
           }
@@ -4191,8 +4191,8 @@
           "decimals": 8,
           "amount": "50238",
           "amountFormatted": "0.00050238",
-          "priceUsd": "81559.874",
-          "valueUsd": "40.97"
+          "priceUsd": "86370.57862877",
+          "valueUsd": "43.39"
         },
         {
           "chainId": 8453,
@@ -4204,9 +4204,9 @@
           "token": "0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB",
           "tokenSymbol": "aUSDC",
           "decimals": 6,
-          "amount": "61395",
-          "amountFormatted": "0.061395",
-          "priceUsd": "0.99991628",
+          "amount": "61401",
+          "amountFormatted": "0.061401",
+          "priceUsd": "0.99989212",
           "valueUsd": "0.06"
         },
         {
@@ -4219,9 +4219,9 @@
           "token": "0xD4a0e0b9149BCee3C920d2E00b5dE09138fd8bb7",
           "tokenSymbol": "aWETH",
           "decimals": 18,
-          "amount": "894359714",
-          "amountFormatted": "0.000000000894359714",
-          "priceUsd": "2657.28744969",
+          "amount": "894395479",
+          "amountFormatted": "0.000000000894395479",
+          "priceUsd": "2768.17",
           "valueUsd": "0.00"
         },
         {
@@ -4236,8 +4236,8 @@
           "decimals": 8,
           "amount": "1454",
           "amountFormatted": "0.00001454",
-          "priceUsd": "81559.874",
-          "valueUsd": "1.18"
+          "priceUsd": "86370.57862877",
+          "valueUsd": "1.25"
         },
         {
           "chainId": 8453,
@@ -4251,7 +4251,7 @@
           "decimals": 6,
           "amount": "10000",
           "amountFormatted": "0.01",
-          "priceUsd": "0.99991628",
+          "priceUsd": "0.99989212",
           "valueUsd": "0.00"
         },
         {
@@ -4266,7 +4266,7 @@
           "decimals": 18,
           "amount": "1",
           "amountFormatted": "0.000000000000000001",
-          "priceUsd": "2657.28744969",
+          "priceUsd": "2768.17",
           "valueUsd": "0.00"
         },
         {
@@ -4281,7 +4281,7 @@
           "decimals": 18,
           "amount": "1",
           "amountFormatted": "0.000000000000000001",
-          "priceUsd": "2657.28744969",
+          "priceUsd": "2768.17",
           "valueUsd": "0.00"
         },
         {
@@ -4296,7 +4296,7 @@
           "decimals": 18,
           "amount": "1",
           "amountFormatted": "0.000000000000000001",
-          "priceUsd": "2657.28744969",
+          "priceUsd": "2768.17",
           "valueUsd": "0.00"
         },
         {
@@ -4311,7 +4311,7 @@
           "decimals": 18,
           "amount": "1",
           "amountFormatted": "0.000000000000000001",
-          "priceUsd": "2657.28744969",
+          "priceUsd": "2768.17",
           "valueUsd": "0.00"
         },
         {
@@ -4326,7 +4326,7 @@
           "decimals": 18,
           "amount": "1",
           "amountFormatted": "0.000000000000000001",
-          "priceUsd": "2657.28744969",
+          "priceUsd": "2768.17",
           "valueUsd": "0.00"
         },
         {
@@ -4341,7 +4341,7 @@
           "decimals": 18,
           "amount": "1",
           "amountFormatted": "0.000000000000000001",
-          "priceUsd": "2657.28744969",
+          "priceUsd": "2768.17",
           "valueUsd": "0.00"
         },
         {
@@ -4356,7 +4356,7 @@
           "decimals": 18,
           "amount": "1",
           "amountFormatted": "0.000000000000000001",
-          "priceUsd": "2657.28744969",
+          "priceUsd": "2768.17",
           "valueUsd": "0.00"
         },
         {
@@ -4371,7 +4371,7 @@
           "decimals": 18,
           "amount": "1",
           "amountFormatted": "0.000000000000000001",
-          "priceUsd": "2657.28744969",
+          "priceUsd": "2768.17",
           "valueUsd": "0.00"
         },
         {
@@ -4386,7 +4386,7 @@
           "decimals": 18,
           "amount": "1",
           "amountFormatted": "0.000000000000000001",
-          "priceUsd": "2657.28744969",
+          "priceUsd": "2768.17",
           "valueUsd": "0.00"
         },
         {
@@ -4399,9 +4399,9 @@
           "token": "0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB",
           "tokenSymbol": "aUSDC",
           "decimals": 6,
-          "amount": "1127112",
-          "amountFormatted": "1.127112",
-          "priceUsd": "0.99991628",
+          "amount": "1127225",
+          "amountFormatted": "1.127225",
+          "priceUsd": "0.99989212",
           "valueUsd": "1.12"
         },
         {
@@ -4431,8 +4431,8 @@
           "decimals": 6,
           "amount": "114401942",
           "amountFormatted": "114.401942",
-          "priceUsd": "0.99991628",
-          "valueUsd": "114.39"
+          "priceUsd": "0.99989212",
+          "valueUsd": "114.38"
         },
         {
           "chainId": 8453,
@@ -4446,8 +4446,8 @@
           "decimals": 18,
           "amount": "282508776111031",
           "amountFormatted": "0.000282508776111031",
-          "priceUsd": "2933.87260569",
-          "valueUsd": "0.82"
+          "priceUsd": "3056.50116052",
+          "valueUsd": "0.86"
         },
         {
           "chainId": 8453,
@@ -4461,8 +4461,8 @@
           "decimals": 18,
           "amount": "171659052948867",
           "amountFormatted": "0.000171659052948867",
-          "priceUsd": "2657.28744969",
-          "valueUsd": "0.45"
+          "priceUsd": "2768.17",
+          "valueUsd": "0.47"
         },
         {
           "chainId": 8453,
@@ -4476,9 +4476,9 @@
           "decimals": 8,
           "amount": "543638",
           "amountFormatted": "0.00543638",
-          "virtualBalance": "276132098574",
-          "priceUsd": "81559.874",
-          "valueUsd": "443.39"
+          "virtualBalance": "277753275839",
+          "priceUsd": "86370.57862877",
+          "valueUsd": "469.54"
         },
         {
           "chainId": 8453,
@@ -4492,8 +4492,8 @@
           "decimals": 18,
           "amount": "2464526987938",
           "amountFormatted": "0.000002464526987938",
-          "virtualBalance": "45585656966399072474322",
-          "priceUsd": "3028.8626551",
+          "virtualBalance": "45869030536185448678607",
+          "priceUsd": "3155.45366552",
           "valueUsd": "0.00"
         },
         {
@@ -4508,9 +4508,9 @@
           "decimals": 6,
           "amount": "281195783",
           "amountFormatted": "281.195783",
-          "virtualBalance": "22404133264178",
-          "priceUsd": "0.99991628",
-          "valueUsd": "281.17"
+          "virtualBalance": "20538673181841",
+          "priceUsd": "0.99989212",
+          "valueUsd": "281.16"
         },
         {
           "chainId": 8453,
@@ -4524,8 +4524,8 @@
           "decimals": 18,
           "amount": "21752831187610",
           "amountFormatted": "0.00002175283118761",
-          "virtualBalance": "15293149707137890534903",
-          "priceUsd": "2933.87260569",
+          "virtualBalance": "15289965901858042205295",
+          "priceUsd": "3056.50116052",
           "valueUsd": "0.06"
         },
         {
@@ -4540,8 +4540,8 @@
           "decimals": 18,
           "amount": "16394328371594",
           "amountFormatted": "0.000016394328371594",
-          "virtualBalance": "15324863412535791025836",
-          "priceUsd": "2657.28744969",
+          "virtualBalance": "13867353280821489471558",
+          "priceUsd": "2768.17",
           "valueUsd": "0.04"
         },
         {
@@ -4556,8 +4556,8 @@
           "decimals": 18,
           "amount": "897952194847",
           "amountFormatted": "0.000000897952194847",
-          "virtualBalance": "10972131767633803792974",
-          "priceUsd": "3306.9476735",
+          "virtualBalance": "11163572513463192013254",
+          "priceUsd": "3445.14830612",
           "valueUsd": "0.00"
         }
       ]
@@ -4565,64 +4565,64 @@
     "plasma": {
       "chainId": 9745,
       "alias": "plasma",
-      "pinnedBlock": 33008801,
-      "pinnedAt": "2026-09-21T00:09:52.601Z",
+      "pinnedBlock": 33094940,
+      "pinnedAt": "2026-09-22T00:09:30.106Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0x02fcc4989b4c9d435b7ced3fe1ba4cf77bbb5dd8": {
           "symbol": "PT_sUSDE_15JAN2026",
-          "priceRaw": "99966842",
-          "priceUsd": "0.99966842"
+          "priceRaw": "99990000",
+          "priceUsd": "0.9999"
         },
         "0xe48d935e6c9e735463cccf29a7f11e32bc09136e": {
           "symbol": "wstETH",
-          "priceRaw": "330596815890",
-          "priceUsd": "3305.9681589"
+          "priceRaw": "345723296496",
+          "priceUsd": "3457.23296496"
         },
         "0xf7fb83435f455bd970f2d9f943f4eece1941b3e9": {
           "symbol": "PT_sUSDE_22OCT2026",
-          "priceRaw": "99629850",
-          "priceUsd": "0.9962985"
+          "priceRaw": "99663802",
+          "priceUsd": "0.99663802"
         },
         "0xe561fe05c39075312aa9bc6af79ddae981461359": {
           "symbol": "wrsETH",
-          "priceRaw": "287014037559",
-          "priceUsd": "2870.14037559"
+          "priceRaw": "300169239543",
+          "priceUsd": "3001.69239543"
         },
         "0xab509448ad489e2e1341e25cc500f2596464cc82": {
           "symbol": "PT_sUSDE_9APR2026",
-          "priceRaw": "99966842",
-          "priceUsd": "0.99966842"
+          "priceRaw": "99990000",
+          "priceUsd": "0.9999"
         },
         "0x6100e367285b01f48d07953803a2d8dca5d19873": {
           "symbol": "WXPL",
-          "priceRaw": "9010026",
-          "priceUsd": "0.09010026"
+          "priceRaw": "9728332",
+          "priceUsd": "0.09728332"
         },
         "0x1b64b9025eebb9a6239575df9ea4b9ac46d4d193": {
           "symbol": "XAUt0",
-          "priceRaw": "437812494200",
-          "priceUsd": "4378.124942"
+          "priceRaw": "435665900000",
+          "priceUsd": "4356.659"
         },
         "0xb8ce59fc3717ada4c02eadf9682a9e934f625ebb": {
           "symbol": "USDT0",
-          "priceRaw": "99966842",
-          "priceUsd": "0.99966842"
+          "priceRaw": "99990000",
+          "priceUsd": "0.9999"
         },
         "0x30559e3d35e33ab69399a3fe9f383d32bd3c016e": {
           "symbol": "PT_sUSDE_18JUN2026",
-          "priceRaw": "99966842",
-          "priceUsd": "0.99966842"
+          "priceRaw": "99990000",
+          "priceUsd": "0.9999"
         },
         "0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34": {
           "symbol": "USDe",
-          "priceRaw": "99966842",
-          "priceUsd": "0.99966842"
+          "priceRaw": "99990000",
+          "priceUsd": "0.9999"
         },
         "0x54dc267be2839303ff1e323584a16e86cec4aa44": {
           "symbol": "PT_USDe_9APR2026",
-          "priceRaw": "99966842",
-          "priceUsd": "0.99966842"
+          "priceRaw": "99990000",
+          "priceUsd": "0.9999"
         },
         "0xb77e872a68c62cfc0dfb02c067ecc3da23b4bbf3": {
           "symbol": "GHO",
@@ -4631,33 +4631,33 @@
         },
         "0xa3d68b74bf0528fdd07263c60d6488749044914b": {
           "symbol": "weETH",
-          "priceRaw": "293300359555",
-          "priceUsd": "2933.00359555"
+          "priceRaw": "306718838298",
+          "priceUsd": "3067.18838298"
         },
         "0x211cc4dd073734da055fbf44a2b4667d5e5fe5d2": {
           "symbol": "sUSDe",
-          "priceRaw": "124866177",
-          "priceUsd": "1.24866177"
+          "priceRaw": "124910733",
+          "priceUsd": "1.24910733"
         },
         "0xc4374775489cb9c56003bf2c9b12495fc64f0771": {
           "symbol": "syrupUSDT",
-          "priceRaw": "114368853",
-          "priceUsd": "1.14368853"
+          "priceRaw": "114410837",
+          "priceUsd": "1.14410837"
         },
         "0x23b17d3944742ace3d0c71586fcb320d1e4a1ed2": {
           "symbol": "PT_USDe_18JUN2026",
-          "priceRaw": "99966842",
-          "priceUsd": "0.99966842"
+          "priceRaw": "99990000",
+          "priceUsd": "0.9999"
         },
         "0x93b544c330f60a2aa05ced87aeeffb8d38fd8c9a": {
           "symbol": "PT_USDe_15JAN2026",
-          "priceRaw": "99966842",
-          "priceUsd": "0.99966842"
+          "priceRaw": "99990000",
+          "priceUsd": "0.9999"
         },
         "0x9895d81bb462a195b4922ed7de0e3acd007c32cb": {
           "symbol": "WETH",
-          "priceRaw": "265650036380",
-          "priceUsd": "2656.5003638"
+          "priceRaw": "277788000000",
+          "priceUsd": "2777.88"
         }
       },
       "stats": {
@@ -4708,8 +4708,8 @@
           "decimals": 6,
           "amount": "34980",
           "amountFormatted": "0.03498",
-          "virtualBalance": "45505742651011",
-          "priceUsd": "0.99966842",
+          "virtualBalance": "36262991050836",
+          "priceUsd": "0.9999",
           "valueUsd": "0.03"
         }
       ]
@@ -4717,99 +4717,99 @@
     "arbitrum": {
       "chainId": 42161,
       "alias": "arbitrum",
-      "pinnedBlock": 507269784,
-      "pinnedAt": "2026-09-21T00:09:52.781Z",
+      "pinnedBlock": 507608220,
+      "pinnedAt": "2026-09-22T00:09:31.119Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f": {
           "symbol": "WBTC",
-          "priceRaw": "8156844000000",
-          "priceUsd": "81568.44"
+          "priceRaw": "8634070376457",
+          "priceUsd": "86340.70376457"
         },
         "0xf97f4df75117a78c1a5a0dbb814af92458539fb4": {
           "symbol": "LINK",
-          "priceRaw": "1260116800",
-          "priceUsd": "12.601168"
+          "priceRaw": "1317213524",
+          "priceUsd": "13.17213524"
         },
         "0x17fc002b466eec40dae837fc4be5c67993ddbd6f": {
           "symbol": "FRAX",
-          "priceRaw": "99167055",
-          "priceUsd": "0.99167055"
+          "priceRaw": "99221958",
+          "priceUsd": "0.99221958"
         },
         "0x5979d7b546e38e414f7e9822514be443a4800529": {
           "symbol": "wstETH",
-          "priceRaw": "331288702875",
-          "priceUsd": "3312.88702875"
+          "priceRaw": "344529765309",
+          "priceUsd": "3445.29765309"
         },
         "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8": {
           "symbol": "USDC",
-          "priceRaw": "99988981",
-          "priceUsd": "0.99988981"
+          "priceRaw": "99991668",
+          "priceUsd": "0.99991668"
         },
         "0x6c84a8f1c29108f47a79964b5fe888d4f4d0de40": {
           "symbol": "tBTC",
-          "priceRaw": "8156844000000",
-          "priceUsd": "81568.44"
+          "priceRaw": "8634070376457",
+          "priceUsd": "86340.70376457"
         },
         "0x912ce59144191c1204e64559fe8253a0e49e6548": {
           "symbol": "ARB",
-          "priceRaw": "21837954",
-          "priceUsd": "0.21837954"
+          "priceRaw": "22453768",
+          "priceUsd": "0.22453768"
         },
         "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9": {
           "symbol": "USDT",
-          "priceRaw": "99966737",
-          "priceUsd": "0.99966737"
+          "priceRaw": "99990000",
+          "priceUsd": "0.9999"
         },
         "0x4186bfc76e2e237523cbc30fd220fe055156b41f": {
           "symbol": "rsETH",
-          "priceRaw": "287614712663",
-          "priceUsd": "2876.14712663"
+          "priceRaw": "299132973395",
+          "priceUsd": "2991.32973395"
         },
         "0xd22a58f79e9481d1a88e00c343885a588b34b68b": {
           "symbol": "EURS",
-          "priceRaw": "114800000",
-          "priceUsd": "1.148"
+          "priceRaw": "114663000",
+          "priceUsd": "1.14663"
         },
         "0xaf88d065e77c8cc2239327c5edb3a432268e5831": {
           "symbol": "USDCn",
-          "priceRaw": "99988981",
-          "priceUsd": "0.99988981"
+          "priceRaw": "99991668",
+          "priceUsd": "0.99991668"
         },
         "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1": {
           "symbol": "DAI",
-          "priceRaw": "99985836",
-          "priceUsd": "0.99985836"
+          "priceRaw": "99987267",
+          "priceUsd": "0.99987267"
         },
         "0x35751007a407ca6feffe80b3cb397736d2cf4dbe": {
           "symbol": "weETH",
-          "priceRaw": "293914191056",
-          "priceUsd": "2939.14191056"
+          "priceRaw": "305663365976",
+          "priceUsd": "3056.63365976"
         },
         "0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8": {
           "symbol": "rETH",
-          "priceRaw": "312027296612",
-          "priceUsd": "3120.27296612"
+          "priceRaw": "324497137623",
+          "priceUsd": "3244.97137623"
         },
         "0x93b346b6bc2548da6a1e7d98e9a421b42541425b": {
           "symbol": "LUSD",
-          "priceRaw": "101045272",
-          "priceUsd": "1.01045272"
+          "priceRaw": "101041000",
+          "priceUsd": "1.01041"
         },
         "0x3f56e0c36d275367b8c502090edf38289b3dea0d": {
           "symbol": "MAI",
-          "priceRaw": "94786600",
-          "priceUsd": "0.947866"
+          "priceRaw": "94162709",
+          "priceUsd": "0.94162709"
         },
         "0x82af49447d8a07e3bd95bd0d56f35241523fbab1": {
           "symbol": "WETH",
-          "priceRaw": "266206000000",
-          "priceUsd": "2662.06"
+          "priceRaw": "276829000000",
+          "priceUsd": "2768.29"
         },
         "0x2416092f143378750bb29b79ed961ab195cceea5": {
           "symbol": "ezETH",
-          "priceRaw": "289159176806",
-          "priceUsd": "2891.59176806"
+          "priceRaw": "300701081547",
+          "priceUsd": "3007.01081547"
         },
         "0x7dff72693f6a4149b17e7c6314655f6a9f7c8b33": {
           "symbol": "GHO",
@@ -4818,8 +4818,8 @@
         },
         "0xba5ddd1f9d7f570dc94a51479a000e3bce967196": {
           "symbol": "AAVE",
-          "priceRaw": "13815715000",
-          "priceUsd": "138.15715"
+          "priceRaw": "14591793000",
+          "priceUsd": "145.91793"
         }
       },
       "stats": {
@@ -4827,31 +4827,31 @@
         "tokensScanned": 20,
         "checksPerformed": 840,
         "findingsCount": 28,
-        "surplusValueUsd": "8014.03",
+        "surplusValueUsd": "8394.63",
         "deficitValueUsd": "0.00",
-        "netValueUsd": "8014.03",
+        "netValueUsd": "8394.63",
         "byMarket": {
           "AaveV3Arbitrum": {
             "findingsCount": 28,
-            "surplusValueUsd": "8014.03",
+            "surplusValueUsd": "8394.63",
             "deficitValueUsd": "0.00",
-            "netValueUsd": "8014.03",
+            "netValueUsd": "8394.63",
             "byKind": {
               "underlying-surplus": {
                 "count": 15,
-                "totalValueUsd": "6373.35"
+                "totalValueUsd": "6727.35"
               },
               "token-in-pool": {
                 "count": 5,
-                "totalValueUsd": "1343.54"
+                "totalValueUsd": "1354.19"
               },
               "foreign-token-in-atoken": {
                 "count": 4,
-                "totalValueUsd": "286.81"
+                "totalValueUsd": "302.37"
               },
               "atoken-in-itself": {
                 "count": 4,
-                "totalValueUsd": "10.33"
+                "totalValueUsd": "10.72"
               }
             }
           }
@@ -4868,9 +4868,9 @@
           "token": "0x724dc807b04555b71ed48a6896b6F41593b8C637",
           "tokenSymbol": "aUSDCn",
           "decimals": 6,
-          "amount": "13359",
-          "amountFormatted": "0.013359",
-          "priceUsd": "0.99988981",
+          "amount": "13360",
+          "amountFormatted": "0.01336",
+          "priceUsd": "0.99991668",
           "valueUsd": "0.01"
         },
         {
@@ -4883,9 +4883,9 @@
           "token": "0x6ab707Aca953eDAeFBc4fD23bA73294241490620",
           "tokenSymbol": "aUSDT",
           "decimals": 6,
-          "amount": "1009384",
-          "amountFormatted": "1.009384",
-          "priceUsd": "0.99966737",
+          "amount": "1009480",
+          "amountFormatted": "1.00948",
+          "priceUsd": "0.9999",
           "valueUsd": "1.00"
         },
         {
@@ -4900,8 +4900,8 @@
           "decimals": 8,
           "amount": "1000",
           "amountFormatted": "0.00001",
-          "priceUsd": "81568.44",
-          "valueUsd": "0.81"
+          "priceUsd": "86340.70376457",
+          "valueUsd": "0.86"
         },
         {
           "chainId": 42161,
@@ -4913,10 +4913,10 @@
           "token": "0xe50fA9b3c56FfB159cB0FCA61F5c9D750e8128c8",
           "tokenSymbol": "aWETH",
           "decimals": 18,
-          "amount": "3199280703408478",
-          "amountFormatted": "0.003199280703408478",
-          "priceUsd": "2662.06",
-          "valueUsd": "8.51"
+          "amount": "3199363873378251",
+          "amountFormatted": "0.003199363873378251",
+          "priceUsd": "2768.29",
+          "valueUsd": "8.85"
         },
         {
           "chainId": 42161,
@@ -4930,8 +4930,8 @@
           "decimals": 18,
           "amount": "2003731863746485838",
           "amountFormatted": "2.003731863746485838",
-          "priceUsd": "138.15715",
-          "valueUsd": "276.82"
+          "priceUsd": "145.91793",
+          "valueUsd": "292.38"
         },
         {
           "chainId": 42161,
@@ -4945,7 +4945,7 @@
           "decimals": 6,
           "amount": "60",
           "amountFormatted": "0.00006",
-          "priceUsd": "0.99988981",
+          "priceUsd": "0.99991668",
           "valueUsd": "0.00"
         },
         {
@@ -4960,7 +4960,7 @@
           "decimals": 6,
           "amount": "10000000",
           "amountFormatted": "10",
-          "priceUsd": "0.99988981",
+          "priceUsd": "0.99991668",
           "valueUsd": "9.99"
         },
         {
@@ -4975,7 +4975,7 @@
           "decimals": 6,
           "amount": "10000",
           "amountFormatted": "0.01",
-          "priceUsd": "0.99988981",
+          "priceUsd": "0.99991668",
           "valueUsd": "0.00"
         },
         {
@@ -4988,9 +4988,9 @@
           "token": "0x6ab707Aca953eDAeFBc4fD23bA73294241490620",
           "tokenSymbol": "aUSDT",
           "decimals": 6,
-          "amount": "7255579",
-          "amountFormatted": "7.255579",
-          "priceUsd": "0.99966737",
+          "amount": "7256271",
+          "amountFormatted": "7.256271",
+          "priceUsd": "0.9999",
           "valueUsd": "7.25"
         },
         {
@@ -5005,7 +5005,7 @@
           "decimals": 6,
           "amount": "1000500",
           "amountFormatted": "1.0005",
-          "priceUsd": "0.99988981",
+          "priceUsd": "0.99991668",
           "valueUsd": "1.00"
         },
         {
@@ -5020,8 +5020,8 @@
           "decimals": 6,
           "amount": "1068536637",
           "amountFormatted": "1068.536637",
-          "priceUsd": "0.99988981",
-          "valueUsd": "1068.41"
+          "priceUsd": "0.99991668",
+          "valueUsd": "1068.44"
         },
         {
           "chainId": 42161,
@@ -5035,7 +5035,7 @@
           "decimals": 6,
           "amount": "686572",
           "amountFormatted": "0.686572",
-          "priceUsd": "0.99966737",
+          "priceUsd": "0.9999",
           "valueUsd": "0.68"
         },
         {
@@ -5050,8 +5050,8 @@
           "decimals": 18,
           "amount": "100000000000000000",
           "amountFormatted": "0.1",
-          "priceUsd": "2662.06",
-          "valueUsd": "266.20"
+          "priceUsd": "2768.29",
+          "valueUsd": "276.82"
         },
         {
           "chainId": 42161,
@@ -5065,9 +5065,9 @@
           "decimals": 18,
           "amount": "29647338500024912",
           "amountFormatted": "0.029647338500024912",
-          "virtualBalance": "10177958788063435334944",
-          "priceUsd": "138.15715",
-          "valueUsd": "4.09"
+          "virtualBalance": "10275075959517818591966",
+          "priceUsd": "145.91793",
+          "valueUsd": "4.32"
         },
         {
           "chainId": 42161,
@@ -5081,8 +5081,8 @@
           "decimals": 18,
           "amount": "174486757395693749",
           "amountFormatted": "0.174486757395693749",
-          "virtualBalance": "18159004985766987702077242",
-          "priceUsd": "0.21837954",
+          "virtualBalance": "18223325241126811871000358",
+          "priceUsd": "0.22453768",
           "valueUsd": "0.03"
         },
         {
@@ -5097,8 +5097,8 @@
           "decimals": 18,
           "amount": "9306398957252375000",
           "amountFormatted": "9.306398957252375",
-          "virtualBalance": "1068098534347729255100622",
-          "priceUsd": "0.99985836",
+          "virtualBalance": "1092896729325210289317432",
+          "priceUsd": "0.99987267",
           "valueUsd": "9.30"
         },
         {
@@ -5114,7 +5114,7 @@
           "amount": "31288000000000000",
           "amountFormatted": "0.031288",
           "virtualBalance": "122718680840501304582141",
-          "priceUsd": "0.99167055",
+          "priceUsd": "0.99221958",
           "valueUsd": "0.03"
         },
         {
@@ -5129,7 +5129,7 @@
           "decimals": 18,
           "amount": "20318461425989132",
           "amountFormatted": "0.020318461425989132",
-          "virtualBalance": "238591537328210744549973",
+          "virtualBalance": "238443801538529429981650",
           "priceUsd": "1",
           "valueUsd": "0.02"
         },
@@ -5145,8 +5145,8 @@
           "decimals": 18,
           "amount": "4486197726715842",
           "amountFormatted": "0.004486197726715842",
-          "virtualBalance": "338929761588735644517095",
-          "priceUsd": "12.601168",
+          "virtualBalance": "337911736043240723007115",
+          "priceUsd": "13.17213524",
           "valueUsd": "0.05"
         },
         {
@@ -5162,7 +5162,7 @@
           "amount": "159109224223696154",
           "amountFormatted": "0.159109224223696154",
           "virtualBalance": "117471434972778696376331",
-          "priceUsd": "1.01045272",
+          "priceUsd": "1.01041",
           "valueUsd": "0.16"
         },
         {
@@ -5178,7 +5178,7 @@
           "amount": "531563373626722637",
           "amountFormatted": "0.531563373626722637",
           "virtualBalance": "15648512451136572989159",
-          "priceUsd": "0.947866",
+          "priceUsd": "0.94162709",
           "valueUsd": "0.50"
         },
         {
@@ -5193,8 +5193,8 @@
           "decimals": 18,
           "amount": "26395674801565",
           "amountFormatted": "0.000026395674801565",
-          "virtualBalance": "943000521522260119662",
-          "priceUsd": "3120.27296612",
+          "virtualBalance": "901691554261040835917",
+          "priceUsd": "3244.97137623",
           "valueUsd": "0.08"
         },
         {
@@ -5209,9 +5209,9 @@
           "decimals": 6,
           "amount": "112529558",
           "amountFormatted": "112.529558",
-          "virtualBalance": "216622613474",
-          "priceUsd": "0.99988981",
-          "valueUsd": "112.51"
+          "virtualBalance": "122583873317",
+          "priceUsd": "0.99991668",
+          "valueUsd": "112.52"
         },
         {
           "chainId": 42161,
@@ -5225,8 +5225,8 @@
           "decimals": 6,
           "amount": "40946517",
           "amountFormatted": "40.946517",
-          "virtualBalance": "26686026450992",
-          "priceUsd": "0.99988981",
+          "virtualBalance": "25870177986497",
+          "priceUsd": "0.99991668",
           "valueUsd": "40.94"
         },
         {
@@ -5241,9 +5241,9 @@
           "decimals": 6,
           "amount": "159763722",
           "amountFormatted": "159.763722",
-          "virtualBalance": "6954215172288",
-          "priceUsd": "0.99966737",
-          "valueUsd": "159.71"
+          "virtualBalance": "4157271740494",
+          "priceUsd": "0.9999",
+          "valueUsd": "159.74"
         },
         {
           "chainId": 42161,
@@ -5257,9 +5257,9 @@
           "decimals": 8,
           "amount": "7412103",
           "amountFormatted": "0.07412103",
-          "virtualBalance": "280775841193",
-          "priceUsd": "81568.44",
-          "valueUsd": "6045.93"
+          "virtualBalance": "284617407254",
+          "priceUsd": "86340.70376457",
+          "valueUsd": "6399.66"
         },
         {
           "chainId": 42161,
@@ -5273,8 +5273,8 @@
           "decimals": 18,
           "amount": "1030600000000",
           "amountFormatted": "0.0000010306",
-          "virtualBalance": "12115622013497015108720",
-          "priceUsd": "2662.06",
+          "virtualBalance": "12224423056687171241625",
+          "priceUsd": "2768.29",
           "valueUsd": "0.00"
         },
         {
@@ -5289,8 +5289,8 @@
           "decimals": 18,
           "amount": "1920741704705",
           "amountFormatted": "0.000001920741704705",
-          "virtualBalance": "17749072830286766922572",
-          "priceUsd": "3312.88702875",
+          "virtualBalance": "17714296595442769216498",
+          "priceUsd": "3445.29765309",
           "valueUsd": "0.00"
         }
       ]
@@ -5298,39 +5298,39 @@
     "celo": {
       "chainId": 42220,
       "alias": "celo",
-      "pinnedBlock": 78048634,
-      "pinnedAt": "2026-09-21T00:09:52.973Z",
+      "pinnedBlock": 78135013,
+      "pinnedAt": "2026-09-22T00:09:31.676Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73": {
           "symbol": "EURm",
-          "priceRaw": "114786000",
-          "priceUsd": "1.14786"
+          "priceRaw": "114673000",
+          "priceUsd": "1.14673"
         },
         "0x765de816845861e75a25fca122bb6898b8b1282a": {
           "symbol": "USDm",
-          "priceRaw": "100014900",
-          "priceUsd": "1.000149"
+          "priceRaw": "99993387",
+          "priceUsd": "0.99993387"
         },
         "0x471ece3750da237f93b8e339c536989b8978a438": {
           "symbol": "CELO",
-          "priceRaw": "8963000",
-          "priceUsd": "0.08963"
+          "priceRaw": "9591511",
+          "priceUsd": "0.09591511"
         },
         "0x48065fbbe25f71c9282ddf5e1cd6d6a887483d5e": {
           "symbol": "USDT",
-          "priceRaw": "99975479",
-          "priceUsd": "0.99975479"
+          "priceRaw": "99973714",
+          "priceUsd": "0.99973714"
         },
         "0xd221812de1bd094f35587ee8e174b07b6167d9af": {
           "symbol": "WETH",
-          "priceRaw": "265581017891",
-          "priceUsd": "2655.81017891"
+          "priceRaw": "277055086481",
+          "priceUsd": "2770.55086481"
         },
         "0xceba9300f2b948710d2653dd7b07f33a8b32118c": {
           "symbol": "USDC",
-          "priceRaw": "99986197",
-          "priceUsd": "0.99986197"
+          "priceRaw": "99991321",
+          "priceUsd": "0.99991321"
         }
       },
       "stats": {
@@ -5381,7 +5381,7 @@
           "decimals": 6,
           "amount": "52000000",
           "amountFormatted": "52",
-          "priceUsd": "0.99975479",
+          "priceUsd": "0.99973714",
           "valueUsd": "51.98"
         }
       ]
@@ -5389,94 +5389,94 @@
     "avalanche": {
       "chainId": 43114,
       "alias": "avalanche",
-      "pinnedBlock": 95789832,
-      "pinnedAt": "2026-09-21T00:09:53.074Z",
+      "pinnedBlock": 95871091,
+      "pinnedAt": "2026-09-22T00:09:32.347Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0x50b7545627a5162f82a992c33b87adc75187b218": {
           "symbol": "WBTCe",
-          "priceRaw": "8155326628202",
-          "priceUsd": "81553.26628202"
+          "priceRaw": "8634179000000",
+          "priceUsd": "86341.79"
         },
         "0x5947bb275c521040051d82396192181b413227a3": {
           "symbol": "LINKe",
-          "priceRaw": "1256367000",
-          "priceUsd": "12.56367"
+          "priceRaw": "1314772443",
+          "priceUsd": "13.14772443"
         },
         "0x7bfd4ca2a6cf3a3fddd645d10b323031afe47ff0": {
           "symbol": "wrsETH",
-          "priceRaw": "286940967779",
-          "priceUsd": "2869.40967779"
+          "priceRaw": "299372903046",
+          "priceUsd": "2993.72903046"
         },
         "0x211cc4dd073734da055fbf44a2b4667d5e5fe5d2": {
           "symbol": "sUSDe",
-          "priceRaw": "124865540",
-          "priceUsd": "1.2486554"
+          "priceRaw": "124876649",
+          "priceUsd": "1.24876649"
         },
         "0x2b2c81e08f1af8835a78bb2a90ae924ace0ea4be": {
           "symbol": "sAVAX",
-          "priceRaw": "1475182063",
-          "priceUsd": "14.75182063"
+          "priceRaw": "1432302047",
+          "priceUsd": "14.32302047"
         },
         "0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e": {
           "symbol": "USDC",
-          "priceRaw": "99990375",
-          "priceUsd": "0.99990375"
+          "priceRaw": "99985834",
+          "priceUsd": "0.99985834"
         },
         "0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34": {
           "symbol": "USDe",
-          "priceRaw": "99965000",
-          "priceUsd": "0.99965"
+          "priceRaw": "99961377",
+          "priceUsd": "0.99961377"
         },
         "0x9702230a8ea53601f5cd2dc00fdbc13d4df4a8c7": {
           "symbol": "USDt",
-          "priceRaw": "99965000",
-          "priceUsd": "0.99965"
+          "priceRaw": "99961377",
+          "priceUsd": "0.99961377"
         },
         "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7": {
           "symbol": "WAVAX",
-          "priceRaw": "1147388345",
-          "priceUsd": "11.47388345"
+          "priceRaw": "1113923520",
+          "priceUsd": "11.1392352"
         },
         "0x00000000efe302beaa2b3e6e1b18d08d69a9012a": {
           "symbol": "AUSD",
-          "priceRaw": "99994231",
-          "priceUsd": "0.99994231"
+          "priceRaw": "99988997",
+          "priceUsd": "0.99988997"
         },
         "0xd586e7f844cea2f87f50152665bcbc2c279d8d70": {
           "symbol": "DAIe",
-          "priceRaw": "99975074",
-          "priceUsd": "0.99975074"
+          "priceRaw": "99970284",
+          "priceUsd": "0.99970284"
         },
         "0xc891eb4cbdeff6e073e859e987815ed1505c2acd": {
           "symbol": "EURC",
-          "priceRaw": "114862149",
-          "priceUsd": "1.14862149"
+          "priceRaw": "114652512",
+          "priceUsd": "1.14652512"
         },
         "0x5c49b268c9841aff1cc3b0a418ff5c3442ee3f3b": {
           "symbol": "MAI",
-          "priceRaw": "94786700",
-          "priceUsd": "0.947867"
+          "priceRaw": "94162891",
+          "priceUsd": "0.94162891"
         },
         "0x152b9d0fdc40c096757f570a51e494bd4b943e50": {
           "symbol": "BTCb",
-          "priceRaw": "8155326628202",
-          "priceUsd": "81553.26628202"
+          "priceRaw": "8634179000000",
+          "priceUsd": "86341.79"
         },
         "0xd24c2ad096400b6fbcd2ad8b24e7acbc21a1da64": {
           "symbol": "FRAX",
-          "priceRaw": "99170093",
-          "priceUsd": "0.99170093"
+          "priceRaw": "99222590",
+          "priceUsd": "0.9922259"
         },
         "0x49d5c2bdffac6ce2bfdb6640f4f80f226bc10bab": {
           "symbol": "WETHe",
-          "priceRaw": "265582405577",
-          "priceUsd": "2655.82405577"
+          "priceRaw": "277051040000",
+          "priceUsd": "2770.5104"
         },
         "0x63a72806098bd3d9520cc43356dd78afe5d386d9": {
           "symbol": "AAVEe",
-          "priceRaw": "13815198000",
-          "priceUsd": "138.15198"
+          "priceRaw": "14590460589",
+          "priceUsd": "145.90460589"
         },
         "0xfc421ad3c883bf9e7c4f42de845c4e4405799e73": {
           "symbol": "GHO",
@@ -5489,23 +5489,23 @@
         "tokensScanned": 18,
         "checksPerformed": 684,
         "findingsCount": 11,
-        "surplusValueUsd": "1193.17",
+        "surplusValueUsd": "1218.05",
         "deficitValueUsd": "0.00",
-        "netValueUsd": "1193.17",
+        "netValueUsd": "1218.05",
         "byMarket": {
           "AaveV3Avalanche": {
             "findingsCount": 11,
-            "surplusValueUsd": "1193.17",
+            "surplusValueUsd": "1218.05",
             "deficitValueUsd": "0.00",
-            "netValueUsd": "1193.17",
+            "netValueUsd": "1218.05",
             "byKind": {
               "underlying-surplus": {
                 "count": 5,
-                "totalValueUsd": "355.56"
+                "totalValueUsd": "380.42"
               },
               "token-in-pool": {
                 "count": 2,
-                "totalValueUsd": "796.33"
+                "totalValueUsd": "796.29"
               },
               "foreign-token-in-atoken": {
                 "count": 2,
@@ -5513,7 +5513,7 @@
               },
               "atoken-in-itself": {
                 "count": 2,
-                "totalValueUsd": "31.96"
+                "totalValueUsd": "32.02"
               }
             }
           }
@@ -5532,8 +5532,8 @@
           "decimals": 8,
           "amount": "1000",
           "amountFormatted": "0.00001",
-          "priceUsd": "81553.26628202",
-          "valueUsd": "0.81"
+          "priceUsd": "86341.79",
+          "valueUsd": "0.86"
         },
         {
           "chainId": 43114,
@@ -5545,10 +5545,10 @@
           "token": "0x625E7708f30cA75bfd92586e17077590C60eb4cD",
           "tokenSymbol": "aUSDC",
           "decimals": 6,
-          "amount": "31161313",
-          "amountFormatted": "31.161313",
-          "priceUsd": "0.99990375",
-          "valueUsd": "31.15"
+          "amount": "31166309",
+          "amountFormatted": "31.166309",
+          "priceUsd": "0.99985834",
+          "valueUsd": "31.16"
         },
         {
           "chainId": 43114,
@@ -5562,7 +5562,7 @@
           "decimals": 6,
           "amount": "9314199",
           "amountFormatted": "9.314199",
-          "priceUsd": "0.99990375",
+          "priceUsd": "0.99985834",
           "valueUsd": "9.31"
         },
         {
@@ -5577,7 +5577,7 @@
           "decimals": 6,
           "amount": "18518",
           "amountFormatted": "0.018518",
-          "priceUsd": "0.99990375",
+          "priceUsd": "0.99985834",
           "valueUsd": "0.01"
         },
         {
@@ -5592,8 +5592,8 @@
           "decimals": 6,
           "amount": "781417375",
           "amountFormatted": "781.417375",
-          "priceUsd": "0.99990375",
-          "valueUsd": "781.34"
+          "priceUsd": "0.99985834",
+          "valueUsd": "781.30"
         },
         {
           "chainId": 43114,
@@ -5607,7 +5607,7 @@
           "decimals": 6,
           "amount": "15000000",
           "amountFormatted": "15",
-          "priceUsd": "0.99965",
+          "priceUsd": "0.99961377",
           "valueUsd": "14.99"
         },
         {
@@ -5620,11 +5620,11 @@
           "token": "0x152b9d0FdC40C096757F570A51E494bd4b943E50",
           "tokenSymbol": "BTCb",
           "decimals": 8,
-          "amount": "310674",
-          "amountFormatted": "0.00310674",
-          "virtualBalance": "116270254347",
-          "priceUsd": "81553.26628202",
-          "valueUsd": "253.36"
+          "amount": "322231",
+          "amountFormatted": "0.00322231",
+          "virtualBalance": "115713948676",
+          "priceUsd": "86341.79",
+          "valueUsd": "278.22"
         },
         {
           "chainId": 43114,
@@ -5639,7 +5639,7 @@
           "amount": "84038914604366033",
           "amountFormatted": "0.084038914604366033",
           "virtualBalance": "253587820999442053749",
-          "priceUsd": "0.99170093",
+          "priceUsd": "0.9922259",
           "valueUsd": "0.08"
         },
         {
@@ -5654,8 +5654,8 @@
           "decimals": 18,
           "amount": "110081315667513563",
           "amountFormatted": "0.110081315667513563",
-          "virtualBalance": "16586384848965774416186",
-          "priceUsd": "0.947867",
+          "virtualBalance": "16586440165891358883905",
+          "priceUsd": "0.94162891",
           "valueUsd": "0.10"
         },
         {
@@ -5670,8 +5670,8 @@
           "decimals": 6,
           "amount": "19298874",
           "amountFormatted": "19.298874",
-          "virtualBalance": "5821602950845",
-          "priceUsd": "0.99990375",
+          "virtualBalance": "3984781484735",
+          "priceUsd": "0.99985834",
           "valueUsd": "19.29"
         },
         {
@@ -5686,8 +5686,8 @@
           "decimals": 6,
           "amount": "82763603",
           "amountFormatted": "82.763603",
-          "virtualBalance": "2803888731569",
-          "priceUsd": "0.99965",
+          "virtualBalance": "2428255594597",
+          "priceUsd": "0.99961377",
           "valueUsd": "82.73"
         }
       ]
@@ -5695,29 +5695,29 @@
     "linea": {
       "chainId": 59144,
       "alias": "linea",
-      "pinnedBlock": 32095937,
-      "pinnedAt": "2026-09-21T00:09:53.253Z",
+      "pinnedBlock": 32106940,
+      "pinnedAt": "2026-09-22T00:09:33.670Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0x1bf74c010e6320bab11e2e5a532b5ac15e0b8aa6": {
           "symbol": "weETH",
-          "priceRaw": "293109312593",
-          "priceUsd": "2931.09312593"
+          "priceRaw": "305535335958",
+          "priceUsd": "3055.35335958"
         },
         "0x176211869ca2b568f2a7d4ee941e073a821ee1ff": {
           "symbol": "USDC",
-          "priceRaw": "99989993",
-          "priceUsd": "0.99989993"
+          "priceRaw": "99996000",
+          "priceUsd": "0.99996"
         },
         "0x3aab2285ddcddad8edf438c1bab47e1a9d05a9b4": {
           "symbol": "WBTC",
-          "priceRaw": "8156669000000",
-          "priceUsd": "81566.69"
+          "priceRaw": "8646171311879",
+          "priceUsd": "86461.71311879"
         },
         "0xb5bedd42000b71fdde22d3ee8a79bd49a568fc8f": {
           "symbol": "wstETH",
-          "priceRaw": "330381475147",
-          "priceUsd": "3303.81475147"
+          "priceRaw": "344389291930",
+          "priceUsd": "3443.8929193"
         },
         "0xaca92e438df0b2401ff60da7e4337b687a2435da": {
           "symbol": "mUSD",
@@ -5726,23 +5726,23 @@
         },
         "0xe5d7c2a44ffddf6b295a15c148167daaaf5cf34f": {
           "symbol": "WETH",
-          "priceRaw": "265477000000",
-          "priceUsd": "2654.77"
+          "priceRaw": "276716129912",
+          "priceUsd": "2767.16129912"
         },
         "0xa219439258ca9da29e9cc4ce5596924745e12b93": {
           "symbol": "USDT",
-          "priceRaw": "99967821",
-          "priceUsd": "0.99967821"
+          "priceRaw": "99990857",
+          "priceUsd": "0.99990857"
         },
         "0x2416092f143378750bb29b79ed961ab195cceea5": {
           "symbol": "ezETH",
-          "priceRaw": "288362785186",
-          "priceUsd": "2883.62785186"
+          "priceRaw": "300578477224",
+          "priceUsd": "3005.78477224"
         },
         "0xd2671165570f41bbb3b0097893300b6eb6101e6c": {
           "symbol": "wrsETH",
-          "priceRaw": "286827085316",
-          "priceUsd": "2868.27085316"
+          "priceRaw": "299011009421",
+          "priceUsd": "2990.11009421"
         }
       },
       "stats": {
@@ -5785,34 +5785,34 @@
     "scroll": {
       "chainId": 534352,
       "alias": "scroll",
-      "pinnedBlock": 35112764,
-      "pinnedAt": "2026-09-21T00:09:53.394Z",
+      "pinnedBlock": 35130654,
+      "pinnedAt": "2026-09-22T00:09:34.381Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0x06efdbff2a14a7c8e15944d1f4a48f9f95f663a4": {
           "symbol": "USDC",
-          "priceRaw": "99988141",
-          "priceUsd": "0.99988141"
+          "priceRaw": "99999613",
+          "priceUsd": "0.99999613"
         },
         "0xd29687c813d741e2f938f4ac377128810e217b1b": {
           "symbol": "SCR",
-          "priceRaw": "2341143",
-          "priceUsd": "0.02341143"
+          "priceRaw": "2437629",
+          "priceUsd": "0.02437629"
         },
         "0xf610a9dfb7c89644979b4a0f27063e9e7d7cda32": {
           "symbol": "wstETH",
-          "priceRaw": "330363847306",
-          "priceUsd": "3303.63847306"
+          "priceRaw": "345590128782",
+          "priceUsd": "3455.90128782"
         },
         "0x01f0a31698c4d065659b9bdc21b3610292a1c506": {
           "symbol": "weETH",
-          "priceRaw": "293090385398",
-          "priceUsd": "2930.90385398"
+          "priceRaw": "306600694491",
+          "priceUsd": "3066.00694491"
         },
         "0x5300000000000000000000000000000000000004": {
           "symbol": "WETH",
-          "priceRaw": "265462835203",
-          "priceUsd": "2654.62835203"
+          "priceRaw": "277681000000",
+          "priceUsd": "2776.81"
         }
       },
       "stats": {
@@ -5820,15 +5820,15 @@
         "tokensScanned": 5,
         "checksPerformed": 60,
         "findingsCount": 6,
-        "surplusValueUsd": "479.69",
+        "surplusValueUsd": "479.89",
         "deficitValueUsd": "0.00",
-        "netValueUsd": "479.69",
+        "netValueUsd": "479.89",
         "byMarket": {
           "AaveV3Scroll": {
             "findingsCount": 6,
-            "surplusValueUsd": "479.69",
+            "surplusValueUsd": "479.89",
             "deficitValueUsd": "0.00",
-            "netValueUsd": "479.69",
+            "netValueUsd": "479.89",
             "byKind": {
               "underlying-surplus": {
                 "count": 3,
@@ -5836,7 +5836,7 @@
               },
               "token-in-pool": {
                 "count": 1,
-                "totalValueUsd": "3.31"
+                "totalValueUsd": "3.46"
               },
               "foreign-token-in-atoken": {
                 "count": 0,
@@ -5844,7 +5844,7 @@
               },
               "atoken-in-itself": {
                 "count": 2,
-                "totalValueUsd": "476.26"
+                "totalValueUsd": "476.31"
               }
             }
           }
@@ -5861,10 +5861,10 @@
           "token": "0x1D738a3436A8C49CefFbaB7fbF04B660fb528CbD",
           "tokenSymbol": "aUSDC",
           "decimals": 6,
-          "amount": "476300331",
-          "amountFormatted": "476.300331",
-          "priceUsd": "0.99988141",
-          "valueUsd": "476.24"
+          "amount": "476301119",
+          "amountFormatted": "476.301119",
+          "priceUsd": "0.99999613",
+          "valueUsd": "476.29"
         },
         {
           "chainId": 534352,
@@ -5876,9 +5876,9 @@
           "token": "0xf301805bE1Df81102C957f6d4Ce29d2B8c056B2a",
           "tokenSymbol": "aWETH",
           "decimals": 18,
-          "amount": "10677662774970",
-          "amountFormatted": "0.00001067766277497",
-          "priceUsd": "2654.62835203",
+          "amount": "10677665108178",
+          "amountFormatted": "0.000010677665108178",
+          "priceUsd": "2776.81",
           "valueUsd": "0.02"
         },
         {
@@ -5891,10 +5891,10 @@
           "token": "0xf301805bE1Df81102C957f6d4Ce29d2B8c056B2a",
           "tokenSymbol": "aWETH",
           "decimals": 18,
-          "amount": "1247645190096801",
-          "amountFormatted": "0.001247645190096801",
-          "priceUsd": "2654.62835203",
-          "valueUsd": "3.31"
+          "amount": "1247645462723493",
+          "amountFormatted": "0.001247645462723493",
+          "priceUsd": "2776.81",
+          "valueUsd": "3.46"
         },
         {
           "chainId": 534352,
@@ -5908,8 +5908,8 @@
           "decimals": 6,
           "amount": "122868",
           "amountFormatted": "0.122868",
-          "virtualBalance": "66271914458",
-          "priceUsd": "0.99988141",
+          "virtualBalance": "66252411605",
+          "priceUsd": "0.99999613",
           "valueUsd": "0.12"
         },
         {
@@ -5924,8 +5924,8 @@
           "decimals": 18,
           "amount": "650746092793",
           "amountFormatted": "0.000000650746092793",
-          "virtualBalance": "501601811364779001932",
-          "priceUsd": "2654.62835203",
+          "virtualBalance": "500083974616172512628",
+          "priceUsd": "2776.81",
           "valueUsd": "0.00"
         },
         {
@@ -5940,8 +5940,8 @@
           "decimals": 18,
           "amount": "1334668510624",
           "amountFormatted": "0.000001334668510624",
-          "virtualBalance": "31639538159302762711",
-          "priceUsd": "3303.63847306",
+          "virtualBalance": "31638814052647646556",
+          "priceUsd": "3455.90128782",
           "valueUsd": "0.00"
         }
       ]
@@ -5949,39 +5949,39 @@
     "mainnet-v4": {
       "chainId": 1,
       "alias": "mainnet-v4",
-      "pinnedBlock": 26022217,
-      "pinnedAt": "2026-09-21T00:09:53.466Z",
+      "pinnedBlock": 26029362,
+      "pinnedAt": "2026-09-22T00:09:35.118Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2": {
           "symbol": "WETH",
-          "priceRaw": "264745000000",
-          "priceUsd": "2647.45"
+          "priceRaw": "277372025527",
+          "priceUsd": "2773.72025527"
         },
         "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0": {
           "symbol": "wstETH",
-          "priceRaw": "329470513972",
-          "priceUsd": "3294.70513972"
+          "priceRaw": "345205592109",
+          "priceUsd": "3452.05592109"
         },
         "0xcd5fe23c85820f7b72d0926fc9b05b43e359b7ee": {
           "symbol": "weETH",
-          "priceRaw": "292304391464",
-          "priceUsd": "2923.04391464"
+          "priceRaw": "306262952762",
+          "priceUsd": "3062.62952762"
         },
         "0xa1290d69c65a6fe4df752f95823fae25cb99e5a7": {
           "symbol": "rsETH",
-          "priceRaw": "286036216705",
-          "priceUsd": "2860.36216705"
+          "priceRaw": "299719750216",
+          "priceUsd": "2997.19750216"
         },
         "0xdac17f958d2ee523a2206206994597c13d831ec7": {
           "symbol": "USDT",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": {
           "symbol": "USDC",
-          "priceRaw": "99989148",
-          "priceUsd": "0.99989148"
+          "priceRaw": "99995000",
+          "priceUsd": "0.99995"
         },
         "0x40d16fc0246ad3160ccc09b8d0d3a2cd28ae6c2f": {
           "symbol": "GHO",
@@ -5990,68 +5990,68 @@
         },
         "0x8292bb45bf1ee4d140127049757c2e0ff06317ed": {
           "symbol": "RLUSD",
-          "priceRaw": "99995600",
-          "priceUsd": "0.999956"
+          "priceRaw": "99995791",
+          "priceUsd": "0.99995791"
         },
         "0xe343167631d89b6ffc58b88d6b7fb0228795491d": {
           "symbol": "USDG",
-          "priceRaw": "100002250",
-          "priceUsd": "1.0000225"
+          "priceRaw": "100006000",
+          "priceUsd": "1.00006"
         },
         "0x1abaea1f7c830bd89acc67ec4af516284b1bc33c": {
           "symbol": "EURC",
-          "priceRaw": "114861045",
-          "priceUsd": "1.14861045"
+          "priceRaw": "114645744",
+          "priceUsd": "1.14645744"
         },
         "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599": {
           "symbol": "WBTC",
-          "priceRaw": "8118124268672",
-          "priceUsd": "81181.24268672"
+          "priceRaw": "8645063849047",
+          "priceUsd": "86450.63849047"
         },
         "0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf": {
           "symbol": "cbBTC",
-          "priceRaw": "8120722900000",
-          "priceUsd": "81207.229"
+          "priceRaw": "8648955965722",
+          "priceUsd": "86489.55965722"
         },
         "0x8236a87084f8b84306f72007f36f2618a5634494": {
           "symbol": "LBTC",
-          "priceRaw": "8158528297763",
-          "priceUsd": "81585.28297763"
+          "priceRaw": "8689934826957",
+          "priceUsd": "86899.34826957"
         },
         "0x68749665ff8d2d112fa859aa293f07a622782f38": {
           "symbol": "XAUt",
-          "priceRaw": "437812494200",
-          "priceUsd": "4378.124942"
+          "priceRaw": "436607400000",
+          "priceUsd": "4366.074"
         },
         "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9": {
           "symbol": "AAVE",
-          "priceRaw": "13797661000",
-          "priceUsd": "137.97661"
+          "priceRaw": "14574684518",
+          "priceUsd": "145.74684518"
         },
         "0x514910771af9ca656af840dff83e8264ecf986ca": {
           "symbol": "LINK",
-          "priceRaw": "1256047249",
-          "priceUsd": "12.56047249"
+          "priceRaw": "1320001803",
+          "priceUsd": "13.20001803"
         },
         "0x3de0ff76e8b528c092d47b9dac775931cef80f49": {
           "symbol": "PT-sUSDE-7MAY2026",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0xaebf0bb9f57e89260d57f31af34eb58657d96ce0": {
           "symbol": "PT-USDe-7MAY2026",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         },
         "0x9d39a5de30e57443bff2a8307a4256c8797a3497": {
           "symbol": "sUSDe",
-          "priceRaw": "124881975",
-          "priceUsd": "1.24881975"
+          "priceRaw": "124921464",
+          "priceUsd": "1.24921464"
         },
         "0x4c9edd5852cd905f086c759e8383e09bff1e68b3": {
           "symbol": "USDe",
-          "priceRaw": "99976088",
-          "priceUsd": "0.99976088"
+          "priceRaw": "99995181",
+          "priceUsd": "0.99995181"
         }
       },
       "stats": {
@@ -6059,15 +6059,15 @@
         "tokensScanned": 24,
         "checksPerformed": 973,
         "findingsCount": 76,
-        "surplusValueUsd": "1000.79",
+        "surplusValueUsd": "1000.98",
         "deficitValueUsd": "0.00",
-        "netValueUsd": "1000.79",
+        "netValueUsd": "1000.98",
         "byMarket": {
           "AaveV4Ethereum": {
             "findingsCount": 76,
-            "surplusValueUsd": "1000.79",
+            "surplusValueUsd": "1000.98",
             "deficitValueUsd": "0.00",
-            "netValueUsd": "1000.79",
+            "netValueUsd": "1000.98",
             "byKind": {
               "v4-hub-surplus": {
                 "count": 3,
@@ -6079,7 +6079,7 @@
               },
               "v4-token-in-spoke": {
                 "count": 1,
-                "totalValueUsd": "1000.76"
+                "totalValueUsd": "1000.95"
               },
               "v4-token-in-tokenization-spoke": {
                 "count": 0,
@@ -6114,10 +6114,10 @@
           "decimals": 18,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "19011795835073355191919",
-          "priceUsd": "137.97661",
+          "virtualBalance": "19276321287815032802816",
+          "priceUsd": "145.74684518",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=19011.795835073355191919, liquidity=19011.795835073355191919, fees=0 (Verified Clean)"
+          "note": "Hub ERC20=19276.321287815032802816, liquidity=19276.321287815032802816, fees=0 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6131,10 +6131,10 @@
           "decimals": 8,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "16545932014",
-          "priceUsd": "81207.229",
+          "virtualBalance": "16820202251",
+          "priceUsd": "86489.55965722",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=165.45932014, liquidity=165.45932014, fees=0.00003881 (Verified Clean)"
+          "note": "Hub ERC20=168.20202251, liquidity=168.20202251, fees=0.0000397 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6148,10 +6148,10 @@
           "decimals": 8,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "14508137945",
-          "priceUsd": "81207.229",
+          "virtualBalance": "14396820560",
+          "priceUsd": "86489.55965722",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=145.08137945, liquidity=145.08137945, fees=0 (Verified Clean)"
+          "note": "Hub ERC20=143.9682056, liquidity=143.9682056, fees=0 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6165,10 +6165,10 @@
           "decimals": 6,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "293700901974",
-          "priceUsd": "1.14861045",
+          "virtualBalance": "323453846588",
+          "priceUsd": "1.14645744",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=293700.901974, liquidity=293700.901974, fees=176.84208 (Verified Clean)"
+          "note": "Hub ERC20=323453.846588, liquidity=323453.846588, fees=180.875448 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6182,9 +6182,9 @@
           "decimals": 18,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "3030334407566324734097733",
+          "virtualBalance": "3073122587661621378328852",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=3030334.407566324734097733, liquidity=3030334.407566324734097733, fees=26431.28879669382735259 (Verified Clean)"
+          "note": "Hub ERC20=3073122.587661621378328852, liquidity=3073122.587661621378328852, fees=27002.882754042171534288 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6198,10 +6198,10 @@
           "decimals": 18,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "112257226178124660973894",
+          "virtualBalance": "74957284992038899571769",
           "priceUsd": "1",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=112257.226178124660973894, liquidity=112257.226178124660973894, fees=1032.516407586305354694 (Verified Clean)"
+          "note": "Hub ERC20=74957.284992038899571769, liquidity=74957.284992038899571769, fees=1039.042012706825846671 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6218,7 +6218,7 @@
           "virtualBalance": "15155922876881280780691",
           "priceUsd": "1",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=15155.922876881280780691, liquidity=15155.922876881280780691, fees=18.288985233780256404 (Verified Clean)"
+          "note": "Hub ERC20=15155.922876881280780691, liquidity=15155.922876881280780691, fees=18.624371867342876551 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6232,10 +6232,10 @@
           "decimals": 18,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "91569145443600872204109",
+          "virtualBalance": "90319145443600872204109",
           "priceUsd": "1",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=91569.145443600872204109, liquidity=91569.145443600872204109, fees=586.713252151769392469 (Verified Clean)"
+          "note": "Hub ERC20=90319.145443600872204109, liquidity=90319.145443600872204109, fees=592.052557368527398515 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6250,7 +6250,7 @@
           "amount": "0",
           "amountFormatted": "0",
           "virtualBalance": "6621085",
-          "priceUsd": "81585.28297763",
+          "priceUsd": "86899.34826957",
           "valueUsd": "0.00",
           "note": "Hub ERC20=0.06621085, liquidity=0.06621085, fees=0 (Verified Clean)"
         },
@@ -6266,9 +6266,9 @@
           "decimals": 18,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "54849020114961920828",
+          "virtualBalance": "586103250053821268870",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=54.849020114961920828, liquidity=54.849020114961920828, fees=0 (Verified Clean)"
+          "note": "Hub ERC20=586.10325005382126887, liquidity=586.10325005382126887, fees=0 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6283,7 +6283,7 @@
           "amount": "0",
           "amountFormatted": "0",
           "virtualBalance": "0",
-          "priceUsd": "0.99976088",
+          "priceUsd": "0.99995181",
           "valueUsd": "0.00",
           "note": "Hub ERC20=0, liquidity=0, fees=0 (Verified Clean)"
         },
@@ -6300,7 +6300,7 @@
           "amount": "0",
           "amountFormatted": "0",
           "virtualBalance": "22592033343509504515",
-          "priceUsd": "0.99976088",
+          "priceUsd": "0.99995181",
           "valueUsd": "0.00",
           "note": "Hub ERC20=22.592033343509504515, liquidity=22.592033343509504515, fees=0 (Verified Clean)"
         },
@@ -6332,10 +6332,10 @@
           "decimals": 18,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "6523362296194465082",
-          "priceUsd": "0.999956",
+          "virtualBalance": "46521591760078085082",
+          "priceUsd": "0.99995791",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=6.523362296194465082, liquidity=6.523362296194465082, fees=0.077326755513097855 (Verified Clean)"
+          "note": "Hub ERC20=46.521591760078085082, liquidity=46.521591760078085082, fees=0.078678896256931904 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6350,7 +6350,7 @@
           "amount": "0",
           "amountFormatted": "0",
           "virtualBalance": "1212112802279830228787",
-          "priceUsd": "2860.36216705",
+          "priceUsd": "2997.19750216",
           "valueUsd": "0.00",
           "note": "Hub ERC20=1212.112802279830228787, liquidity=1212.112802279830228787, fees=0 (Verified Clean)"
         },
@@ -6366,10 +6366,10 @@
           "decimals": 18,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "10205573437084551325022885",
-          "priceUsd": "1.24881975",
+          "virtualBalance": "9703977273486893317405036",
+          "priceUsd": "1.24921464",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=10205573.437084551325022885, liquidity=10205573.437084551325022885, fees=0 (Verified Clean)"
+          "note": "Hub ERC20=9703977.273486893317405036, liquidity=9703977.273486893317405036, fees=0 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6399,10 +6399,10 @@
           "decimals": 6,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "360237829285",
-          "priceUsd": "0.99989148",
+          "virtualBalance": "729766902256",
+          "priceUsd": "0.99995",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=360237.829285, liquidity=360237.829285, fees=2318.022541 (Verified Clean)"
+          "note": "Hub ERC20=729766.902256, liquidity=729766.902256, fees=2362.480899 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6416,10 +6416,10 @@
           "decimals": 6,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "690499464549",
-          "priceUsd": "0.99989148",
+          "virtualBalance": "789740652828",
+          "priceUsd": "0.99995",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=690499.464549, liquidity=690499.464549, fees=6170.457399 (Verified Clean)"
+          "note": "Hub ERC20=789740.652828, liquidity=789740.652828, fees=6262.822864 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6434,9 +6434,9 @@
           "amount": "0",
           "amountFormatted": "0",
           "virtualBalance": "1406199857879",
-          "priceUsd": "0.99989148",
+          "priceUsd": "0.99995",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=1406199.857879, liquidity=1406199.857879, fees=1859.85256 (Verified Clean)"
+          "note": "Hub ERC20=1406199.857879, liquidity=1406199.857879, fees=1891.622113 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6450,10 +6450,10 @@
           "decimals": 18,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "14755012548358922444547672",
-          "priceUsd": "0.99976088",
+          "virtualBalance": "14893469223013364153010092",
+          "priceUsd": "0.99995181",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=14755012.548358922444547672, liquidity=14755012.548358922444547672, fees=1220.297786830565975489 (Verified Clean)"
+          "note": "Hub ERC20=14893469.223013364153010092, liquidity=14893469.223013364153010092, fees=1230.914502728302358735 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6467,10 +6467,10 @@
           "decimals": 6,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "13156947534552",
-          "priceUsd": "1.0000225",
+          "virtualBalance": "14137722043723",
+          "priceUsd": "1.00006",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=13156947.534552, liquidity=13156947.534552, fees=52278.104599 (Verified Clean)"
+          "note": "Hub ERC20=14137722.043723, liquidity=14137722.043723, fees=53497.914111 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6484,10 +6484,10 @@
           "decimals": 6,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "4920674341606",
-          "priceUsd": "1.0000225",
+          "virtualBalance": "3910473265838",
+          "priceUsd": "1.00006",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=4920674.341606, liquidity=4920674.341606, fees=22126.357201 (Verified Clean)"
+          "note": "Hub ERC20=3910473.265838, liquidity=3910473.265838, fees=22832.317402 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6501,10 +6501,10 @@
           "decimals": 6,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "242211114126",
-          "priceUsd": "0.99976088",
+          "virtualBalance": "309112974819",
+          "priceUsd": "0.99995181",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=242211.114126, liquidity=242211.114126, fees=2317.948622 (Verified Clean)"
+          "note": "Hub ERC20=309112.974819, liquidity=309112.974819, fees=2378.498777 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6518,10 +6518,10 @@
           "decimals": 6,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "225869746147",
-          "priceUsd": "0.99976088",
+          "virtualBalance": "180831446991",
+          "priceUsd": "0.99995181",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=225869.746147, liquidity=225869.746147, fees=2426.159479 (Verified Clean)"
+          "note": "Hub ERC20=180831.446991, liquidity=180831.446991, fees=2460.511377 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6536,9 +6536,9 @@
           "amount": "0",
           "amountFormatted": "0",
           "virtualBalance": "37000497794",
-          "priceUsd": "0.99976088",
+          "priceUsd": "0.99995181",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=37000.497794, liquidity=37000.497794, fees=12.541638 (Verified Clean)"
+          "note": "Hub ERC20=37000.497794, liquidity=37000.497794, fees=12.773255 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6552,10 +6552,10 @@
           "decimals": 8,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "42479237974",
-          "priceUsd": "81181.24268672",
+          "virtualBalance": "42580132237",
+          "priceUsd": "86450.63849047",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=424.79237974, liquidity=424.79237974, fees=0.00066668 (Verified Clean)"
+          "note": "Hub ERC20=425.80132237, liquidity=425.80132237, fees=0.00067068 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6569,10 +6569,10 @@
           "decimals": 8,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "31661521199",
-          "priceUsd": "81181.24268672",
+          "virtualBalance": "31674336751",
+          "priceUsd": "86450.63849047",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=316.61521199, liquidity=316.61521199, fees=0 (Verified Clean)"
+          "note": "Hub ERC20=316.74336751, liquidity=316.74336751, fees=0 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6586,10 +6586,10 @@
           "decimals": 18,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "42351931439359032904235",
-          "priceUsd": "2923.04391464",
+          "virtualBalance": "41222849512914158155219",
+          "priceUsd": "3062.62952762",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=42351.931439359032904235, liquidity=42351.931439359032904235, fees=0 (Verified Clean)"
+          "note": "Hub ERC20=41222.849512914158155219, liquidity=41222.849512914158155219, fees=0 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6603,10 +6603,10 @@
           "decimals": 18,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "2558482548065537476845",
-          "priceUsd": "2647.45",
+          "virtualBalance": "3160377591178753864126",
+          "priceUsd": "2773.72025527",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=2558.482548065537476845, liquidity=2558.482548065537476845, fees=21.964760524402148385 (Verified Clean)"
+          "note": "Hub ERC20=3160.377591178753864126, liquidity=3160.377591178753864126, fees=22.411452945277225445 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6620,10 +6620,10 @@
           "decimals": 18,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "1990355351179082847461",
-          "priceUsd": "2647.45",
+          "virtualBalance": "1971407426392419405073",
+          "priceUsd": "2773.72025527",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=1990.355351179082847461, liquidity=1990.355351179082847461, fees=0 (Verified Clean)"
+          "note": "Hub ERC20=1971.407426392419405073, liquidity=1971.407426392419405073, fees=0 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6637,10 +6637,10 @@
           "decimals": 18,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "9746267783860330707366",
-          "priceUsd": "3294.70513972",
+          "virtualBalance": "9830371759768912831105",
+          "priceUsd": "3452.05592109",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=9746.267783860330707366, liquidity=9746.267783860330707366, fees=0 (Verified Clean)"
+          "note": "Hub ERC20=9830.371759768912831105, liquidity=9830.371759768912831105, fees=0 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6654,10 +6654,10 @@
           "decimals": 18,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "5958595219666079179331",
-          "priceUsd": "3294.70513972",
+          "virtualBalance": "6008731335483809404024",
+          "priceUsd": "3452.05592109",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=5958.595219666079179331, liquidity=5958.595219666079179331, fees=0 (Verified Clean)"
+          "note": "Hub ERC20=6008.731335483809404024, liquidity=6008.731335483809404024, fees=0 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6671,10 +6671,10 @@
           "decimals": 6,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "2052716042",
-          "priceUsd": "4378.124942",
+          "virtualBalance": "2040895057",
+          "priceUsd": "4366.074",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=2052.716042, liquidity=2052.716042, fees=0 (Verified Clean)"
+          "note": "Hub ERC20=2040.895057, liquidity=2040.895057, fees=0 (Verified Clean)"
         },
         {
           "chainId": 1,
@@ -6688,10 +6688,10 @@
           "decimals": 18,
           "amount": "1600000000000000",
           "amountFormatted": "0.0016",
-          "virtualBalance": "511195389233960718549660",
-          "priceUsd": "12.56047249",
+          "virtualBalance": "512035677347185054032483",
+          "priceUsd": "13.20001803",
           "valueUsd": "0.02",
-          "note": "Hub ERC20=511195.39083396071854966, liquidity=511195.38923396071854966, fees=0"
+          "note": "Hub ERC20=512035.678947185054032483, liquidity=512035.677347185054032483, fees=0"
         },
         {
           "chainId": 1,
@@ -6705,10 +6705,10 @@
           "decimals": 6,
           "amount": "315",
           "amountFormatted": "0.000315",
-          "virtualBalance": "1588036785355",
-          "priceUsd": "0.99989148",
+          "virtualBalance": "2010431584158",
+          "priceUsd": "0.99995",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=1588036.78567, liquidity=1588036.785355, fees=15336.643266"
+          "note": "Hub ERC20=2010431.584473, liquidity=2010431.584158, fees=15656.818491"
         },
         {
           "chainId": 1,
@@ -6722,10 +6722,10 @@
           "decimals": 6,
           "amount": "20000",
           "amountFormatted": "0.02",
-          "virtualBalance": "1567569614893",
-          "priceUsd": "0.99976088",
+          "virtualBalance": "1562544951265",
+          "priceUsd": "0.99995181",
           "valueUsd": "0.01",
-          "note": "Hub ERC20=1567569.634893, liquidity=1567569.614893, fees=14282.561613"
+          "note": "Hub ERC20=1562544.971265, liquidity=1562544.951265, fees=14510.925346"
         },
         {
           "chainId": 1,
@@ -7309,52 +7309,52 @@
           "decimals": 6,
           "amount": "1001000000",
           "amountFormatted": "1001",
-          "priceUsd": "0.99976088",
-          "valueUsd": "1000.76"
+          "priceUsd": "0.99995181",
+          "valueUsd": "1000.95"
         }
       ]
     },
     "avalanche-v4": {
       "chainId": 43114,
       "alias": "avalanche-v4",
-      "pinnedBlock": 95789833,
-      "pinnedAt": "2026-09-21T00:09:54.686Z",
+      "pinnedBlock": 95871098,
+      "pinnedAt": "2026-09-22T00:09:38.783Z",
       "oracleBaseUnit": "100000000",
       "oraclePrices": {
         "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7": {
           "symbol": "WAVAX",
-          "priceRaw": "1147388345",
-          "priceUsd": "11.47388345"
+          "priceRaw": "1113923520",
+          "priceUsd": "11.1392352"
         },
         "0x152b9d0fdc40c096757f570a51e494bd4b943e50": {
           "symbol": "BTC.b",
-          "priceRaw": "8155326628202",
-          "priceUsd": "81553.26628202"
+          "priceRaw": "8634179000000",
+          "priceUsd": "86341.79"
         },
         "0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e": {
           "symbol": "USDC",
-          "priceRaw": "99990375",
-          "priceUsd": "0.99990375"
+          "priceRaw": "99985834",
+          "priceUsd": "0.99985834"
         },
         "0x9702230a8ea53601f5cd2dc00fdbc13d4df4a8c7": {
           "symbol": "USDt",
-          "priceRaw": "99965000",
-          "priceUsd": "0.99965"
+          "priceRaw": "99961377",
+          "priceUsd": "0.99961377"
         },
         "0x49d5c2bdffac6ce2bfdb6640f4f80f226bc10bab": {
           "symbol": "WETH.e",
-          "priceRaw": "265582405577",
-          "priceUsd": "2655.82405577"
+          "priceRaw": "277051040000",
+          "priceUsd": "2770.5104"
         },
         "0xc891eb4cbdeff6e073e859e987815ed1505c2acd": {
           "symbol": "EURC",
-          "priceRaw": "114862149",
-          "priceUsd": "1.14862149"
+          "priceRaw": "114652512",
+          "priceUsd": "1.14652512"
         },
         "0x2b2c81e08f1af8835a78bb2a90ae924ace0ea4be": {
           "symbol": "sAVAX",
-          "priceRaw": "1475182063",
-          "priceUsd": "14.75182063"
+          "priceRaw": "1432302047",
+          "priceUsd": "14.32302047"
         }
       },
       "stats": {
@@ -7417,10 +7417,10 @@
           "decimals": 8,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "8601509533",
-          "priceUsd": "81553.26628202",
+          "virtualBalance": "8736135492",
+          "priceUsd": "86341.79",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=86.01509533, liquidity=86.01509533, fees=0.00024434 (Verified Clean)"
+          "note": "Hub ERC20=87.36135492, liquidity=87.36135492, fees=0.00024434 (Verified Clean)"
         },
         {
           "chainId": 43114,
@@ -7434,10 +7434,10 @@
           "decimals": 6,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "4297118087",
-          "priceUsd": "1.14862149",
+          "virtualBalance": "3997118087",
+          "priceUsd": "1.14652512",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=4297.118087, liquidity=4297.118087, fees=0.593035 (Verified Clean)"
+          "note": "Hub ERC20=3997.118087, liquidity=3997.118087, fees=0.595148 (Verified Clean)"
         },
         {
           "chainId": 43114,
@@ -7451,10 +7451,10 @@
           "decimals": 18,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "290352247473418635265732",
-          "priceUsd": "14.75182063",
+          "virtualBalance": "287810101539702076848813",
+          "priceUsd": "14.32302047",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=290352.247473418635265732, liquidity=290352.247473418635265732, fees=0 (Verified Clean)"
+          "note": "Hub ERC20=287810.101539702076848813, liquidity=287810.101539702076848813, fees=0 (Verified Clean)"
         },
         {
           "chainId": 43114,
@@ -7468,10 +7468,10 @@
           "decimals": 6,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "7483965360780",
-          "priceUsd": "0.99990375",
+          "virtualBalance": "7269415497636",
+          "priceUsd": "0.99985834",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=7483965.36078, liquidity=7483965.36078, fees=524.716155 (Verified Clean)"
+          "note": "Hub ERC20=7269415.497636, liquidity=7269415.497636, fees=538.087832 (Verified Clean)"
         },
         {
           "chainId": 43114,
@@ -7485,10 +7485,10 @@
           "decimals": 6,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "3480119731149",
-          "priceUsd": "0.99965",
+          "virtualBalance": "3488817593274",
+          "priceUsd": "0.99961377",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=3480119.731149, liquidity=3480119.731149, fees=49.109063 (Verified Clean)"
+          "note": "Hub ERC20=3488817.593274, liquidity=3488817.593274, fees=51.262517 (Verified Clean)"
         },
         {
           "chainId": 43114,
@@ -7502,10 +7502,10 @@
           "decimals": 18,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "259932011968989377014452",
-          "priceUsd": "11.47388345",
+          "virtualBalance": "265418009623936683028733",
+          "priceUsd": "11.1392352",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=259932.011968989377014452, liquidity=259932.011968989377014452, fees=232.616943856776704616 (Verified Clean)"
+          "note": "Hub ERC20=265418.009623936683028733, liquidity=265418.009623936683028733, fees=238.235521275989561687 (Verified Clean)"
         },
         {
           "chainId": 43114,
@@ -7519,10 +7519,10 @@
           "decimals": 18,
           "amount": "0",
           "amountFormatted": "0",
-          "virtualBalance": "51481379437250613950",
-          "priceUsd": "2655.82405577",
+          "virtualBalance": "77543122347522002909",
+          "priceUsd": "2770.5104",
           "valueUsd": "0.00",
-          "note": "Hub ERC20=51.48137943725061395, liquidity=51.48137943725061395, fees=0.000798019243927629 (Verified Clean)"
+          "note": "Hub ERC20=77.543122347522002909, liquidity=77.543122347522002909, fees=0.000801279822795511 (Verified Clean)"
         },
         {
           "chainId": 43114,
