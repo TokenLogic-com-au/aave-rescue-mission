@@ -34,10 +34,7 @@ on:
         default: false
         type: boolean
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
+permissions: {}
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 concurrency:
@@ -45,20 +42,19 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  scan-and-deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ github.ref_name }}
-          fetch-depth: 0
+          persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
           cache: "yarn"
@@ -66,68 +62,67 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+
+      - name: Fetch previous balances from the published site
+        env:
+          PREVIOUS_CACHE_URL: ${{ steps.pages.outputs.base_url }}/data/balances-cache.json
+        run: |
+          status=$(curl -sS --retry 3 --connect-timeout 15 --max-time 60 -o balances-cache.json -w '%{http_code}' "$PREVIOUS_CACHE_URL")
+          case "$status" in
+            200)
+              jq -e '.chains | type == "object"' balances-cache.json > /dev/null
+              echo "Seeded from $PREVIOUS_CACHE_URL ($(jq '.chains | length' balances-cache.json) entries)"
+              ;;
+            404)
+              rm -f balances-cache.json
+              echo "::notice::No published balances at $PREVIOUS_CACHE_URL, running a full scan from an empty cache"
+              ;;
+            *)
+              echo "::error::Fetching $PREVIOUS_CACHE_URL returned HTTP $status"
+              exit 1
+              ;;
+          esac
+
       - name: Run Aave Balances Scanner
         env:
           ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_CHAIN: ${{ inputs.chain }}
+          INPUT_REPIN: ${{ inputs.repin }}
         run: |
-          ARGS=""
-          if [ "${{ github.event_name }}" = "schedule" ]; then
+          if [ "$EVENT_NAME" = "schedule" ]; then
             ARGS="--all --repin"
-          elif [ "${{ inputs.chain }}" != "all" ]; then
-            ARGS="--chain ${{ inputs.chain }}"
+          elif [ "$INPUT_CHAIN" != "all" ]; then
+            ARGS="--chain $INPUT_CHAIN"
           else
             ARGS="--all"
           fi
-          if [ "${{ inputs.repin }}" = "true" ]; then
+          if [ "$INPUT_REPIN" = "true" ]; then
             ARGS="$ARGS --repin"
           fi
           npx tsx scan-aave-balances.ts $ARGS
 
-      - name: Rebuild Dashboard with Fresh Cache
+      - name: Build dashboard
         run: yarn build:dashboard
 
-      - name: Fix formatting of generated HTML
-        run: npx prettier --write docs/index.html docs/data/balances-cache.json balances-cache.json
-
-      - name: Commit Updated Data
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add balances-cache.json docs/data/balances-cache.json docs/index.html
-          # Discard any unstaged changes to other files so git rebase is guaranteed a clean working tree
-          git checkout -- .
-          if ! git diff --cached --quiet; then
-            git commit -m "chore(data): update aave balances cache [skip ci]"
-            pushed=false
-            for attempt in 1 2 3 4 5; do
-              echo "Sync and push attempt $attempt..."
-              git fetch origin "${{ github.ref_name }}"
-              if git rebase -X theirs "origin/${{ github.ref_name }}"; then
-                if git push origin "HEAD:${{ github.ref_name }}"; then
-                  echo "Successfully pushed updated balances."
-                  pushed=true
-                  break
-                fi
-              else
-                git rebase --abort || true
-              fi
-              echo "Push failed, retrying in 3 seconds..."
-              sleep 3
-            done
-            if [ "$pushed" = false ]; then
-              echo "Failed to push updated balances after multiple attempts."
-              exit 1
-            fi
-          fi
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: docs/
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
